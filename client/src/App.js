@@ -1,19 +1,19 @@
 import './App.css';
-import axios from 'axios';
-import {userState, useEffect} from 'react';
+import useApplicationData from './hooks/useApplicationData';
 
-function App() {
+const App = () => {
+  const {
+      state,
+      dispatch
+  } = useApplicationData();
+    const userList = state.users.map((user) => (<li key={user.id} > {user.first_name} {user.last_name} {user.email} </li>
+));
+return (<div className="App" >
+  <h1> Users </h1>
 
-  useEffect(() => {
-    axios.get('http://localhost:8080/api/users').then(response => {
-      console.log(response);
-    })
-  }, [])
-  return (
-    <div className="App">
-      <h1>Travel Itinerary App</h1>
-    </div>
-  );
-}
+  <ul> {userList} </ul>
+</div >
+);
+};
 
 export default App;

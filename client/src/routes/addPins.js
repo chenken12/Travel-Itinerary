@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import GoogleMapReact, {  } from 'google-map-react';
+import GoogleMapReact from 'google-map-react';
 import "../styles/addPins.css"
 import Marker from '../components/Marker';
 

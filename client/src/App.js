@@ -15,6 +15,11 @@ const App = () => {
   
   const userList = state.users.map((user) => (<li key={user.id} > {user.first_name} {user.last_name} {user.email} </li>));
 
+  const markerList = [
+    <Marker lat={43.6532} lng={-79.3832} name="My Marker" color="blue" />,
+    <Marker lat={43.5632} lng={-79.7832} name="My Marker Red" color="red" />
+  ];
+
 return (
   <div style={{ height: '100vh', width: '70%', right: 0}}>
     <GoogleMapReact
@@ -22,19 +27,8 @@ return (
       defaultCenter={center}
       defaultZoom={zoom}
     >
-
-      <Marker
-        lat={43.6532}
-        lng={-79.3832}
-        name="My Marker"
-        color="blue"
-      />
-      <Marker
-        lat={43.5632}
-        lng={-79.7832}
-        name="My Marker Red"
-        color="red"
-      />
+      {...markerList}
+      
     </GoogleMapReact>
   </div>
 );

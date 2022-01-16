@@ -20,17 +20,12 @@ const App = () => {
   
   const userList = state.users.map((user) => (<li key={user.id} > {user.first_name} {user.last_name} {user.email} </li>));
 
-  // const markerList = [
-  //   <Marker lat={43.6532} lng={-79.3832} name="My Marker" color="blue" />,
-  //   <Marker lat={43.5632} lng={-79.7832} name="My Marker Red" color="red" />
-  // ];
   const addMark = function(lat, lng) {
     setMarkerList((prevState) => {
       return [...prevState,
         <Marker lat={lat} lng={lng} name="My Marker" color="blue" />
       ];
     });
-    // markerList.push();
   };
 
 return (

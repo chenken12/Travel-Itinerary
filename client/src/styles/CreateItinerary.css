@@ -1,0 +1,57 @@
+form {
+  margin: 0 auto;
+  margin-top: 10vh;
+  padding: 50px; 
+  width: 900px;
+  border: 2px solid #dc392d; 
+  outline: none;
+  border-radius: 20px;
+  font-size: 1.3em;
+  color: #212529;
+  background-color: white;
+}
+
+input.form-control:focus {
+  box-shadow: none;
+  border: 1px solid #dc392d;
+}
+
+select.form-select:focus, input.form-control:focus, textarea.form-control:focus {
+  box-shadow: 0 0px 0px #dc392d inset, 0 0 8px #dc392d;
+  border: 1px solid #dc392d;
+}
+
+.react-datepicker__input-container > * {
+  border: 1px solid #c9c8ca;
+  border-radius: 5px;
+  outline: none;
+  color: #212529;
+}
+.react-datepicker__input-container > *:focus {
+  box-shadow: 0 0px 0px #dc392d inset, 0 0 8px #dc392d;
+  border: 1px solid #dc392d;
+  transition: 0.15s;
+}
+
+h1 {
+  color: #dc392d;
+}
+
+.btn {
+  margin-top: 10px;
+  font-size: 20px;
+  background-color: #dc392d;
+  color: white;
+}
+
+.btn:hover {
+  border-color: #dc392d;
+  background-color: white;
+  color: #dc392d;
+}
+
+body {
+  background: url('background.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+}

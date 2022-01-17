@@ -11,6 +11,8 @@ export default function ViewOtherItinerary() {
     <Marker key={2} lat={43.5632} lng={-79.7832} name="My Marker Red" color="red" />
   ]);
 
+  console.log("P:" + window.location.pathname);
+
   return (
     <main style={{ padding: "1rem 0" }}>
       <h2>View Other People's Itinerary</h2>

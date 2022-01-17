@@ -48,10 +48,22 @@ module.exports = (db) => {
 
   }
 
+  const getItinerary = () => {
+    const query = {
+        text: 'SELECT * FROM travel_destination',
+    };
+
+    return db
+        .query(query)
+        .then((result) => result.rows)
+        .catch((err) => err);
+  };
+
   return {
       getUsers,
       getUserByEmail,
       addUser,
-      getUsersPosts
+      getUsersPosts,
+      getItinerary
   };
 };

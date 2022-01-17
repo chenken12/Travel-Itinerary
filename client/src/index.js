@@ -27,7 +27,7 @@ ReactDOM.render(
         <Route path="newItinerary" element={<NewItinerary />} />
         <Route path="usersTravels" element={<UsersTravels />} />
         <Route path="addPins" element={<AddPins />} />
-        <Route path="viewOtherItinerary" element={<ViewOtherItinerary />} />
+        <Route path="viewOtherItinerary/:id" element={<ViewOtherItinerary />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,

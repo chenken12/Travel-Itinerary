@@ -59,11 +59,27 @@ module.exports = (db) => {
         .catch((err) => err);
   };
 
+  const getTravelPlanById = (email) => {
+    const query = {
+      text: `SELECT travel_destination.*, pins.*
+        FROM travel_destination
+        JOIN pins ON travel_destination.id = pins.travel_destination_id
+        WHERE travel_destination.id = $1`,
+      values: [email]
+    }
+
+    return db
+      .query(query)
+      .then((result) => result.rows)
+        .catch((err) => err);
+  };
+
   return {
       getUsers,
       getUserByEmail,
       addUser,
       getUsersPosts,
-      getItinerary
+      getItinerary,
+      getTravelPlanById
   };
 };

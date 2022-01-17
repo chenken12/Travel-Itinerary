@@ -2,7 +2,6 @@ import { useState } from 'react';
 import './App.css';
 import useApplicationData from './hooks/useApplicationData';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import { Link }from "react-router-dom";
 import { Link, useNavigate } from "react-router-dom";
 
 const App = () => {

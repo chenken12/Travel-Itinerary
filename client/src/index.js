@@ -21,7 +21,6 @@ ReactDOM.render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />} />
-        
           {/* <Route path="login" element={<Login />} /> */}
               <Route exact path='/login' element={<Login />} />
               {/* <Route path="/sign-up" component={SignUp} /> */}
@@ -29,7 +28,7 @@ ReactDOM.render(
         <Route path="newItinerary" element={<NewItinerary />} />
         <Route path="usersTravels" element={<UsersTravels />} />
         <Route path="addPins" element={<AddPins />} />
-        {/* <Route path="viewOtherItinerary/:id" element={<ViewOtherItinerary />} /> */}
+        <Route path="viewOtherItinerary/:id" element={<ViewOtherItinerary />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,

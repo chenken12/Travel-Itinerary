@@ -2,7 +2,6 @@ import { useState } from 'react';
 import './App.css';
 import useApplicationData from './hooks/useApplicationData';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import { Link }from "react-router-dom";
 import { Link, useNavigate } from "react-router-dom";
 
 const App = () => {
@@ -29,6 +28,9 @@ return (
             <ul className="navbar-nav ml-auto">
               <li className="nav-item">
                 <Link className="nav-link" to={"/login"}>Login</Link>
+              </li>
+              <li>
+                <Link className="nav-link" to={"/newItinerary"}>Create Itinerary</Link>
               </li>
               {/* <li className="nav-item">
                 <Link className="nav-link" to={"/sign-up"}>Sign up</Link>

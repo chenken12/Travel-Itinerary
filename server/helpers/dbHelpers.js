@@ -74,12 +74,29 @@ module.exports = (db) => {
         .catch((err) => err);
   };
 
+  const getCommentsById = (email) => {
+    const query = {
+      text: `SELECT comments.*, users.first_name, users.last_name
+        FROM travel_destination
+        JOIN comments ON travel_destination.id = comments.travel_destination_id
+        JOIN users ON users.id = comments.users_id
+        WHERE travel_destination.id = $1`,
+      values: [email]
+    }
+
+    return db
+      .query(query)
+      .then((result) => result.rows)
+        .catch((err) => err);
+  };
+
   return {
       getUsers,
       getUserByEmail,
       addUser,
       getUsersPosts,
       getItinerary,
-      getTravelPlanById
+      getTravelPlanById,
+      getCommentsById
   };
 };

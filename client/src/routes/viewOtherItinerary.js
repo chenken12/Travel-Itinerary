@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import GoogleMapReact from 'google-map-react';
-import Marker from '../components/Marker';
+import {displayMarker, displayMarkerInfo} from '../helpers/displayMap'
+import MarkerInfo from '../components/MarkerInfo';
 import Comment from '../components/Comment'
 import "../styles/viewOtherItinerary.css"
 import { useLocation } from 'react-router-dom';
@@ -9,25 +10,12 @@ import { useLocation } from 'react-router-dom';
 export default function ViewOtherItinerary(props) {
   const [center, setCenter] = useState({lat: 43.6532, lng: -79.3832 });
   const [zoom, setZoom] = useState(13);
-  let [markers, setMarkers] = useState();
-  let [comments, setComments] = useState();
+  const [markers, setMarkers] = useState();
+  const [markerInfo, setMarkersInfo] = useState();
+  const [comments, setComments] = useState();
 
   const location = useLocation();
   const id = location.pathname.split('/')[2];
-
-  const parsedMarkers = function(markers) {
-    return markers.map((marker) => {
-      return(
-        <Marker 
-          key={"marker"+marker.id} 
-          lat={marker.lat} 
-          lng={marker.long} 
-          name={marker.pinned_name} 
-          color="blue" 
-        />
-      )
-    });
-  };
 
   const parsedComments = function(comments) {
     return comments.map((comment) => {
@@ -49,7 +37,8 @@ export default function ViewOtherItinerary(props) {
       axios.get(`/api/comments/${id}`)
     ]).then((all) => {
       const [ first, second ] = all;
-      setMarkers(() => [parsedMarkers(first.data)]);
+      setMarkers(() => [displayMarker(first.data)]);
+      setMarkersInfo(() => [displayMarkerInfo(first.data)]);
       setComments(() => [parsedComments(second.data)]);
     });
   }, []);
@@ -69,7 +58,10 @@ export default function ViewOtherItinerary(props) {
         </GoogleMapReact>
       </div>
       <div className="MarkerInfo">
-        {comments}
+        { markerInfo }
+      </div>
+      <div className="CommentInfo">
+        { comments }
       </div>
     </main>
   );

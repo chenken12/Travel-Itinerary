@@ -4,6 +4,7 @@ import GoogleMapReact from 'google-map-react';
 import {displayMarker, displayMarkerInfo, displayComments} from '../components/DisplayMap'
 import "../styles/viewOtherItinerary.css"
 import { useLocation } from 'react-router-dom';
+import NavBar from "../components/navBar";
 
 export default function ViewOtherItinerary(props) {
   const [center, setCenter] = useState({lat: 43.6532, lng: -79.3832 });
@@ -30,6 +31,7 @@ export default function ViewOtherItinerary(props) {
 
   return (
     <main style={{ padding: "1rem 0" }}>
+      <NavBar />
       <h2>View Other People's Itinerary</h2>
       <div className="view_others_map"> 
         <GoogleMapReact

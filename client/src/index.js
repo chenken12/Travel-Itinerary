@@ -25,7 +25,7 @@ ReactDOM.render(
         <Route path="register" element={<Register />} />
         <Route path="newItinerary" element={<NewItinerary />} />
         <Route path="usersTravels" element={<UsersTravels />} />
-        <Route path="addPins" element={<AddPins />} />
+        <Route path="addPins/:id" element={<AddPins />} />
         <Route path="viewOtherItinerary/:id" element={<ViewOtherItinerary />} />
       </Routes>
     </BrowserRouter>

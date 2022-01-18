@@ -1,5 +1,5 @@
 INSERT INTO
-pins(travel_destination_id, pinned_name, long, lat)
+pins(travel_destination_id, pinned_name, lat, long)
 VALUES
   (1, 'CN Tower', 43.6426, -79.3871),
   (1, 'Royal Ontario Museum', 43.6677, -79.3948),

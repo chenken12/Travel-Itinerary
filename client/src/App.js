@@ -24,8 +24,18 @@ const App = () => {
     <div className="App">
       <NavBar />
       <ul className="test"> {userList} </ul>
-      <button onClick={() => handleRouteClick("/addPins")} type="button">Add Pins page</button>
-      <button onClick={() => handleRouteClick("/usersTravels")} type="button">usersTravels page</button>
+
+  {/* <Link to="/login">Invoices</Link> |{" "}
+  <Link to="/register">Expenses</Link> */}
+  <button onClick={() => handleRouteClick("/addPins")} type="button">Add Pins page</button>
+  <button onClick={() => handleRouteClick("/usersTravels")} type="button">usersTravels page</button>
+      <h1> Users </h1>
+
+      
+    </div>
+  
+  // <div className="App" >
+//   <h1> Users </h1>
 
     </div>
   );

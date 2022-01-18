@@ -10,7 +10,7 @@ const AddPins = () => {
   const [center, setCenter] = useState({lat: 43.6532, lng: -79.3832 });
   const [zoom, setZoom] = useState(9);
   let [markers, setMarkers] = useState([
-    <Marker key={1} lat={43.6532} lng={-79.3832} name="My Marker" color="blue" />,
+    <Marker key={1} lat={43.6532} lng={-79.3832} name="My Marker Blue" color="blue" />,
     <Marker key={2} lat={43.5632} lng={-79.7832} name="My Marker Red" color="red" />
   ]);
   const [markerInfo, setMarkersInfo] = useState();
@@ -21,15 +21,16 @@ const AddPins = () => {
   useEffect(() => {
     axios.get(`/api/travels/${id}`)
       .then((marker) => {
-        setMarkers(() => [displayMarker(marker.data)]);
-        setMarkersInfo(() => [displayMarkerInfo(marker.data)]);
+        setMarkers(() => [...displayMarker(marker.data)]);
+        setMarkersInfo(() => [...displayMarkerInfo(marker.data)]);
       });
   }, []);
 
-  const addMark = function(lat, lng) {
+  const addMarker = function(lat, lng) {
+    const key = `marker${markers.length}`;
     setMarkers((prevState) => {
       return [...prevState,
-        <Marker lat={lat} lng={lng} name="My Marker" color="blue" cursor='pointer' />
+        <Marker key={key} lat={lat} lng={lng} name="My Marker" color="blue" cursor='pointer' />
       ];
     });
   };
@@ -45,14 +46,14 @@ const AddPins = () => {
           onClick={(event) => {
             console.log("latitide = ", event.lat);
             console.log("longitude = ", event.lng);
-            addMark(event.lat, event.lng);
+            addMarker(event.lat, event.lng);
           }}
         >
           {markers}
           
         </GoogleMapReact>
       </div>
-      <button onClick={() => addMark(43.7632, -79.6832)}>Test</button>
+      <button onClick={() => addMarker(43.7632, -79.6832)}>Test</button>
       <div className="MarkerInfo-container">
         { markerInfo }
       </div>

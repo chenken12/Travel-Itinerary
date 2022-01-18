@@ -22,9 +22,9 @@ export default function ViewOtherItinerary(props) {
       axios.get(`/api/comments/${id}`)
     ]).then((all) => {
       const [ first, second ] = all;
-      setMarkers(() => [displayMarker(first.data)]);
-      setMarkersInfo(() => [displayMarkerInfo(first.data)]);
-      setComments(() => [displayComments(second.data)]);
+      setMarkers(() => [...displayMarker(first.data)]);
+      setMarkersInfo(() => [...displayMarkerInfo(first.data)]);
+      setComments(() => [...displayComments(second.data)]);
     });
   }, []);
 

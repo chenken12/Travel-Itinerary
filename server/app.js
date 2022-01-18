@@ -8,6 +8,8 @@ const dbHelpers = require('./helpers/dbHelpers')(db);
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
+const travelsRouter = require('./routes/travels');
+const commentsRouter = require('./routes/comments');
 
 const app = express();
 
@@ -21,5 +23,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/api/users', usersRouter(dbHelpers));
+app.use('/api/travels', travelsRouter(dbHelpers));
+app.use('/api/comments', commentsRouter(dbHelpers));
 
 module.exports = app;

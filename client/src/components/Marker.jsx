@@ -15,11 +15,3 @@ const Marker = (props) => {
   );
 };
 export default Marker;
-const MarkerInfo = (props) => {
-  const { color, name, id } = props;
-  return (
-    <div>
-      { name }
-    </div>
-  );
-};

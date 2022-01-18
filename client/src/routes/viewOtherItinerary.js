@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import GoogleMapReact from 'google-map-react';
 import {displayMarker, displayMarkerInfo, displayComments} from '../components/DisplayMap'
-import MarkerInfo from '../components/MarkerInfo';
-import Comment from '../components/Comment'
 import "../styles/viewOtherItinerary.css"
 import { useLocation } from 'react-router-dom';
 
@@ -44,10 +42,10 @@ export default function ViewOtherItinerary(props) {
           
         </GoogleMapReact>
       </div>
-      <div className="MarkerInfo">
+      <div className="MarkerInfo-container">
         { markerInfo }
       </div>
-      <div className="CommentInfo">
+      <div className="Comment-container">
         { comments }
       </div>
     </main>

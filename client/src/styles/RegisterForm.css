@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600,700,800');
 
 
-
 .login-body {
   background: #1C8EF9 !important;
   align-items: center;
@@ -66,4 +65,11 @@
 
 .forgot-password a {
   color: #167bff;
+}
+
+
+body {
+  background: url('background.png');
+  background-repeat: no-repeat;
+  background-size: cover;
 }

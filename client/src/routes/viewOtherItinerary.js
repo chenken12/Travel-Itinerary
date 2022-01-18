@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import GoogleMapReact from 'google-map-react';
-import {displayMarker, displayMarkerInfo} from '../helpers/displayMap'
+import {displayMarker, displayMarkerInfo, displayComments} from '../components/DisplayMap'
 import MarkerInfo from '../components/MarkerInfo';
 import Comment from '../components/Comment'
 import "../styles/viewOtherItinerary.css"
@@ -17,19 +17,6 @@ export default function ViewOtherItinerary(props) {
   const location = useLocation();
   const id = location.pathname.split('/')[2];
 
-  const parsedComments = function(comments) {
-    return comments.map((comment) => {
-      return(
-        <Comment 
-          key={"comment"+comment.id} 
-          text={comment.comment} 
-          time={comment.created_at} 
-          name={`${comment.first_name} ${comment.last_name}`} 
-        />
-      )
-    });
-  };
-
   useEffect(() => {
     // const location = useLocation();
     Promise.all([
@@ -39,7 +26,7 @@ export default function ViewOtherItinerary(props) {
       const [ first, second ] = all;
       setMarkers(() => [displayMarker(first.data)]);
       setMarkersInfo(() => [displayMarkerInfo(first.data)]);
-      setComments(() => [parsedComments(second.data)]);
+      setComments(() => [displayComments(second.data)]);
     });
   }, []);
 

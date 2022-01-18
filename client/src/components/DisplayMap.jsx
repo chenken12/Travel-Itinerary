@@ -1,6 +1,7 @@
 import React from 'react';
-import Marker from '../components/Marker';
-import MarkerInfo from '../components/MarkerInfo';
+import Marker from './Marker';
+import MarkerInfo from './MarkerInfo';
+import Comment from './Comment';
 
 const displayMarker = function(markers) {
   return markers.map((marker) => {
@@ -28,4 +29,17 @@ const displayMarkerInfo = function(markers) {
   });
 };
 
-export {displayMarker, displayMarkerInfo};
+const displayComments = function(comments) {
+  return comments.map((comment) => {
+    return(
+      <Comment 
+        key={"comment"+comment.id} 
+        text={comment.comment} 
+        time={comment.created_at} 
+        name={`${comment.first_name} ${comment.last_name}`} 
+      />
+    )
+  });
+};
+
+export {displayMarker, displayMarkerInfo, displayComments};

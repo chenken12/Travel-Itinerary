@@ -1,5 +1,3 @@
-import React from 'react';
-
 const MarkerInfo = (props) => {
   const { name, index } = props;
   return (

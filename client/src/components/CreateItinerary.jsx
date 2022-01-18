@@ -4,6 +4,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import '../styles/CreateItinerary.css';
+
+
 export default function CreateItinerary() {
   const state = {
     name: "",

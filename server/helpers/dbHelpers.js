@@ -61,9 +61,25 @@ module.exports = (db) => {
 
   const getTravelPlanById = (email) => {
     const query = {
-      text: `SELECT travel_destination.*, pins.*
+      text: `SELECT pins.*
         FROM travel_destination
         JOIN pins ON travel_destination.id = pins.travel_destination_id
+        WHERE travel_destination.id = $1`,
+      values: [email]
+    }
+
+    return db
+      .query(query)
+      .then((result) => result.rows)
+        .catch((err) => err);
+  };
+
+  const getCommentsById = (email) => {
+    const query = {
+      text: `SELECT comments.*, users.first_name, users.last_name
+        FROM travel_destination
+        JOIN comments ON travel_destination.id = comments.travel_destination_id
+        JOIN users ON users.id = comments.users_id
         WHERE travel_destination.id = $1`,
       values: [email]
     }
@@ -80,6 +96,7 @@ module.exports = (db) => {
       addUser,
       getUsersPosts,
       getItinerary,
-      getTravelPlanById
+      getTravelPlanById,
+      getCommentsById
   };
 };

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 export default class LoginForm extends Component {
     render() {
         return (
+            <div className="login-wrapper">
             <form>
                 <div className="form-group">
                     <label>Email Address</label>
@@ -20,6 +21,7 @@ export default class LoginForm extends Component {
                     Don't have an account yet? <a href="#"><Link to="/register">Register Here</Link> </a>
                 </p>
             </form>
+            </div>
         );
     }
 }

@@ -4,6 +4,7 @@ import {displayMarker, displayMarkerInfo} from '../components/DisplayMap'
 import GoogleMapReact from 'google-map-react';
 import "../styles/addPins.css"
 import Marker from '../components/Marker';
+import MarkerInfo from '../components/MarkerInfo';
 import { useLocation } from 'react-router-dom';
 
 const AddPins = () => {
@@ -27,10 +28,15 @@ const AddPins = () => {
   }, []);
 
   const addMarker = function(lat, lng) {
-    const key = `marker${markers.length}`;
+    const index = `${markers.length + 1}`;
     setMarkers((prevState) => {
       return [...prevState,
-        <Marker key={key} lat={lat} lng={lng} name="My Marker" color="blue" cursor='pointer' />
+        <Marker key={"marker" + index} lat={lat} lng={lng} name="My Marker" color="blue" />
+      ];
+    });
+    setMarkersInfo((prevState) => {
+      return [...prevState,
+        <MarkerInfo key={"markerinfo" + index} name="My Marker" index={ index }/>
       ];
     });
   };
@@ -49,7 +55,7 @@ const AddPins = () => {
             addMarker(event.lat, event.lng);
           }}
         >
-          {markers}
+          { markers }
           
         </GoogleMapReact>
       </div>

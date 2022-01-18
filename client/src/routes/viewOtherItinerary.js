@@ -16,7 +16,6 @@ export default function ViewOtherItinerary(props) {
   const id = location.pathname.split('/')[2];
 
   useEffect(() => {
-    // const location = useLocation();
     Promise.all([
       axios.get(`/api/travels/${id}`),
       axios.get(`/api/comments/${id}`)

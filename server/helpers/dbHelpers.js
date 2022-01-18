@@ -61,7 +61,7 @@ module.exports = (db) => {
 
   const getTravelPlanById = (email) => {
     const query = {
-      text: `SELECT travel_destination.*, pins.*
+      text: `SELECT pins.*
         FROM travel_destination
         JOIN pins ON travel_destination.id = pins.travel_destination_id
         WHERE travel_destination.id = $1`,

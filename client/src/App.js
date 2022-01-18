@@ -2,7 +2,6 @@ import { useState } from 'react';
 import './App.css';
 import useApplicationData from './hooks/useApplicationData';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import { Link }from "react-router-dom";
 import { Link, useNavigate } from "react-router-dom";
 
 const App = () => {
@@ -43,7 +42,7 @@ return (
   <button onClick={() => handleRouteClick("/addPins")} type="button">Add Pins page</button>
   <button onClick={() => handleRouteClick("/usersTravels")} type="button">usersTravels page</button>
       <h1> Users </h1>
-        <ul> {userList} </ul>
+
       
     </div>
   

@@ -23,7 +23,7 @@ const App = () => {
   return (
     <div className="App">
       <NavBar />
-      <ul className="test"> {userList} </ul>
+      {/* <ul className="test"> {userList} </ul> */}
 
   {/* <Link to="/login">Invoices</Link> |{" "}
   <Link to="/register">Expenses</Link> */}
@@ -37,7 +37,6 @@ const App = () => {
   // <div className="App" >
 //   <h1> Users </h1>
 
-    </div>
   );
 };
 

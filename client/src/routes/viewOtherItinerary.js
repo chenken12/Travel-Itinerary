@@ -44,7 +44,7 @@ export default function ViewOtherItinerary(props) {
       <div className="MarkerInfo-container">
         { markerInfo }
       </div>
-      <div className="Comment-container">
+      <div className="comment-container">
         { comments }
       </div>
     </main>

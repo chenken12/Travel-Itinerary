@@ -31,11 +31,16 @@ const App = () => {
   return (
     <div className="App">
       <NavBar />
-      <ul className="test"> {userList} </ul>
-      <button onClick={() => handleRouteClick("/addPins")} type="button">Add Pins page</button>
-      <button onClick={() => handleRouteClick("/usersTravels")} type="button">usersTravels page</button>
+      {/* <ul className="test"> {userList} </ul> */}
+
+
+  <button onClick={() => handleRouteClick("/addPins")} type="button">Add Pins page</button>
+  <button onClick={() => handleRouteClick("/usersTravels")} type="button">usersTravels page</button>
       <h1> Users </h1>
+
+      
     </div>
+
   );
 };
 

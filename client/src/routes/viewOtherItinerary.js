@@ -54,7 +54,7 @@ export default function ViewOtherItinerary(props) {
 
   return (
     <div>
-      <NavBar />
+     
       <main className="map-container">
         <div className="text-container">
           <h2>View Other People's Itinerary</h2>

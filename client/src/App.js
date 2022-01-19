@@ -29,7 +29,7 @@ const App = () => {
   return (
     <div className="App">
       <NavBar />
-      <ul className="test"> {userList} </ul>
+      {/* <ul className="test"> {userList} </ul> */}
 
 
   <button onClick={() => handleRouteClick("/addPins")} type="button">Add Pins page</button>

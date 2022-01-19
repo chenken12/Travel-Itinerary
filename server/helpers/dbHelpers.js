@@ -90,6 +90,17 @@ module.exports = (db) => {
         .catch((err) => err);
   };
 
+  const addComment = (users_id, travel_destination_id, comment) => {
+    const query = {
+      text: `INSERT INTO comments (users_id, travel_destination_id, comment) VALUES ($1, $2, $3) RETURNING *` ,
+      values: [users_id, travel_destination_id, comment]
+    }
+
+    return db.query(query)
+        .then(result => result.rows[0])
+        .catch(err => err);
+}
+
   return {
       getUsers,
       getUserByEmail,
@@ -97,6 +108,7 @@ module.exports = (db) => {
       getUsersPosts,
       getItinerary,
       getTravelPlanById,
-      getCommentsById
+      getCommentsById,
+      addComment
   };
 };

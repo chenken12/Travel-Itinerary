@@ -14,13 +14,13 @@ import UsersTravels from "./routes/usersTravels";
 import AddPins from "./routes/addPins";
 import ViewOtherItinerary from './routes/viewOtherItinerary';
 import reportWebVitals from './reportWebVitals';
-import NavBar from "./components/navBar";
+import NavBar from './components/navBar';
 
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <NavBar />
+    <NavBar />
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="login" element={<Login />} />

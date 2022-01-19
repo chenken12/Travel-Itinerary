@@ -7,8 +7,6 @@ import Marker from '../components/Marker';
 import MarkerInfo from '../components/MarkerInfo';
 import { useLocation } from 'react-router-dom';
 
-import NavBar from "../components/navBar";
-
 const AddPins = () => {
   const [center, setCenter] = useState({ lat: 43.6532, lng: -79.3832 });
   const [zoom, setZoom] = useState(9);
@@ -43,8 +41,6 @@ const AddPins = () => {
   };
 
   return (
-     <div>
-      <NavBar />
     <main style={{ padding: "1rem 0" }}>
       <h2>Add Pins to Itinerary</h2>
       <div className="map">
@@ -67,7 +63,6 @@ const AddPins = () => {
         { markerInfo }
       </div>
     </main>
-  </div>
 
   );
 }

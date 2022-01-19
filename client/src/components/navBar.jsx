@@ -7,7 +7,7 @@ import { Nav, Form, FormControl, Button } from "react-bootstrap";
 export default class NavBar extends Component {
     render() {
         return (
-            <Navbar bg="dark" variant="dark" fixed-top>
+            <Navbar bg="dark" variant="dark" fixed-top="true">
                 <Container>
                     <Navbar.Brand href="/">Travel Itinerary</Navbar.Brand>
                     <Nav className="me-auto">

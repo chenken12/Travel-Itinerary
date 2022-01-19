@@ -20,7 +20,6 @@ export default function CreateItinerary() {
     <Form xs={1} method="POST" onSubmit={ event => {
       event.preventDefault();
       axios.post('api/travels', formData)
-        .then(res => res.rows[0])
       }}>
       <h1>Create Itinerary</h1>
       <Form.Group className="mb-3">

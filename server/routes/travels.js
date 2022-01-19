@@ -24,8 +24,8 @@ module.exports = ({
   });
 
   router.post('/', (req, res) => {
-    addItinerary()
-      .then((itinerary) => res.json(itinerary))
+    const {name, description, city, country, startDate, endDate} = req.body;
+    addItinerary(name, description, city, country, startDate, endDate)
       .catch((err) => res.json({
         error: err.message
       }));

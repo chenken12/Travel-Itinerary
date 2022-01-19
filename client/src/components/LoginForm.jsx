@@ -20,6 +20,7 @@ export default function LoginForm() {
     // render() {
         return (
 
+            <div className="login-wrapper">
             <form>
                 <div className="form-group">
                     <label>Email Address</label>
@@ -38,6 +39,7 @@ export default function LoginForm() {
                     Don't have an account yet? <a href="#"><Link to="/register">Register Here</Link> </a>
                 </p>
             </form>
+            </div>
         );
     // }
 }

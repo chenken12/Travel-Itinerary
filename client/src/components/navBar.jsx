@@ -7,8 +7,11 @@ import { Nav, Form, FormControl, Button } from "react-bootstrap";
 export default class NavBar extends Component {
     render() {
         return (
+
             <div className="nav-style">
-            <Navbar bg="dark" variant="dark" fixed>
+
+            <Navbar bg="dark" variant="dark" fixed-top="true">
+
                 <Container>
                     <Navbar.Brand href="/">Travel Itinerary</Navbar.Brand>
                     <Nav className="me-auto">

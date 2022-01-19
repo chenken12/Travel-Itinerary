@@ -38,4 +38,17 @@ This will be applied at the end when the map position is fixed, currently the ma
 */
 /* .nav-style {
   position: fixed;
+  height: 5px;
+} */
+
+/* form {
+  margin: 0 auto;
+
+  width: 900px;
+  outline: none;
+  border-radius: 10px;
+  font-size: 1.3em;
+  color: #212529;
+  background-color: white;
+
 } */

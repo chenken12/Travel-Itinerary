@@ -5,6 +5,7 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import { Link, useNavigate } from "react-router-dom";
 import LoginForm from './components/LoginForm';
 import PropTypes from 'prop-types';
+import NavBar from './components/navBar';
 
 const App = () => {
 
@@ -37,6 +38,22 @@ return (
     <h1> Users </h1>
   </div>
 );
+ 
+
+  return (
+    <div className="App">
+      <NavBar />
+      {/* <ul className="test"> {userList} </ul> */}
+
+
+  <button onClick={() => handleRouteClick("/addPins")} type="button">Add Pins page</button>
+  <button onClick={() => handleRouteClick("/usersTravels")} type="button">usersTravels page</button>
+      <h1> Users </h1>
+
+      
+    </div>
+
+  );
 };
 
 export default App;

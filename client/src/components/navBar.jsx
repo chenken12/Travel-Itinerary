@@ -7,7 +7,11 @@ import { Nav, Form, FormControl, Button } from "react-bootstrap";
 export default class NavBar extends Component {
     render() {
         return (
-            <Navbar bg="dark" variant="dark" fixed-top>
+
+            <div className="nav-style">
+
+            <Navbar bg="dark" variant="dark" fixed-top="true">
+
                 <Container>
                     <Navbar.Brand href="/">Travel Itinerary</Navbar.Brand>
                     <Nav className="me-auto">
@@ -23,7 +27,7 @@ export default class NavBar extends Component {
                                     <Link className="nav-link" to={"/register"}>Register for an Account</Link>
                                 </li>
                             </ul>
-                            {/* <Form className="d-flex">
+                            <Form className="d-flex">
                                 <FormControl
                                     type="search"
                                     placeholder="Search"
@@ -31,13 +35,14 @@ export default class NavBar extends Component {
                                     aria-label="Search"
                                 />
                                 <Button variant="outline-success">Search</Button>
-                            </Form> */}
+                            </Form>
                         </div>
-                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                        &nbsp&nbsp
                         <Navbar.Text> Signed in as: <a href="#login">This is a test user</a> </Navbar.Text>
                     </Nav>
                 </Container>
             </Navbar>
+            </div>
         );
     }
 }

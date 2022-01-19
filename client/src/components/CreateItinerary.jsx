@@ -1,30 +1,37 @@
 import React, {useState} from 'react';
 import {Button, Form, Row, Col} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import '../styles/CreateItinerary.css';
 export default function CreateItinerary() {
   const state = {
     name: "",
+    description: "",
     city: "",
-    country: "",
+    country: "US",
     startDate: "",
-    endDate: "",
-    details: ""
-
+    endDate: ""
   }
+
   const [formData, setFormData] = useState(state);
-  // const [selectedDate2, setDate2] = useState(null);
   return(
-    <Form xs={1}>
+    <Form xs={1} method="POST" onSubmit={ event => {
+      event.preventDefault();
+      axios.post('api/travels', formData)
+        .then(res => res.rows[0])
+      }}>
       <h1>Create Itinerary</h1>
       <Form.Group className="mb-3">
         <Form.Label>Name</Form.Label>
         <Form.Control 
           type="name" 
           placeholder="Enter name"
-          onChange={name => setFormData({...state, name: name})} />
+          selected={formData.name} 
+          onChange={event => {
+            setFormData({...formData, name: event.target.value});
+          }} />
       </Form.Group>
 
       <Form.Group className="mb-3">
@@ -32,7 +39,8 @@ export default function CreateItinerary() {
         <Form.Control 
         type="name" 
         placeholder="Enter city"
-        onChange={city => setFormData({...state, city: city})} />
+        selected={formData.city} 
+        onChange={event => setFormData({...formData, city: event.target.value})} />
       </Form.Group>
 
       <Form.Group className="mb-3">
@@ -40,7 +48,8 @@ export default function CreateItinerary() {
         <Form.Select 
         defaultValue="Choose..." 
         placeholder="Enter Country"
-        onChange={country => setFormData({...state, country: country})}>
+        selected={formData.country} 
+        onChange={event => setFormData({...formData, country: event.target.value})}>
           <option>US</option>
           <option>Canada</option>
           <option>United Kingdom</option>
@@ -57,16 +66,16 @@ export default function CreateItinerary() {
           <Form.Group as={Col} controlId='formGridStartDate'>
             <Form.Label>Start Date </Form.Label>
             <DatePicker 
-              selected={state.startDate} 
-              onChange={date => setFormData({...state, startDate: date})}
+              selected={formData.startDate} 
+              onChange={date => setFormData({...formData, startDate: date})}
               dateFormat='dd/MM/yyyy'
             />
           </Form.Group>
           <Form.Group as={Col} controlId='formGridEndDate'>
             <Form.Label>End Date </Form.Label>
             <DatePicker 
-              selected={state.endDate} 
-              onChange={date => setFormData({...state, endDate: date})}
+              selected={formData.endDate} 
+              onChange={date => setFormData({...formData, endDate: date})}
               dateFormat='dd/MM/yyyy'
             />
           </Form.Group>
@@ -74,13 +83,14 @@ export default function CreateItinerary() {
       </Form.Group>
       <Form.Group className='mb-3'>
         <Form.Label>
-          Details
+          Description
         </Form.Label>
         <Form.Control 
           type='text' 
           as='textarea' 
           rows={3} 
-          onChange={text => setFormData({...state, details: text})}>
+          selected={formData.description} 
+          onChange={event => setFormData({...formData, description: event.target.value})}>
         </Form.Control>
       </Form.Group>
       <Button variant="flat" type="submit">

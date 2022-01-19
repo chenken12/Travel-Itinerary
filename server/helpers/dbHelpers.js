@@ -74,6 +74,18 @@ module.exports = (db) => {
         .catch((err) => err);
   };
 
+  const addItinerary = (name, description, city, country, startDate, endDate) => {
+    const query = {
+        text: `INSERT INTO travel_destination (name, description, city, country, startDate, endDate) VALUES ($1, $2, $3, $4) RETURNING *` ,
+        values: [name, description, city, country, startDate, endDate]
+    }
+
+    return db.query(query)
+        .then(result => result.rows[0])
+        .catch(err => err);
+  }
+
+
   return {
       getUsers,
       getUserByEmail,

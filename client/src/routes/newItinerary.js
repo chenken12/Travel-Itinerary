@@ -3,11 +3,8 @@ import NavBar from "../components/navBar";
 
 export default function NewItinerary() {
   return (
-    <div>
-      <NavBar />
       <main style={{ padding: "1rem 0" }}>
         <CreateItinerary />
       </main>
-    </div>
   );
 }

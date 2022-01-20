@@ -30,12 +30,20 @@ const displayMarkerInfo = function(markers) {
 };
 
 const displayComments = function(comments) {
+  // const dateformat = function(date) {
+    
+  //   return jsDate;
+  // }
+
   return comments.map((comment) => {
+    const dateParts = comment.created_at.split("-");
+    const jsDate = new Date(dateParts[0], dateParts[1] - 1, dateParts[2].substr(0,2));
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     return(
       <Comment 
         key={"comment"+comment.id} 
         text={comment.comment} 
-        time={comment.created_at} 
+        time={jsDate.toLocaleDateString("en-US", options)} 
         name={`${comment.first_name} ${comment.last_name}`} 
       />
     )

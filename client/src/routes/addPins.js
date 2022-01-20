@@ -80,8 +80,8 @@ const AddPins = () => {
               return {...prev, name: event.target.value};
             })}
           />
-          <a>lat: {newPlace.lat}</a>
-          <a>lng: {newPlace.lng}</a>
+          <p>lat: { newPlace.lat }</p>
+          <p>lng: { newPlace.lng }</p>
           <button type="button" className="btn" onClick={() => setMarker(null, null)}>Add Pin</button>
           
         </form>

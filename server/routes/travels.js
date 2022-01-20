@@ -24,8 +24,12 @@ module.exports = ({
   });
 
   router.post('/', (req, res) => {
-    const {users_id, name, description, city_name, country_name, travel_start_date, travel_end_date} = req.body;
-    addItinerary(users_id, name, description, city_name, country_name, travel_start_date, travel_end_date)
+    const {name, description, city, country, startDate, endDate} = req.body;
+    console.log('post req: ', req.body);
+    addItinerary(1, name, description, city, country, startDate, endDate)
+      .then(itinerary => {
+        res.redirect('/');
+      })
       .catch((err) => res.json({
         error: err.message
       }));

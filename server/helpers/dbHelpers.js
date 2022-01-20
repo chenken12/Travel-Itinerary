@@ -92,6 +92,7 @@ module.exports = (db) => {
       addUser,
       getUsersPosts,
       getItinerary,
-      getTravelPlanById
+      getTravelPlanById,
+      addItinerary
   };
 };

@@ -5,6 +5,8 @@ import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import '../styles/CreateItinerary.css';
+
+
 export default function CreateItinerary() {
   const state = {
     name: "",

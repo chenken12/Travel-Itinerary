@@ -16,8 +16,8 @@ const AddPins = () => {
   });
   const [newPlace, setNewPlace] = useState({
     name: '',
-    lat: 7,
-    lng: 25
+    lat: null,
+    lng: null
   });
 
   const location = useLocation();
@@ -36,14 +36,25 @@ const AddPins = () => {
   }, []);
 
   const addMarker = function(lat, lng) {
+    setNewPlace((prev) => {
+      return {
+        ...prev,
+        lat: lat,
+        lng: lng
+      };
+    })
+  };
+
+  const setMarker = function(lat, lng) {
     const index = `${markerList.marker.length + 1}`;
     setMarkerList((prev) => {
       console.log(prev);
       return {
-        marker: [...prev.marker, <Marker key={"marker" + index} lat={lat} lng={lng} name="My Marker" color="blue" />],
-        info: [...prev.info, <MarkerInfo key={"markerinfo" + index} name="My Marker" index={ index }/>]
+        marker: [...prev.marker, <Marker key={"marker" + index} lat={newPlace.lat} lng={newPlace.lng} name={newPlace.name} color="blue" />],
+        info: [...prev.info, <MarkerInfo key={"markerinfo" + index} name={newPlace.name} index={ index }/>]
       };
     });
+    setNewPlace({ name: '', lat: null, lng: null });
   };
 
   return (
@@ -51,7 +62,7 @@ const AddPins = () => {
       <div className="text-container">
         <h2>Add Pins to Itinerary</h2>
 
-        <button onClick={() => addMarker(43.7632, -79.6832)}>Test</button>
+        <button onClick={() => addMarker(null, null)}>Reset</button>
 
         <form className="marker-form">
           <input 
@@ -64,9 +75,9 @@ const AddPins = () => {
               return {...prev, name: event.target.value};
             })}
           />
-          <a>lat {newPlace.lat}</a>
-          <a>lng {newPlace.lng}</a>
-          <button type="button" className="btn">Add Pin</button>
+          <a>lat: {newPlace.lat}</a>
+          <a>lng: {newPlace.lng}</a>
+          <button type="button" className="btn" onClick={() => setMarker(null, null)}>Add Pin</button>
           
         </form>
         
@@ -88,6 +99,7 @@ const AddPins = () => {
           }}
         >
           { markerList.marker }
+          {newPlace.lat && <Marker key={"newPlaceMarker"} lat={newPlace.lat} lng={newPlace.lng} name={newPlace.name} color="green" />}
           
         </GoogleMapReact>
       </div>

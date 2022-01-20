@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import {displayMarker, displayMarkerInfo} from '../components/DisplayMap'
 import GoogleMapReact from 'google-map-react';
-import "../styles/addPins.css"
 import Marker from '../components/Marker';
 import MarkerInfo from '../components/MarkerInfo';
 import { useLocation } from 'react-router-dom';
+import "../styles/viewOtherItinerary.css"
 
 const AddPins = () => {
   const [center, setCenter] = useState({ lat: 43.6532, lng: -79.3832 });
@@ -41,9 +41,19 @@ const AddPins = () => {
   };
 
   return (
-    <main style={{ padding: "1rem 0" }}>
-      <h2>Add Pins to Itinerary</h2>
-      <div className="map">
+    <main className="map-container">
+      <div className="text-container">
+        <h2>Add Pins to Itinerary</h2>
+
+        <button onClick={() => addMarker(43.7632, -79.6832)}>Test</button>
+
+        <div className="markerInfo-container">
+          <h3>Places</h3>
+          { markerInfo }
+        </div>
+
+      </div>
+      <div className="view_others_map">
         <GoogleMapReact
           bootstrapURLKeys={{ key: process.env.REACT_APP_MAPKEY }}
           defaultCenter={center}
@@ -58,10 +68,7 @@ const AddPins = () => {
           
         </GoogleMapReact>
       </div>
-      <button onClick={() => addMarker(43.7632, -79.6832)}>Test</button>
-      <div className="MarkerInfo-container">
-        { markerInfo }
-      </div>
+ 
     </main>
 
   );

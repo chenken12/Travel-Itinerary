@@ -3,8 +3,9 @@ import './App.css';
 import useApplicationData from './hooks/useApplicationData';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import { Link, useNavigate } from "react-router-dom";
-import NavBar from './components/navBar';
 import LoginForm from './components/LoginForm';
+import PropTypes from 'prop-types';
+import NavBar from './components/navBar';
 
 const App = () => {
 
@@ -20,6 +21,7 @@ const App = () => {
     navigate(path);
   }
   const userList = state.users.map((user) => (<li key={user.id} > {user.first_name} {user.last_name} {user.email} </li>
+
   ));
 
   // if (!token) {

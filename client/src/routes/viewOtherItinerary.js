@@ -53,6 +53,25 @@ export default function ViewOtherItinerary(props) {
 
 
   return (
+    <main>
+      <h2>View Other People's Itinerary</h2>
+      <div className="view_others_map"> 
+        <GoogleMapReact
+          bootstrapURLKeys={{ key: process.env.REACT_APP_MAPKEY }}
+          defaultCenter={center}
+          defaultZoom={zoom}
+        >
+          {markers}
+          
+        </GoogleMapReact>
+      </div>
+      <div className="MarkerInfo-container">
+        { markerInfo }
+      </div>
+      <div className="comment-container">
+        { comments }
+      </div>
+    </main>
     <div>
       <NavBar />
       <main className="map-container">

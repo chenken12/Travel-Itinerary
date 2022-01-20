@@ -1,3 +1,4 @@
+
 import axios from "axios";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
@@ -44,18 +45,24 @@ export default function LoginForm(props) {
                 })
         }
     }
+
         return (
+
             <div className="login-wrapper">
             <form onSubmit={handleSubmit}>
 
                 <div className="form-group">
                     <label>Email Address</label>
+
                     <input type="email" name="email" value={user.email} className="form-control" placeholder="Enter email" onChange={handleChange}/>
+
                 </div>
 
                 <div className="form-group">
                     <label>Password</label>
+
                     <input type="password" name="password" value={user.password} className="form-control" placeholder="Enter password" onChange={handleChange}/>
+
                 </div>
 
                 <button type="submit" className="btn btn-primary btn-block">Submit</button>
@@ -65,5 +72,6 @@ export default function LoginForm(props) {
             </form>
             </div>
         );
+
 }
 

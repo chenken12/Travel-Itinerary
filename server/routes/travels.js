@@ -3,7 +3,8 @@ const router = express.Router();
 
 module.exports = ({
   getItinerary,
-  getTravelPlanById
+  getTravelPlanById,
+  addItinerary
 }) => {
   router.get('/:id', (req, res) => {
     getTravelPlanById(req.params.id)
@@ -22,7 +23,17 @@ module.exports = ({
       }));
   });
 
-  
+  router.post('/', (req, res) => {
+    const {name, description, city, country, startDate, endDate} = req.body;
+    console.log('post req: ', req.body);
+    addItinerary(1, name, description, city, country, startDate, endDate)
+      .then(itinerary => {
+        res.redirect('/');
+      })
+      .catch((err) => res.json({
+        error: err.message
+      }));
+  })
 
   return router;
 };

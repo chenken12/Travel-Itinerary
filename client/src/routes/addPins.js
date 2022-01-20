@@ -10,33 +10,39 @@ import "../styles/viewOtherItinerary.css"
 const AddPins = () => {
   const [center, setCenter] = useState({ lat: 43.6532, lng: -79.3832 });
   const [zoom, setZoom] = useState(9);
-  let [markers, setMarkers] = useState([
-    <Marker key={1} lat={43.6532} lng={-79.3832} name="My Marker Blue" color="blue" />,
-    <Marker key={2} lat={43.5632} lng={-79.7832} name="My Marker Red" color="red" />
-  ]);
-  const [markerInfo, setMarkersInfo] = useState();
+  let [markerList, setMarkerList] = useState({
+    marker: [],
+    info: []
+  });
+  const [newPlace, setNewPlace] = useState({
+    name: '',
+    lat: 7,
+    lng: 25
+  });
+
   const location = useLocation();
   const id = location.pathname.split('/')[2];
 
   useEffect(() => {
     axios.get(`/api/travels/${id}`)
       .then((marker) => {
-        setMarkers(() => [...displayMarker(marker.data)]);
-        setMarkersInfo(() => [...displayMarkerInfo(marker.data)]);
+        setMarkerList(() => {
+          return { 
+            marker: [...displayMarker(marker.data)],
+            info: [...displayMarkerInfo(marker.data)]
+          };
+        });
       });
   }, []);
 
   const addMarker = function(lat, lng) {
-    const index = `${markers.length + 1}`;
-    setMarkers((prevState) => {
-      return [...prevState,
-        <Marker key={"marker" + index} lat={lat} lng={lng} name="My Marker" color="blue" />
-      ];
-    });
-    setMarkersInfo((prevState) => {
-      return [...prevState,
-        <MarkerInfo key={"markerinfo" + index} name="My Marker" index={ index }/>
-      ];
+    const index = `${markerList.marker.length + 1}`;
+    setMarkerList((prev) => {
+      console.log(prev);
+      return {
+        marker: [...prev.marker, <Marker key={"marker" + index} lat={lat} lng={lng} name="My Marker" color="blue" />],
+        info: [...prev.info, <MarkerInfo key={"markerinfo" + index} name="My Marker" index={ index }/>]
+      };
     });
   };
 
@@ -47,9 +53,26 @@ const AddPins = () => {
 
         <button onClick={() => addMarker(43.7632, -79.6832)}>Test</button>
 
+        <form className="marker-form">
+          <input 
+            name="name"
+            type="text"
+            placeholder="Name the Place"
+
+            value={ newPlace.name }
+            onChange={(event) => setNewPlace((prev) => {
+              return {...prev, name: event.target.value};
+            })}
+          />
+          <a>lat {newPlace.lat}</a>
+          <a>lng {newPlace.lng}</a>
+          <button type="button" className="btn">Add Pin</button>
+          
+        </form>
+        
         <div className="markerInfo-container">
           <h3>Places</h3>
-          { markerInfo }
+          { markerList.info }
         </div>
 
       </div>
@@ -64,7 +87,7 @@ const AddPins = () => {
             addMarker(event.lat, event.lng);
           }}
         >
-          { markers }
+          { markerList.marker }
           
         </GoogleMapReact>
       </div>

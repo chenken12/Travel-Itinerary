@@ -47,14 +47,19 @@ const AddPins = () => {
 
   const setMarker = function(lat, lng) {
     const index = `${markerList.marker.length + 1}`;
-    setMarkerList((prev) => {
-      console.log(prev);
-      return {
-        marker: [...prev.marker, <Marker key={"marker" + index} lat={newPlace.lat} lng={newPlace.lng} name={newPlace.name} color="blue" />],
-        info: [...prev.info, <MarkerInfo key={"markerinfo" + index} name={newPlace.name} index={ index }/>]
-      };
-    });
-    setNewPlace({ name: '', lat: null, lng: null });
+    axios.post(`/api/pins/`, { id, ...newPlace })
+      .then((res) => {
+        console.log("res:" + JSON.stringify(res));
+        setMarkerList((prev) => {
+          return {
+            marker: [...prev.marker, <Marker key={`marker${index}n`} lat={newPlace.lat} lng={newPlace.lng} name={newPlace.name} color="blue" />],
+            info: [...prev.info, <MarkerInfo key={`markerinfo${index}n`} name={newPlace.name} index={ index }/>]
+          };
+        });
+        setNewPlace({ name: '', lat: null, lng: null });
+      })
+      .catch(error => console.log("Error"));
+
   };
 
   return (
@@ -92,11 +97,7 @@ const AddPins = () => {
           bootstrapURLKeys={{ key: process.env.REACT_APP_MAPKEY }}
           defaultCenter={center}
           defaultZoom={zoom}
-          onClick={(event) => {
-            console.log("latitide = ", event.lat);
-            console.log("longitude = ", event.lng);
-            addMarker(event.lat, event.lng);
-          }}
+          onClick={(event) => addMarker(event.lat, event.lng)}
         >
           { markerList.marker }
           {newPlace.lat && <Marker key={"newPlaceMarker"} lat={newPlace.lat} lng={newPlace.lng} name={newPlace.name} color="green" />}

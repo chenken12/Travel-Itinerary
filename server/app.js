@@ -10,6 +10,7 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const travelsRouter = require('./routes/travels');
 const commentsRouter = require('./routes/comments');
+const pinsRouter = require('./routes/pins');
 
 const app = express();
 
@@ -25,5 +26,6 @@ app.use('/users', usersRouter);
 app.use('/api/users', usersRouter(dbHelpers));
 app.use('/api/travels', travelsRouter(dbHelpers));
 app.use('/api/comments', commentsRouter(dbHelpers));
+app.use('/api/pins', pinsRouter(dbHelpers));
 
 module.exports = app;

@@ -4,7 +4,6 @@ import GoogleMapReact from 'google-map-react';
 import {displayMarker, displayMarkerInfo, displayComments} from '../components/DisplayMap'
 import "../styles/viewOtherItinerary.css"
 import { useLocation } from 'react-router-dom';
-import NavBar from "../components/navBar";
 import Comments from "../components/Comment";
 
 export default function ViewOtherItinerary(props) {
@@ -24,7 +23,6 @@ export default function ViewOtherItinerary(props) {
       axios.get(`/api/comments/${td_id}`)
     ]).then((all) => {
       const [ first, second ] = all;
-      console.log(second.data)
       setMarkers(() => [...displayMarker(first.data)]);
       setMarkersInfo(() => [...displayMarkerInfo(first.data)]);
       setComments(() => [...displayComments(second.data)]);
@@ -75,6 +73,7 @@ export default function ViewOtherItinerary(props) {
                 value={ sendComment }
                 onChange={(event) => setSendComment(event.target.value)}
               />
+            
             </form>
             <button onClick={() => postComments()}>Post</button>
             { comments }

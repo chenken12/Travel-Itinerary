@@ -6,10 +6,12 @@ import Marker from '../components/Marker';
 import MarkerInfo from '../components/MarkerInfo';
 import { useLocation } from 'react-router-dom';
 import "../styles/viewOtherItinerary.css"
+import DatePicker from 'react-datepicker';
 
 const AddPins = () => {
   const [center, setCenter] = useState({ lat: 43.6532, lng: -79.3832 });
-  const [zoom, setZoom] = useState(9);
+  const [zoom, setZoom] = useState(11);
+  const [date, setDate] = useState('');
   let [markerList, setMarkerList] = useState({
     marker: [],
     info: []
@@ -59,7 +61,6 @@ const AddPins = () => {
         setNewPlace({ name: '', lat: null, lng: null });
       })
       .catch(error => console.log("Error"));
-
   };
 
   return (
@@ -79,6 +80,13 @@ const AddPins = () => {
             onChange={(event) => setNewPlace((prev) => {
               return {...prev, name: event.target.value};
             })}
+          />
+          <DatePicker 
+            selected={date} 
+            onChange={(event) => setDate(event)}
+            dateFormat='dd/MM/yyyy'
+            minDate={new Date("01-04-2022")}
+            maxDate={new Date("01-29-2022")}
           />
           <p>lat: { newPlace.lat }</p>
           <p>lng: { newPlace.lng }</p>

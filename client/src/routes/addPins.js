@@ -12,14 +12,9 @@ const AddPins = () => {
   const [center, setCenter] = useState({ lat: 43.6532, lng: -79.3832 });
   const [zoom, setZoom] = useState(11);
   const [date, setDate] = useState('');
-  let [markerList, setMarkerList] = useState({
-    marker: [],
-    info: []
-  });
+  const [markerList, setMarkerList] = useState([]);
   const [newPlace, setNewPlace] = useState({
-    name: '',
-    lat: null,
-    lng: null
+    name: '', lat: null, lng: null 
   });
 
   const location = useLocation();
@@ -28,35 +23,29 @@ const AddPins = () => {
   useEffect(() => {
     axios.get(`/api/travels/${id}`)
       .then((marker) => {
-        setMarkerList(() => {
-          return { 
-            marker: [...displayMarker(marker.data)],
-            info: [...displayMarkerInfo(marker.data)]
-          };
-        });
-      });
+        setMarkerList([...marker.data]);
+      })
+      .catch(error => console.log("Error: " + error));
   }, []);
+
+  const parsedMarker = markerList.map((marker) => {
+    return <Marker key={`marker${marker.id}`} lat={marker.lat} lng={marker.long} name={marker.pinned_name} color="blue" />;
+  });
+  const parsedInfo = markerList.map((marker, index) => {
+    return <MarkerInfo key={`markerinfo${marker.id}`} name={marker.pinned_name} index={ index + 1 }/>;
+  });
 
   const addMarker = function(lat, lng) {
     setNewPlace((prev) => {
-      return {
-        ...prev,
-        lat: lat,
-        lng: lng
-      };
-    })
+      return { ...prev, lat: lat, lng: lng };
+    });
   };
 
-  const setMarker = function(lat, lng) {
-    const index = `${markerList.marker.length + 1}`;
+  const setMarker = function() {
     axios.post(`/api/pins/`, { id, ...newPlace })
       .then((res) => {
-        console.log("res:" + JSON.stringify(res));
         setMarkerList((prev) => {
-          return {
-            marker: [...prev.marker, <Marker key={`marker${index}n`} lat={newPlace.lat} lng={newPlace.lng} name={newPlace.name} color="blue" />],
-            info: [...prev.info, <MarkerInfo key={`markerinfo${index}n`} name={newPlace.name} index={ index }/>]
-          };
+          return [...prev, { id: `${markerList.length}n`, lat: newPlace.lat, long: newPlace.lng, pinned_name: newPlace.name} ]
         });
         setNewPlace({ name: '', lat: null, lng: null });
       })
@@ -90,13 +79,13 @@ const AddPins = () => {
           />
           <p>lat: { newPlace.lat }</p>
           <p>lng: { newPlace.lng }</p>
-          <button type="button" className="btn" onClick={() => setMarker(null, null)}>Add Pin</button>
+          <button type="button" className="btn" onClick={() => setMarker()}>Add Pin</button>
           
         </form>
         
         <div className="markerInfo-container">
           <h3>Places</h3>
-          { markerList.info }
+          { parsedInfo }
         </div>
 
       </div>
@@ -107,7 +96,7 @@ const AddPins = () => {
           defaultZoom={zoom}
           onClick={(event) => addMarker(event.lat, event.lng)}
         >
-          { markerList.marker }
+          { parsedMarker }
           {newPlace.lat && <Marker key={"newPlaceMarker"} lat={newPlace.lat} lng={newPlace.lng} name={newPlace.name} color="green" />}
           
         </GoogleMapReact>

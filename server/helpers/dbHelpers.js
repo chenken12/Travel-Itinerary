@@ -160,7 +160,7 @@ module.exports = (db) => {
       getCommentsById,
       addComment,
       addPin,
-      getItineraryById
+      getItineraryById,
       addItinerary,
       getUserLogin
   };

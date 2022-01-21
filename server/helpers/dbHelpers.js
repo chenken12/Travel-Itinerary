@@ -71,6 +71,17 @@ module.exports = (db) => {
         .catch((err) => err);
   };
 
+  const addItinerary = (users_id, name, description, city_name, country_name, travel_start_date, travel_end_date) => {
+    const query = {
+      text: `INSERT INTO travel_destination (users_id, name, description, city_name, country_name, travel_start_date, travel_end_date) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *` ,
+      values: [users_id, name, description, city_name, country_name, travel_start_date, travel_end_date]
+    }
+
+    return db.query(query)
+        .then(result => result.rows[0])
+        // .catch(err => err);
+  }
+
   const getTravelPlanById = (email) => {
     const query = {
       text: `SELECT pins.*
@@ -122,6 +133,7 @@ module.exports = (db) => {
       getTravelPlanById,
       getCommentsById,
       addComment,
+      addItinerary,
       getUserLogin
   };
 };

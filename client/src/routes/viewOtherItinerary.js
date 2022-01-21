@@ -53,43 +53,43 @@ export default function ViewOtherItinerary(props) {
 
 
   return (
-      <main className="map-container">
-        <div className="text-container">
-          <h2>View Other People's Itinerary</h2>
+    <main className="map-container">
+      <div className="text-container">
+        <h2>View Other People's Itinerary</h2>
 
-          <div className="markerInfo-container">
-            <h3>Places</h3>
-            { markerInfo }
-          </div>
-
-        
-          <div className="comment-container">
-            <h3>Comment</h3>
-            <form>
-              <input 
-                name="comment"
-                type="text"
-                placeholder="Post a comment"
-
-                value={ sendComment }
-                onChange={(event) => setSendComment(event.target.value)}
-              />
-            </form>
-            <button onClick={() => postComments()}>Post</button>
-            { comments }
-          </div>
+        <div className="markerInfo-container">
+          <h3>Places</h3>
+          { markerInfo }
         </div>
-        <div className="view_others_map"> 
-          <GoogleMapReact
-            bootstrapURLKeys={{ key: process.env.REACT_APP_MAPKEY }}
-            defaultCenter={center}
-            defaultZoom={zoom}
-          >
-            {markers}
-            
-          </GoogleMapReact>
+
+      
+        <div className="comment-container">
+          <h3>Comment</h3>
+          <form>
+            <input 
+              name="comment"
+              type="text"
+              placeholder="Post a comment"
+
+              value={ sendComment }
+              onChange={(event) => setSendComment(event.target.value)}
+            />
+          </form>
+          <button onClick={() => postComments()}>Post</button>
+          { comments }
         </div>
-        
-      </main>
+      </div>
+      <div className="view_others_map"> 
+        <GoogleMapReact
+          bootstrapURLKeys={{ key: process.env.REACT_APP_MAPKEY }}
+          defaultCenter={center}
+          defaultZoom={zoom}
+        >
+          {markers}
+          
+        </GoogleMapReact>
+      </div>
+      
+    </main>
   );
 }

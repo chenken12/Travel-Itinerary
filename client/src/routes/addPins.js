@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import {displayMarker, displayMarkerInfo} from '../components/DisplayMap'
 import GoogleMapReact from 'google-map-react';
 import Marker from '../components/Marker';
 import MarkerInfo from '../components/MarkerInfo';
@@ -89,7 +88,7 @@ const AddPins = () => {
         </div>
 
       </div>
-      <div className="view_others_map">
+      <div className="google_map_container">
         <GoogleMapReact
           bootstrapURLKeys={{ key: process.env.REACT_APP_MAPKEY }}
           defaultCenter={center}

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import GoogleMapReact from 'google-map-react';
-import {displayMarker, displayMarkerInfo, displayComments} from '../components/DisplayMap'
 import "../styles/viewOtherItinerary.css"
 import { useLocation } from 'react-router-dom';
 import Comments from "../components/Comment";
@@ -99,7 +98,7 @@ export default function ViewOtherItinerary(props) {
             { parsedComment }
           </div>
         </div>
-        <div className="view_others_map"> 
+        <div className="google_map_container"> 
           <GoogleMapReact
             bootstrapURLKeys={{ key: process.env.REACT_APP_MAPKEY }}
             defaultCenter={center}

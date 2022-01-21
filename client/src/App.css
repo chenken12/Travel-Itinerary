@@ -41,3 +41,14 @@
     transform: rotate(360deg);
   }
 }
+
+
+.background-main {
+  background-image: url('home-page.jpeg');
+  /* background-repeat: no-repeat; */
+  background-size: cover;
+  height: fit-content;
+  font:larger;
+  color: aliceblue;
+
+}

@@ -3,7 +3,8 @@ const router = express.Router();
 
 module.exports = ({
   getItinerary,
-  getItineraryById
+  getItineraryById,
+  addItinerary
 }) => {
   /* GET travels listing. */
   router.get('/', (req, res) => {
@@ -22,5 +23,17 @@ module.exports = ({
       }));
   });
   
+  router.post('/', (req, res) => {
+    const {name, description, city, country, startDate, endDate} = req.body;
+    console.log('post req: ', req.body);
+    addItinerary(1, name, description, city, country, startDate, endDate)
+      .then((newItinerary)=> {
+        res.status(200).json(newItinerary);
+      })
+      .catch((err) => res.status(500).json({
+        error: err.message
+      }));
+  })
+
   return router;
 };

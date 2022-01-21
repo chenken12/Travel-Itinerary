@@ -26,6 +26,9 @@ export default class NavBar extends Component {
                                 <li className="nav-item">
                                     <Link className="nav-link" to={"/register"}>Register for an Account</Link>
                                 </li>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to={"/newItinerary"}>Create an Itinerary</Link>
+                                </li>
                             </ul>
                             <Form className="d-flex">
                                 <FormControl

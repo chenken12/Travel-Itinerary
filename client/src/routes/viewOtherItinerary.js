@@ -123,5 +123,6 @@ export default function ViewOtherItinerary(props) {
         
       </main>
     </div>
+
   );
 }

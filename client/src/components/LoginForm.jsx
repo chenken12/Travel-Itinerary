@@ -1,37 +1,68 @@
-import React, { Component, useState } from "react";
+
+import axios from "axios";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import PropTypes from 'prop-types';
+// import { Redirect } from "request/lib/redirect";
+import { useNavigate } from "react-router-dom";
+import { Redirect } from "react-router";
+
+export default function LoginForm(props) {
+
+    const [user, setUser] = useState({
+        email: "", 
+        password: ""
+    });
+
+    let navigate = useNavigate();
 
 
+    const handleChange = (e) => {
+        const name = e.target.name;
+        const value = e.target.value;
+        setUser({...user, [name]:value})
+    }
 
-export default function LoginForm() {
-    // const [email, setEmail] = useState();
-    // const [password, setPassword] = useState();
+    const handleSubmit = (e) => {
+        e.preventDefault()
 
-    // const handleSubmit = async e => {
-    //     e.preventDefault();
-    //     const token = await loginUser({
-    //       email,
-    //       password
-    //     });
-    //     setToken(token);
-    //   }
-      
-    // render() {
+        if (!user.email || !user.password) {
+            alert("You need to enter the email and password to login!!");
+        }
+
+        if (user.email && user.password) {
+            axios.post("http://localhost:8080/api/login", user)
+                .then((response) => {
+                    console.log("This is the response for login axios post", response);
+                    if (response.data.length < 1 ){
+                        alert("Please enter a valid username or password");
+                        return 
+                    } else {
+                        navigate("/");
+                    }
+                    // if(response.data.length > 0) {
+                    //     navigate("/");
+                    // }
+                })
+        }
+    }
+
         return (
 
             <div className="login-wrapper">
-            <form>
+            <form onSubmit={handleSubmit}>
+
                 <div className="form-group">
                     <label>Email Address</label>
-                    <input type="email" 
-                    className="form-control" placeholder="Enter email" />
+
+                    <input type="email" name="email" value={user.email} className="form-control" placeholder="Enter email" onChange={handleChange}/>
+
                 </div>
 
                 <div className="form-group">
                     <label>Password</label>
-                    <input type="password"  
-                    className="form-control" placeholder="Enter password" />
+
+                    <input type="password" name="password" value={user.password} className="form-control" placeholder="Enter password" onChange={handleChange}/>
+
                 </div>
 
                 <button type="submit" className="btn btn-primary btn-block">Submit</button>
@@ -41,10 +72,6 @@ export default function LoginForm() {
             </form>
             </div>
         );
-    // }
-}
 
-// LoginForm.propTypes = {
-//     setToken: PropTypes.func.isRequired
-// }
+}
 

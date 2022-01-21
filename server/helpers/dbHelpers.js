@@ -34,6 +34,18 @@ module.exports = (db) => {
           .catch(err => err);
   }
 
+  const getUserLogin = (email, password) => {
+    const query = {
+      text: 'SELECT * FROM users WHERE email = $1 AND password = $2', values: [email, password]
+  };
+
+  return db
+      .query(query)
+      .then((result) => result.rows[0])
+      .catch((err) => err);
+  }
+
+
   const getUsersPosts = () => {
       const query = {
           text: `SELECT users.id as user_id, first_name, last_name, email, posts.id as post_id, title, content
@@ -59,6 +71,7 @@ module.exports = (db) => {
         .catch((err) => err);
   };
 
+
   const getItineraryById = (id) => {
     const query = {
         text: `SELECT * 
@@ -72,6 +85,17 @@ module.exports = (db) => {
         .then((result) => result.rows[0])
         .catch((err) => err);
   };
+  
+  const addItinerary = (users_id, name, description, city_name, country_name, travel_start_date, travel_end_date) => {
+    const query = {
+      text: `INSERT INTO travel_destination (users_id, name, description, city_name, country_name, travel_start_date, travel_end_date) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *` ,
+      values: [users_id, name, description, city_name, country_name, travel_start_date, travel_end_date]
+    }
+
+    return db.query(query)
+        .then(result => result.rows[0])
+        // .catch(err => err);
+  }
 
   const getTravelPlanById = (email) => {
     const query = {
@@ -137,5 +161,7 @@ module.exports = (db) => {
       addComment,
       addPin,
       getItineraryById
+      addItinerary,
+      getUserLogin
   };
 };

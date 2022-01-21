@@ -1,67 +1,116 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import {displayMarker, displayMarkerInfo} from '../components/DisplayMap'
 import GoogleMapReact from 'google-map-react';
-import "../styles/addPins.css"
 import Marker from '../components/Marker';
 import MarkerInfo from '../components/MarkerInfo';
 import { useLocation } from 'react-router-dom';
+import "../styles/viewOtherItinerary.css"
+import DatePicker from 'react-datepicker';
+import { getDatesArr, getDate } from "../helpers/dateformat";
+import MarkerInfoList from "../components/MarkerInfoList";
 
 const AddPins = () => {
   const [center, setCenter] = useState({ lat: 43.6532, lng: -79.3832 });
-  const [zoom, setZoom] = useState(9);
-  let [markers, setMarkers] = useState([
-    <Marker key={1} lat={43.6532} lng={-79.3832} name="My Marker Blue" color="blue" />,
-    <Marker key={2} lat={43.5632} lng={-79.7832} name="My Marker Red" color="red" />
-  ]);
-  const [markerInfo, setMarkersInfo] = useState();
+  const [zoom, setZoom] = useState(11);
+  const [date, setDate] = useState('');
+  const [travel, setTravel] = useState({});
+  const [markerList, setMarkerList] = useState([]);
+  const [dateList, setDateList] = useState([]);
+  const [newPlace, setNewPlace] = useState({
+    name: '', lat: null, lng: null 
+  });
+
   const location = useLocation();
   const id = location.pathname.split('/')[2];
 
   useEffect(() => {
-    axios.get(`/api/travels/${id}`)
-      .then((marker) => {
-        setMarkers(() => [...displayMarker(marker.data)]);
-        setMarkersInfo(() => [...displayMarkerInfo(marker.data)]);
-      });
+    Promise.all([
+      axios.get(`/api/pins/${id}`),
+      axios.get(`/api/travels/${id}`),
+    ]).then((all) => {
+        const [ first, second ] = all;
+        setMarkerList([...first.data]);
+        setTravel({...second.data});
+        setDateList([...getDatesArr(new Date(second.data.travel_start_date), new Date(second.data.travel_end_date))]);
+      })
+      .catch(error => console.log("Error: " + error));
   }, []);
 
+  const parsedMarker = markerList.map((marker) => {
+    return <Marker key={`marker${marker.id}`} lat={marker.lat} lng={marker.long} name={marker.pinned_name} color="blue" />;
+  });
+  const parsedDays = dateList.map((day, index) => {
+    return <MarkerInfoList key={ index } day={`${getDate(day)}`} markerList={markerList}/>
+  });
+
   const addMarker = function(lat, lng) {
-    const index = `${markers.length + 1}`;
-    setMarkers((prevState) => {
-      return [...prevState,
-        <Marker key={"marker" + index} lat={lat} lng={lng} name="My Marker" color="blue" />
-      ];
-    });
-    setMarkersInfo((prevState) => {
-      return [...prevState,
-        <MarkerInfo key={"markerinfo" + index} name="My Marker" index={ index }/>
-      ];
+    setNewPlace((prev) => {
+      return { ...prev, lat: lat, lng: lng };
     });
   };
 
+  const setMarker = function() {
+    axios.post(`/api/pins/`, { id, ...newPlace, date })
+      .then((res) => {
+        setMarkerList((prev) => {
+          return [...prev, { id: `${markerList.length}n`, travel_destination_id: id, pinned_name: newPlace.name, lat: newPlace.lat, long: newPlace.lng,  date: `${new Date(date).toISOString()} `} ]
+        });
+        setNewPlace({ name: '', lat: null, lng: null });
+      })
+      .catch(error => console.log("Error"));
+  };
+
   return (
-    <main style={{ padding: "1rem 0" }}>
-      <h2>Add Pins to Itinerary</h2>
-      <div className="map">
+    <main className="map-container">
+      <div className="text-container">
+        <h2>Add Pins to Itinerary</h2>
+
+        <button onClick={() => addMarker(null, null)}>Reset</button>
+
+        <form className="marker-form">
+          <input 
+            name="name"
+            type="text"
+            placeholder="Name the Place"
+
+            value={ newPlace.name }
+            onChange={(event) => setNewPlace((prev) => {
+              return {...prev, name: event.target.value};
+            })}
+          />
+          <DatePicker 
+            selected={date} 
+            onChange={(event) => setDate(event)}
+            dateFormat='dd/MM/yyyy'
+            minDate={new Date(travel.travel_start_date)}
+            maxDate={new Date(travel.travel_end_date)}
+          />
+          <p>lat: { newPlace.lat }</p>
+          <p>lng: { newPlace.lng }</p>
+          <button type="button" className="btn" onClick={() => setMarker()}>Add Pin</button>
+          
+        </form>
+        
+        <div className="markerInfo-container">
+          <h3>Places</h3>
+          { parsedDays }
+        </div>
+
+
+      </div>
+      <div className="google_map_container">
         <GoogleMapReact
           bootstrapURLKeys={{ key: process.env.REACT_APP_MAPKEY }}
           defaultCenter={center}
           defaultZoom={zoom}
-          onClick={(event) => {
-            console.log("latitide = ", event.lat);
-            console.log("longitude = ", event.lng);
-            addMarker(event.lat, event.lng);
-          }}
+          onClick={(event) => addMarker(event.lat, event.lng)}
         >
-          { markers }
+          { parsedMarker }
+          {newPlace.lat && <Marker key={"newPlaceMarker"} lat={newPlace.lat} lng={newPlace.lng} name={newPlace.name} color="green" />}
           
         </GoogleMapReact>
       </div>
-      <button onClick={() => addMarker(43.7632, -79.6832)}>Test</button>
-      <div className="MarkerInfo-container">
-        { markerInfo }
-      </div>
+ 
     </main>
 
   );

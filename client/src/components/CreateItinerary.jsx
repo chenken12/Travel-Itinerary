@@ -5,7 +5,7 @@ import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import '../styles/CreateItinerary.css';
-
+import { useNavigate } from 'react-router-dom';
 
 export default function CreateItinerary() {
   const state = {
@@ -17,11 +17,14 @@ export default function CreateItinerary() {
     endDate: ""
   }
 
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState(state);
   return(
     <Form xs={1} method="POST" onSubmit={ event => {
       event.preventDefault();
       axios.post(`http://localhost:8080/api/travels`, formData)
+        .then(() => navigate('/usersTravels'))
       }}>
       <h1>Create Itinerary</h1>
       <Form.Group className="mb-3">

@@ -1,10 +1,10 @@
-.view_others_map {
+.google_map_container {
   height: 100vh;
   width: 80%;
   border: 2px solid orange;
   position: -webkit-sticky; /* Safari */
   position: sticky;
-  top: 0;
+  top: 40px;
 }
 
 main.map-container {
@@ -20,6 +20,16 @@ main.map-container {
   background-color: white;
   padding: 0.5rem;
   border: 2px solid orange;
-  border-radius: 10px;
+  border-radius: 20px;
   margin: 0.2rem;
+}
+
+.marker-form {
+  padding: 10px;
+  margin: 5px;
+  width: auto;
+}
+
+.marker-form input {
+  width: 100%;
 }

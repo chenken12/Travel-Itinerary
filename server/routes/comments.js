@@ -17,7 +17,7 @@ module.exports = ({
     const {user_id, td_id, sendComment} = req.body;
     addComment(user_id, td_id, sendComment)
       .then((comments) => {
-        response.status(204).json({});
+        res.status(204).json({});
       })
       .catch((err) => res.json({
         error: err.message

@@ -38,6 +38,7 @@ const App = () => {
         <h2>Create Your Itinerary Today!</h2>
         <button onClick={() => handleRouteClick("/newItinerary")} type="button">Create Now</button>
         <br></br><br></br><br></br><br></br><br></br>
+
         <h2>View Other Itinerary</h2>
         <button onClick={() => handleRouteClick("/viewOtherItinerary/1")} type="button">View</button>
         <br></br><br></br>
@@ -47,8 +48,8 @@ const App = () => {
         <br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>
       </div>
     </div>
-
   );
+ 
 };
 
 export default App;

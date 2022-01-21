@@ -34,6 +34,18 @@ module.exports = (db) => {
           .catch(err => err);
   }
 
+  const getUserLogin = (email, password) => {
+    const query = {
+      text: 'SELECT * FROM users WHERE email = $1 AND password = $2', values: [email, password]
+  };
+
+  return db
+      .query(query)
+      .then((result) => result.rows[0])
+      .catch((err) => err);
+  }
+
+
   const getUsersPosts = () => {
       const query = {
           text: `SELECT users.id as user_id, first_name, last_name, email, posts.id as post_id, title, content
@@ -121,6 +133,7 @@ module.exports = (db) => {
       getTravelPlanById,
       getCommentsById,
       addComment,
-      addItinerary
+      addItinerary,
+      getUserLogin
   };
 };

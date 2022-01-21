@@ -7,6 +7,8 @@ import Comments from "../components/Comment";
 import Marker from '../components/Marker';
 import MarkerInfo from '../components/MarkerInfo';
 import {dateformat} from "../helpers/dateformat";
+import MarkerInfoList from "../components/MarkerInfoList";
+import { getDatesArr, getDate } from "../helpers/dateformat";
 
 export default function ViewOtherItinerary(props) {
   const [center, setCenter] = useState({lat: 43.6532, lng: -79.3832 });
@@ -15,6 +17,7 @@ export default function ViewOtherItinerary(props) {
   const [commentsList, setCommentsList] = useState([]);
   const [sendComment, setSendComment] = useState('');
   const [travel, setTravel] = useState({});
+  const [dateList, setDateList] = useState([]);
 
   const location = useLocation();
   const td_id = location.pathname.split('/')[2];
@@ -29,14 +32,20 @@ export default function ViewOtherItinerary(props) {
       setMarkerList([...first.data]);
       setCommentsList(() => [...second.data]);
       setTravel({...third.data});
+      setDateList([...getDatesArr(new Date(third.data.travel_start_date), new Date(third.data.travel_end_date))]);
     });
   }, []);
 
   const parsedMarker = markerList.map((marker) => {
     return <Marker key={`marker${marker.id}`} lat={marker.lat} lng={marker.long} name={marker.pinned_name} color="blue" />;
   });
-  const parsedInfo = markerList.map((marker, index) => {
-    return <MarkerInfo key={`markerinfo${marker.id}`} name={marker.pinned_name} index={ index + 1 }/>;
+  const parsedDays = dateList.map((day, index) => {
+    const markerfilter = markerList.filter((marker) =>{ 
+      return getDate(day) === dateformat(marker.date);
+    }); 
+    if (markerfilter.length > 0) {
+      return <MarkerInfoList key={ index } day={`${getDate(day)}`} markerList={markerList}/>
+    }
   });
   const parsedComment = commentsList.map((comment, index) => {
     return <Comments 
@@ -80,7 +89,7 @@ export default function ViewOtherItinerary(props) {
 
           <div className="markerInfo-container">
             <h3>Places</h3>
-            { parsedInfo }
+            { parsedDays }
           </div>
 
         

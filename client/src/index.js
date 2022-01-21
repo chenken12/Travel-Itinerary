@@ -20,7 +20,7 @@ import NavBar from './components/navBar';
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-    <NavBar />
+      <NavBar  />
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="login" element={<Login />} />

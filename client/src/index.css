@@ -23,6 +23,7 @@ h1,h2,h3,h4,h5,h6,label,span {
 
 .d-flex {
   margin: 0 auto;
+  padding: 0;
   border: 2px solid #dc392d; 
   outline: none;
   border-radius: 20px;

@@ -1,34 +1,81 @@
-import React, { Component } from "react";
+import React, {useState} from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-export default class RegisterForm extends Component {
-    render() {
+export default function RegisterForm() {
+
+    const [user, setUser] = useState({
+        firstName: "", 
+        lastName: "", 
+        email: "", 
+        password: "",
+        passwordConfirmation: ""
+    });
+
+
+    let navigate = useNavigate();
+
+
+    const handleChange = (e) => {
+        const name = e.target.name;
+        const value = e.target.value;
+        console.log("This is the name and value", name, value);
+        setUser({...user, [name]:value})
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+
+        if (!user.firstName || !user.lastName || !user.email || !user.password || !user.passwordConfirmation) {
+            alert("You need to fill out all sections of the form to register for an account!");
+        }
+
+        if (user.password !== user.passwordConfirmation) {
+            alert("Error!! Password Confirmation does not match password!")
+        }
+
+        if (user.firstName && user.lastName && user.email && user.password && user.passwordConfirmation) {
+            axios.post("http://localhost:8080/api/register", user)
+                .then((response) => {
+                    console.log("This is the response for user registration axios post", response);
+                    if (response.data.length < 1 ){
+                        alert("Please enter a valid input");
+                        return 
+                    } 
+                    else {
+                        navigate("/login");
+                    }
+                })
+        }
+    }
+
         return (
-            <form className="register-form">
+            <form className="register-form" onSubmit={handleSubmit}>
 
                 <div className="form-group">
                     <label>First Name</label>
-                    <input type="text" className="form-control" placeholder="First name" />
+                    <input type="text" name="firstName" value={user.firstName} className="form-control" placeholder="First name" onChange={handleChange} />
                 </div>
 
                 <div className="form-group">
                     <label>Last Name</label>
-                    <input type="text" className="form-control" placeholder="Last name" />
+                    <input type="text" name="lastName" value={user.lastName} className="form-control" placeholder="Last name" onChange={handleChange} />
                 </div>
 
                 <div className="form-group">
                     <label>Email Address</label>
-                    <input type="email" className="form-control" placeholder="Enter email" />
+                    <input type="email" name="email" value={user.email} className="form-control" placeholder="Enter email" onChange={handleChange} />
                 </div>
 
                 <div className="form-group">
                     <label>Password</label>
-                    <input type="password" className="form-control" placeholder="Enter password" />
+                    <input type="password" name="password" value={user.password} className="form-control" placeholder="Enter password" onChange={handleChange} />
                 </div>
 
                 <div className="form-group">
                     <label>Password Confirmation</label>
-                    <input type="password" className="form-control" placeholder="Enter password" />
+                    <input type="password" name="passwordConfirmation" value={user.passwordConfirmation} className="form-control" placeholder="Enter password" onChange={handleChange} />
                 </div>
 
                 <button type="submit" className="btn btn-primary btn-block">Sign Up</button>
@@ -37,5 +84,4 @@ export default class RegisterForm extends Component {
                 </p>
             </form>
         );
-    }
 }

@@ -24,6 +24,7 @@ export default function LoginForm(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault()
+        
 
         if (!user.email || !user.password) {
             alert("You need to enter the email and password to login!!");
@@ -34,11 +35,18 @@ export default function LoginForm(props) {
                 .then((response) => {
                     console.log("This is the response for login axios post", response);
                     if (response.data.length < 1 ){
-                        alert("Please enter a valid username or password");
+                        alert("Please enter a valid input");
                         return 
-                    } else {
+                    } 
+                    else {
                         navigate("/");
                     }
+                    // if (response.data.length < 1 ){
+                    //     alert("Please enter a valid username or password");
+                    //     return 
+                    // } else if(response.data.length > 0) {
+                    //     navigate("/");
+                    // }
                     // if(response.data.length > 0) {
                     //     navigate("/");
                     // }

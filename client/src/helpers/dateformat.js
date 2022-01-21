@@ -5,11 +5,27 @@ const dateformat = function(date) {
   return jsDate.toLocaleDateString("en-US", options);
 };
 
-const getDate = function() {
-  const date = new Date();
+const getDate = function(date) {
+  // const date = new Date();
   const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-  console.log(date.toLocaleDateString("en-US", options));
+  // console.log(date.toLocaleDateString("en-US", options));
   return date.toLocaleDateString("en-US", options);
 };
 
-module.exports = {dateformat, getDate};
+Date.prototype.addDays = function(days) {
+  var date = new Date(this.valueOf());
+  date.setDate(date.getDate() + days);
+  return date;
+}
+
+function getDatesArr(startDate, stopDate) {
+  const dateArray = new Array();
+  let currentDate = startDate;
+  while (currentDate <= stopDate) {
+      dateArray.push(new Date (currentDate));
+      currentDate = currentDate.addDays(1);
+  }
+  return dateArray;
+}
+
+module.exports = {dateformat, getDate, getDatesArr };

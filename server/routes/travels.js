@@ -3,20 +3,20 @@ const router = express.Router();
 
 module.exports = ({
   getItinerary,
-  getTravelPlanById
+  getItineraryById
 }) => {
-  router.get('/:id', (req, res) => {
-    getTravelPlanById(req.params.id)
-      .then((travel) => res.json(travel))
+  /* GET travels listing. */
+  router.get('/', (req, res) => {
+    getItinerary()
+      .then((travels) => res.json(travels))
       .catch((err) => res.json({
         error: err.message
       }));
   });
 
-  /* GET travels listing. */
-  router.get('/', (req, res) => {
-    getItinerary()
-      .then((travels) => res.json(travels))
+  router.get('/:id', (req, res) => {
+    getItineraryById(req.params.id)
+      .then((travel) => res.json(travel))
       .catch((err) => res.json({
         error: err.message
       }));

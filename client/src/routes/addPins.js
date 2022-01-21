@@ -6,12 +6,16 @@ import MarkerInfo from '../components/MarkerInfo';
 import { useLocation } from 'react-router-dom';
 import "../styles/viewOtherItinerary.css"
 import DatePicker from 'react-datepicker';
+import { getDatesArr, getDate } from "../helpers/dateformat";
+import MarkerInfoList from "../components/MarkerInfoList";
 
 const AddPins = () => {
   const [center, setCenter] = useState({ lat: 43.6532, lng: -79.3832 });
   const [zoom, setZoom] = useState(11);
   const [date, setDate] = useState('');
+  const [travel, setTravel] = useState({});
   const [markerList, setMarkerList] = useState([]);
+  const [dateList, setDateList] = useState([]);
   const [newPlace, setNewPlace] = useState({
     name: '', lat: null, lng: null 
   });
@@ -20,9 +24,14 @@ const AddPins = () => {
   const id = location.pathname.split('/')[2];
 
   useEffect(() => {
-    axios.get(`/api/travels/${id}`)
-      .then((marker) => {
-        setMarkerList([...marker.data]);
+    Promise.all([
+      axios.get(`/api/pins/${id}`),
+      axios.get(`/api/travels/${id}`),
+    ]).then((all) => {
+        const [ first, second ] = all;
+        setMarkerList([...first.data]);
+        setTravel({...second.data});
+        setDateList([...getDatesArr(new Date(second.data.travel_start_date), new Date(second.data.travel_end_date))]);
       })
       .catch(error => console.log("Error: " + error));
   }, []);
@@ -30,8 +39,11 @@ const AddPins = () => {
   const parsedMarker = markerList.map((marker) => {
     return <Marker key={`marker${marker.id}`} lat={marker.lat} lng={marker.long} name={marker.pinned_name} color="blue" />;
   });
-  const parsedInfo = markerList.map((marker, index) => {
-    return <MarkerInfo key={`markerinfo${marker.id}`} name={marker.pinned_name} index={ index + 1 }/>;
+  // const parsedInfo = markerList.map((marker, index) => {
+  //   return <MarkerInfo key={`markerinfo${marker.id}`} name={marker.pinned_name} index={ index + 1 }/>;
+  // });
+  const parsedDays = dateList.map((day, index) => {
+    return <MarkerInfoList key={ index } day={`${getDate(day)}`} markerList={markerList}/>
   });
 
   const addMarker = function(lat, lng) {
@@ -41,7 +53,7 @@ const AddPins = () => {
   };
 
   const setMarker = function() {
-    axios.post(`/api/pins/`, { id, ...newPlace })
+    axios.post(`/api/pins/`, { id, ...newPlace, date })
       .then((res) => {
         setMarkerList((prev) => {
           return [...prev, { id: `${markerList.length}n`, lat: newPlace.lat, long: newPlace.lng, pinned_name: newPlace.name} ]
@@ -73,8 +85,8 @@ const AddPins = () => {
             selected={date} 
             onChange={(event) => setDate(event)}
             dateFormat='dd/MM/yyyy'
-            minDate={new Date("01-04-2022")}
-            maxDate={new Date("01-29-2022")}
+            minDate={new Date(travel.travel_start_date)}
+            maxDate={new Date(travel.travel_end_date)}
           />
           <p>lat: { newPlace.lat }</p>
           <p>lng: { newPlace.lng }</p>
@@ -84,8 +96,9 @@ const AddPins = () => {
         
         <div className="markerInfo-container">
           <h3>Places</h3>
-          { parsedInfo }
+          { parsedDays }
         </div>
+
 
       </div>
       <div className="google_map_container">

@@ -6,7 +6,7 @@ import { useLocation } from 'react-router-dom';
 import Comments from "../components/Comment";
 import Marker from '../components/Marker';
 import MarkerInfo from '../components/MarkerInfo';
-import {dateformat, getDate} from "../helpers/dateformat";
+import {dateformat} from "../helpers/dateformat";
 
 export default function ViewOtherItinerary(props) {
   const [center, setCenter] = useState({lat: 43.6532, lng: -79.3832 });
@@ -14,18 +14,21 @@ export default function ViewOtherItinerary(props) {
   const [markerList, setMarkerList] = useState([]);
   const [commentsList, setCommentsList] = useState([]);
   const [sendComment, setSendComment] = useState('');
+  const [travel, setTravel] = useState({});
 
   const location = useLocation();
   const td_id = location.pathname.split('/')[2];
 
   useEffect(() => {
     Promise.all([
+      axios.get(`/api/pins/${td_id}`),
+      axios.get(`/api/comments/${td_id}`),
       axios.get(`/api/travels/${td_id}`),
-      axios.get(`/api/comments/${td_id}`)
     ]).then((all) => {
-      const [ first, second ] = all;
+      const [ first, second, third ] = all;
       setMarkerList([...first.data]);
       setCommentsList(() => [...second.data]);
+      setTravel({...third.data});
     });
   }, []);
 

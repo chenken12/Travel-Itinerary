@@ -2,7 +2,7 @@ INSERT INTO
 travel_destination(users_id, name, description, city_name, country_name, travel_start_date, travel_end_date)
 VALUES
     (
-      1, 'CN Tower', 'CN Tower, also called Canadian National Tower, broadcast and telecommunications tower in Toronto.', 'Toronto', 'Canada', '2022-01-25', '2022-02-15'
+      1, 'CN Tower', 'CN Tower, also called Canadian National Tower, broadcast and telecommunications tower in Toronto.', 'Toronto', 'Canada', '2022-01-25', '2022-02-09'
     ),
       
     (

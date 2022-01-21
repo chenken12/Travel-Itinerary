@@ -5,13 +5,10 @@ const MarkerInfoList = (props) => {
   const { day, markerList } = props;
 
   const markerfilter = markerList.filter((marker) =>{ 
-    // console.log(dateformat(marker.date));
     return day === dateformat(marker.date);
     
   }); 
 
- 
-  // console.log(markerfilter);
   const parsedInfo = markerfilter.map((marker, index) => {
     return <MarkerInfo key={`markerinfo${marker.id}`} name={marker.pinned_name} index={ index + 1 }/>;
   });

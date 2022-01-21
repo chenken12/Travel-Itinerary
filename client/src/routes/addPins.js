@@ -39,9 +39,6 @@ const AddPins = () => {
   const parsedMarker = markerList.map((marker) => {
     return <Marker key={`marker${marker.id}`} lat={marker.lat} lng={marker.long} name={marker.pinned_name} color="blue" />;
   });
-  // const parsedInfo = markerList.map((marker, index) => {
-  //   return <MarkerInfo key={`markerinfo${marker.id}`} name={marker.pinned_name} index={ index + 1 }/>;
-  // });
   const parsedDays = dateList.map((day, index) => {
     return <MarkerInfoList key={ index } day={`${getDate(day)}`} markerList={markerList}/>
   });

@@ -36,10 +36,10 @@ export default function NavBar(props) {
                   <Link className="nav-link" to={"/login"}>Login</Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to={"/register"}>Register for an Account</Link>
+                  <Link className="nav-link" to={"/register"}>Signup</Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to={"/newItinerary"}>Create an Itinerary</Link>
+                  <Link className="nav-link" to={"/newItinerary"}>New Itinerary</Link>
                 </li>
               </ul>
               <Form className="d-flex">
@@ -53,7 +53,7 @@ export default function NavBar(props) {
               </Form>
             </div>
             &nbsp&nbsp
-            <Navbar.Text> Signed in as: <a href="#login">This is a test user</a> </Navbar.Text>
+            <Navbar.Text> Signed in as: <a href="#login">Testing</a> </Navbar.Text>
             <button onClick={props.logout}>Logout</button>
           </Nav>
         </Container>

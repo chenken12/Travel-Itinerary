@@ -1,3 +1,4 @@
+import React, { useEffect } from "react";
 import MarkerInfo from "./MarkerInfo";
 import { dateformat } from "../helpers/dateformat";
 
@@ -6,7 +7,6 @@ const MarkerInfoList = (props) => {
 
   const markerfilter = markerList.filter((marker) =>{ 
     return day === dateformat(marker.date);
-    
   }); 
 
   const parsedInfo = markerfilter.map((marker, index) => {

@@ -71,6 +71,21 @@ module.exports = (db) => {
         .catch((err) => err);
   };
 
+
+  const getItineraryById = (id) => {
+    const query = {
+        text: `SELECT * 
+          FROM travel_destination
+          WHERE id = $1`,
+        values: [id]
+    };
+
+    return db
+        .query(query)
+        .then((result) => result.rows[0])
+        .catch((err) => err);
+  };
+  
   const addItinerary = (users_id, name, description, city_name, country_name, travel_start_date, travel_end_date) => {
     const query = {
       text: `INSERT INTO travel_destination (users_id, name, description, city_name, country_name, travel_start_date, travel_end_date) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *` ,
@@ -110,19 +125,30 @@ module.exports = (db) => {
     return db
       .query(query)
       .then((result) => result.rows)
-        .catch((err) => err);
+      .catch((err) => err);
   };
 
   const addComment = (users_id, travel_destination_id, comment) => {
     const query = {
       text: `INSERT INTO comments (users_id, travel_destination_id, comment) VALUES ($1, $2, $3) RETURNING *` ,
       values: [users_id, travel_destination_id, comment]
-    }
+    };
 
     return db.query(query)
-        .then(result => result.rows[0])
-        .catch(err => err);
-}
+      .then(result => result.rows[0])
+      .catch(err => err);
+  };
+
+  const addPin = (travel_destination_id, name, lat, long, date) => {
+    const query = {
+      text: `INSERT INTO pins (travel_destination_id, pinned_name, lat, long, date) VALUES ($1, $2, $3, $4, $5) RETURNING *` ,
+      values: [travel_destination_id, name, lat, long, date]
+    };
+
+    return db.query(query)
+      .then(result => result.rows[0])
+      .catch(err => err);
+  };
 
   return {
       getUsers,
@@ -133,6 +159,8 @@ module.exports = (db) => {
       getTravelPlanById,
       getCommentsById,
       addComment,
+      addPin,
+      getItineraryById
       addItinerary,
       getUserLogin
   };

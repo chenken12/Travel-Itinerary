@@ -29,26 +29,25 @@ const App = () => {
     <div className="App">
       
       <div className='background-main'>
-  <button onClick={() => handleRouteClick("/addPins")} type="button">Add Pins page</button>
-  <button onClick={() => handleRouteClick("/usersTravels")} type="button">usersTravels page</button>
-  <br></br><br></br><br></br><br></br><br></br><br></br><br></br>
-  
-    <h2>Create Your Itinerary Today!</h2>
-    <button onClick={() => handleRouteClick("/newItinerary")} type="button">Create Now</button>
-    <br></br><br></br><br></br><br></br><br></br>
-    <h2>View Other Itineraries</h2>
-    <button onClick={() => handleRouteClick("/viewOtherItinerary/1")} type="button">View</button>
-    <br></br><br></br>
-    <button onClick={() => handleRouteClick("/viewOtherItinerary/2")} type="button">View</button> 
-    <br></br><br></br>
-    <button onClick={() => handleRouteClick("/viewOtherItinerary/3")} type="button">View</button>
-    <br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>
-  </div>
+        <button onClick={() => handleRouteClick("/addPins")} type="button">Add Pins page</button>
+        <button onClick={() => handleRouteClick("/usersTravels")} type="button">usersTravels page</button>
+        <br></br><br></br><br></br><br></br><br></br><br></br><br></br>
 
-      
+        <h2>Create Your Itinerary Today!</h2>
+        <button onClick={() => handleRouteClick("/newItinerary")} type="button">Create Now</button>
+        <br></br><br></br><br></br><br></br><br></br>
+        <h2>View Other Itineraries</h2>
+        <button onClick={() => handleRouteClick("/viewOtherItinerary/1")} type="button">View</button>
+        <br></br><br></br>
+        <button onClick={() => handleRouteClick("/viewOtherItinerary/2")} type="button">View</button> 
+        <br></br><br></br>
+        <button onClick={() => handleRouteClick("/viewOtherItinerary/3")} type="button">View</button>
+        <br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>
+      </div>
+
     </div>
-
   );
+ 
 };
 
 export default App;

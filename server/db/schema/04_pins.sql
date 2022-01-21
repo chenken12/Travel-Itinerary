@@ -4,5 +4,6 @@ CREATE TABLE pins(
     travel_destination_id INTEGER REFERENCES travel_destination(id),
     pinned_name VARCHAR NOT NULL,
     long float NOT NULL,
-    lat float NOT NULL
+    lat float NOT NULL,
+    date DATE NOT NULL
 );

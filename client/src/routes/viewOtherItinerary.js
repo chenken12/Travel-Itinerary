@@ -1,50 +1,79 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import GoogleMapReact from 'google-map-react';
-import {displayMarker, displayMarkerInfo, displayComments} from '../components/DisplayMap'
 import "../styles/viewOtherItinerary.css"
 import { useLocation } from 'react-router-dom';
-import NavBar from "../components/navBar";
 import Comments from "../components/Comment";
+import Marker from '../components/Marker';
+import MarkerInfo from '../components/MarkerInfo';
+import {dateformat} from "../helpers/dateformat";
+import MarkerInfoList from "../components/MarkerInfoList";
+import { getDatesArr, getDate } from "../helpers/dateformat";
 
 export default function ViewOtherItinerary(props) {
   const [center, setCenter] = useState({lat: 43.6532, lng: -79.3832 });
   const [zoom, setZoom] = useState(13);
-  const [markers, setMarkers] = useState();
-  const [markerInfo, setMarkersInfo] = useState();
-  const [comments, setComments] = useState();
+  const [markerList, setMarkerList] = useState([]);
+  const [commentsList, setCommentsList] = useState([]);
   const [sendComment, setSendComment] = useState('');
+  const [travel, setTravel] = useState({});
+  const [dateList, setDateList] = useState([]);
 
   const location = useLocation();
   const td_id = location.pathname.split('/')[2];
 
   useEffect(() => {
     Promise.all([
+      axios.get(`/api/pins/${td_id}`),
+      axios.get(`/api/comments/${td_id}`),
       axios.get(`/api/travels/${td_id}`),
-      axios.get(`/api/comments/${td_id}`)
     ]).then((all) => {
-      const [ first, second ] = all;
-      console.log(second.data)
-      setMarkers(() => [...displayMarker(first.data)]);
-      setMarkersInfo(() => [...displayMarkerInfo(first.data)]);
-      setComments(() => [...displayComments(second.data)]);
+      const [ first, second, third ] = all;
+      setMarkerList([...first.data]);
+      setCommentsList(() => [...second.data]);
+      setTravel({...third.data});
+      setDateList([...getDatesArr(new Date(third.data.travel_start_date), new Date(third.data.travel_end_date))]);
     });
   }, []);
+
+  const parsedMarker = markerList.map((marker) => {
+    return <Marker key={`marker${marker.id}`} lat={marker.lat} lng={marker.long} name={marker.pinned_name} color="blue" />;
+  });
+  const parsedDays = dateList.map((day, index) => {
+    const markerfilter = markerList.filter((marker) =>{ 
+      return getDate(day) === dateformat(marker.date);
+    }); 
+    if (markerfilter.length > 0) {
+      return <MarkerInfoList key={ index } day={`${getDate(day)}`} markerList={markerList}/>
+    }
+  });
+  const parsedComment = commentsList.map((comment, index) => {
+    return <Comments 
+      key={`comment${comment.id}`} 
+      text={comment.comment} 
+      time={dateformat(comment.created_at)} 
+      name={`${comment.first_name} ${comment.last_name}`} 
+    />;
+  });
 
   /* 
     // get user id when sign up page is done
   */
   const postComments = function() {
+    const event = new Date();
     const user_id = 1;
     axios.post(`/api/comments/`, { user_id, td_id, sendComment })
       .then(() => {
-        setComments((prev) => {
-          return [prev, <Comments  
-            key={"New-comment" + comments.length} 
-            text={sendComment} 
-            time={Date().toString()} 
-            name={`test ${user_id}`} 
-          />]
+        setCommentsList((prev) => {
+          return [...prev, {
+            id: `comment${commentsList.length}n`,
+            users_id: 1, // user id 
+            travel_destination_id: td_id,
+            comment: sendComment,
+            created_at: event.toISOString(),
+            first_name: "Test", // user name
+            last_name: "CC"
+          }]
         })
         setSendComment('');
       })
@@ -53,43 +82,47 @@ export default function ViewOtherItinerary(props) {
 
 
   return (
-    <main className="map-container">
-      <div className="text-container">
-        <h2>View Other People's Itinerary</h2>
+    <div>
+      <main className="map-container">
+        <div className="text-container">
+          <h2>View Other People's Itinerary</h2>
 
-        <div className="markerInfo-container">
-          <h3>Places</h3>
-          { markerInfo }
+          <div className="markerInfo-container">
+            <h3>Places</h3>
+            { parsedDays }
+          </div>
+
+        
+          <div className="comment-container">
+            <h3>Comment</h3>
+            <form>
+              <input 
+                name="comment"
+                type="text"
+                placeholder="Post a comment"
+
+                value={ sendComment }
+                onChange={(event) => setSendComment(event.target.value)}
+              />
+            
+            </form>
+            <button onClick={() => postComments()}>Post</button>
+            { parsedComment }
+          </div>
         </div>
-
-      
-        <div className="comment-container">
-          <h3>Comment</h3>
-          <form>
-            <input 
-              name="comment"
-              type="text"
-              placeholder="Post a comment"
-
-              value={ sendComment }
-              onChange={(event) => setSendComment(event.target.value)}
-            />
-          </form>
-          <button onClick={() => postComments()}>Post</button>
-          { comments }
+        <div className="google_map_container"> 
+          <GoogleMapReact
+            bootstrapURLKeys={{ key: process.env.REACT_APP_MAPKEY }}
+            defaultCenter={center}
+            defaultZoom={zoom}
+          >
+            {parsedMarker}
+            
+          </GoogleMapReact>
         </div>
-      </div>
-      <div className="view_others_map"> 
-        <GoogleMapReact
-          bootstrapURLKeys={{ key: process.env.REACT_APP_MAPKEY }}
-          defaultCenter={center}
-          defaultZoom={zoom}
-        >
-          {markers}
-          
-        </GoogleMapReact>
-      </div>
-      
-    </main>
+        
+      </main>
+    </div>
+
   );
 }

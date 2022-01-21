@@ -1,5 +1,4 @@
 import React from 'react';
-import "../styles/comment.css"
 
 const Comments = (props) => {
     const { text, time, name } = props;

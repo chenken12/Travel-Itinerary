@@ -5,13 +5,15 @@ import {displayMarker, displayMarkerInfo, displayComments} from '../components/D
 import "../styles/viewOtherItinerary.css"
 import { useLocation } from 'react-router-dom';
 import Comments from "../components/Comment";
+import Marker from '../components/Marker';
+import MarkerInfo from '../components/MarkerInfo';
+import {dateformat, getDate} from "../helpers/dateformat";
 
 export default function ViewOtherItinerary(props) {
   const [center, setCenter] = useState({lat: 43.6532, lng: -79.3832 });
   const [zoom, setZoom] = useState(13);
-  const [markers, setMarkers] = useState();
-  const [markerInfo, setMarkersInfo] = useState();
-  const [comments, setComments] = useState();
+  const [markerList, setMarkerList] = useState([]);
+  const [commentsList, setCommentsList] = useState([]);
   const [sendComment, setSendComment] = useState('');
 
   const location = useLocation();
@@ -23,26 +25,44 @@ export default function ViewOtherItinerary(props) {
       axios.get(`/api/comments/${td_id}`)
     ]).then((all) => {
       const [ first, second ] = all;
-      setMarkers(() => [...displayMarker(first.data)]);
-      setMarkersInfo(() => [...displayMarkerInfo(first.data)]);
-      setComments(() => [...displayComments(second.data)]);
+      setMarkerList([...first.data]);
+      setCommentsList(() => [...second.data]);
     });
   }, []);
+
+  const parsedMarker = markerList.map((marker) => {
+    return <Marker key={`marker${marker.id}`} lat={marker.lat} lng={marker.long} name={marker.pinned_name} color="blue" />;
+  });
+  const parsedInfo = markerList.map((marker, index) => {
+    return <MarkerInfo key={`markerinfo${marker.id}`} name={marker.pinned_name} index={ index + 1 }/>;
+  });
+  const parsedComment = commentsList.map((comment, index) => {
+    return <Comments 
+      key={`comment${comment.id}`} 
+      text={comment.comment} 
+      time={dateformat(comment.created_at)} 
+      name={`${comment.first_name} ${comment.last_name}`} 
+    />;
+  });
 
   /* 
     // get user id when sign up page is done
   */
   const postComments = function() {
+    const event = new Date();
     const user_id = 1;
     axios.post(`/api/comments/`, { user_id, td_id, sendComment })
       .then(() => {
-        setComments((prev) => {
-          return [prev, <Comments  
-            key={"New-comment" + comments.length} 
-            text={sendComment} 
-            time={Date().toString()} 
-            name={`test ${user_id}`} 
-          />]
+        setCommentsList((prev) => {
+          return [...prev, {
+            id: `comment${commentsList.length}n`,
+            users_id: 1, // user id 
+            travel_destination_id: td_id,
+            comment: sendComment,
+            created_at: event.toISOString(),
+            first_name: "Test", // user name
+            last_name: "CC"
+          }]
         })
         setSendComment('');
       })
@@ -58,7 +78,7 @@ export default function ViewOtherItinerary(props) {
 
           <div className="markerInfo-container">
             <h3>Places</h3>
-            { markerInfo }
+            { parsedInfo }
           </div>
 
         
@@ -76,7 +96,7 @@ export default function ViewOtherItinerary(props) {
             
             </form>
             <button onClick={() => postComments()}>Post</button>
-            { comments }
+            { parsedComment }
           </div>
         </div>
         <div className="view_others_map"> 
@@ -85,7 +105,7 @@ export default function ViewOtherItinerary(props) {
             defaultCenter={center}
             defaultZoom={zoom}
           >
-            {markers}
+            {parsedMarker}
             
           </GoogleMapReact>
         </div>

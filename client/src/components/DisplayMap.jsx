@@ -30,11 +30,6 @@ const displayMarkerInfo = function(markers) {
 };
 
 const displayComments = function(comments) {
-  // const dateformat = function(date) {
-    
-  //   return jsDate;
-  // }
-
   return comments.map((comment) => {
     const dateParts = comment.created_at.split("-");
     const jsDate = new Date(dateParts[0], dateParts[1] - 1, dateParts[2].substr(0,2));

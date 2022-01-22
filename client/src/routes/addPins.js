@@ -7,6 +7,7 @@ import "../styles/viewOtherItinerary.css"
 import DatePicker from 'react-datepicker';
 import { getDatesArr, getDate, timezoneOffset } from "../helpers/dateformat";
 import MarkerInfoList from "../components/MarkerInfoList";
+import Traveldetails from "../components/Traveldetails";
 
 const AddPins = () => {
   const [center, setCenter] = useState({ lat: 43.6532, lng: -79.3832 });
@@ -44,6 +45,7 @@ const AddPins = () => {
   });
 
   const addMarker = function(lat, lng) {
+    setError("");
     setNewPlace((prev) => {
       return { ...prev, lat: lat, lng: lng };
     });
@@ -77,11 +79,12 @@ const AddPins = () => {
   return (
     <main className="map-container">
       <div className="text-container">
-        <h2>Add Pins to Itinerary</h2>
-
-        <button onClick={() => addMarker(null, null)}>Reset</button>
-
+        <Traveldetails 
+          {...travel}
+        />
+   
         <form className="marker-form">
+          <h2>Add Pins to Itinerary</h2>
           <input 
             name="name"
             type="text"
@@ -100,10 +103,9 @@ const AddPins = () => {
             minDate={timezoneOffset(new Date(travel.travel_start_date))}
             maxDate={timezoneOffset(new Date(travel.travel_end_date))}
           />
-          <section className="error_msg">{error}</section>
-          <p>lat: { newPlace.lat }</p>
-          <p>lng: { newPlace.lng }</p>
-          <button type="button" className="btn" onClick={() => setMarker()}>Add Pin</button>
+          <section className="error_msg" style={{ color: "red" }}>{error}</section>
+          <button type="button" className="btn" onClick={() => setMarker()}>Save</button>
+          <button type="button" className="btn" onClick={() => addMarker(null, null)}>Cancel</button>
           
         </form>
         

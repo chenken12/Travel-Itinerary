@@ -34,3 +34,12 @@ main.map-container {
 .marker-form input {
   width: 100%;
 }
+
+.comment-form {
+  padding: 10px;
+  margin: 0.5rem;
+  width: auto;
+}
+.comment-form input{
+  width: 100%;
+}

@@ -84,7 +84,7 @@ const AddPins = () => {
         />
    
         <form className="marker-form">
-          <h2>Add Pins to Itinerary</h2>
+          <h3>Add Pins to Itinerary</h3>
           <input 
             name="name"
             type="text"

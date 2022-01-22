@@ -18,14 +18,18 @@ Date.prototype.addDays = function(days) {
   return date;
 }
 
-function getDatesArr(startDate, stopDate) {
+const getDatesArr = function(startDate, stopDate) {
   const dateArray = new Array();
-  let currentDate = startDate;
-  while (currentDate <= stopDate) {
+  let currentDate = timezoneOffset(startDate);
+  while (currentDate <= timezoneOffset(stopDate)) {
       dateArray.push(new Date (currentDate));
       currentDate = currentDate.addDays(1);
   }
   return dateArray;
 }
 
-module.exports = {dateformat, getDate, getDatesArr };
+const timezoneOffset = function(date) {
+  return new Date(date.getTime() + date.getTimezoneOffset() * 60000);
+}
+
+module.exports = {dateformat, getDate, getDatesArr, timezoneOffset };

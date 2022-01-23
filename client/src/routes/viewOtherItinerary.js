@@ -5,10 +5,10 @@ import "../styles/viewOtherItinerary.css"
 import { useLocation } from 'react-router-dom';
 import Comments from "../components/Comment";
 import Marker from '../components/Marker';
-import MarkerInfo from '../components/MarkerInfo';
 import {dateformat} from "../helpers/dateformat";
 import MarkerInfoList from "../components/MarkerInfoList";
 import { getDatesArr, getDate } from "../helpers/dateformat";
+import Traveldetails from "../components/Traveldetails";
 
 export default function ViewOtherItinerary(props) {
   const [center, setCenter] = useState({lat: 43.6532, lng: -79.3832 });
@@ -18,6 +18,7 @@ export default function ViewOtherItinerary(props) {
   const [sendComment, setSendComment] = useState('');
   const [travel, setTravel] = useState({});
   const [dateList, setDateList] = useState([]);
+  const [error, setError] = useState("");
 
   const location = useLocation();
   const td_id = location.pathname.split('/')[2];
@@ -62,6 +63,11 @@ export default function ViewOtherItinerary(props) {
   const postComments = function() {
     const event = new Date();
     const user_id = 1;
+    if (sendComment === "") {
+      setError("Comment cannot be blank");
+      return;
+    }
+
     axios.post(`/api/comments/`, { user_id, td_id, sendComment })
       .then(() => {
         setCommentsList((prev) => {
@@ -75,6 +81,7 @@ export default function ViewOtherItinerary(props) {
             last_name: "CC"
           }]
         })
+        setError("");
         setSendComment('');
       })
       .catch(error => console.log("Error"));
@@ -85,6 +92,10 @@ export default function ViewOtherItinerary(props) {
     <div>
       <main className="map-container">
         <div className="text-container">
+          <Traveldetails 
+            {...travel}
+          />
+
           <h2>View Other People's Itinerary</h2>
 
           <div className="markerInfo-container">
@@ -95,7 +106,8 @@ export default function ViewOtherItinerary(props) {
         
           <div className="comment-container">
             <h3>Comment</h3>
-            <form>
+            <form className="comment-form">
+              <section className="error_msg" style={{ color: "red" }}>{error}</section>
               <input 
                 name="comment"
                 type="text"
@@ -104,9 +116,9 @@ export default function ViewOtherItinerary(props) {
                 value={ sendComment }
                 onChange={(event) => setSendComment(event.target.value)}
               />
-            
+              <button type="button" onClick={() => postComments()}>Comment</button>
             </form>
-            <button onClick={() => postComments()}>Post</button>
+            
             { parsedComment }
           </div>
         </div>

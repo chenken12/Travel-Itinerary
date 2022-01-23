@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import MarkerInfo from "./MarkerInfo";
 import { dateformat } from "../helpers/dateformat";
 
@@ -10,14 +10,16 @@ const MarkerInfoList = (props) => {
   }); 
 
   const parsedInfo = markerfilter.map((marker, index) => {
-    return <MarkerInfo key={`markerinfo${marker.id}`} name={marker.pinned_name} index={ index + 1 }/>;
+    // if (day === dateformat(marker.date)) {
+      return <MarkerInfo key={`markerinfo${marker.id}`} name={marker.pinned_name} index={ index + 1 }/>;
+    // }
   });
   
 
   return (
     <div className='text-box'>
       { day }
-      {markerfilter.length > 0 && parsedInfo }
+      {parsedInfo.length > 0 && parsedInfo }
       {/* {markerfilter.length > 0 && <a>test</a> } */}
     </div>
   );

@@ -31,7 +31,7 @@ const App = () => {
     <div className="App">
 
       <div className='background-main'>
-        <button onClick={() => handleRouteClick("/addPins")} type="button">Add Pins page</button>
+        <button onClick={() => handleRouteClick("/edit/1")} type="button">Add Pins page</button>
         <button onClick={() => handleRouteClick("/usersTravels")} type="button">usersTravels page</button>
         <br></br><br></br><br></br><br></br><br></br><br></br><br></br>
 
@@ -40,11 +40,11 @@ const App = () => {
         <br></br><br></br><br></br><br></br><br></br>
 
         <h2>View Other Itinerary</h2>
-        <button onClick={() => handleRouteClick("/viewOtherItinerary/1")} type="button">View</button>
+        <button onClick={() => handleRouteClick("/view/1")} type="button">View</button>
         <br></br><br></br>
-        <button onClick={() => handleRouteClick("/viewOtherItinerary/2")} type="button">View</button>
+        <button onClick={() => handleRouteClick("/view/2")} type="button">View</button>
         <br></br><br></br>
-        <button onClick={() => handleRouteClick("/viewOtherItinerary/3")} type="button">View</button>
+        <button onClick={() => handleRouteClick("/view/3")} type="button">View</button>
         <br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>
       </div>
     </div>

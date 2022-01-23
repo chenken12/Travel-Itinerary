@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import GoogleMapReact from 'google-map-react';
 import Marker from '../components/Marker';
-import MarkerInfo from '../components/MarkerInfo';
 import { useLocation } from 'react-router-dom';
 import "../styles/viewOtherItinerary.css"
 import DatePicker from 'react-datepicker';
-import { getDatesArr, getDate } from "../helpers/dateformat";
+import { getDatesArr, getDate, timezoneOffset } from "../helpers/dateformat";
 import MarkerInfoList from "../components/MarkerInfoList";
+import Traveldetails from "../components/Traveldetails";
 
 const AddPins = () => {
   const [center, setCenter] = useState({ lat: 43.6532, lng: -79.3832 });
@@ -16,6 +16,7 @@ const AddPins = () => {
   const [travel, setTravel] = useState({});
   const [markerList, setMarkerList] = useState([]);
   const [dateList, setDateList] = useState([]);
+  const [error, setError] = useState("");
   const [newPlace, setNewPlace] = useState({
     name: '', lat: null, lng: null 
   });
@@ -44,12 +45,27 @@ const AddPins = () => {
   });
 
   const addMarker = function(lat, lng) {
+    setError("");
     setNewPlace((prev) => {
       return { ...prev, lat: lat, lng: lng };
     });
   };
 
   const setMarker = function() {
+    if (newPlace.name === "") {
+      setError("Name cannot be blank");
+      return;
+    }
+    if (newPlace.lat === null || newPlace.lng === null) {
+      setError("No marker was placed");
+      return;
+    }  
+    if (date === '') {
+      setError("No date was selected");
+      return;
+    }  
+
+    setError("");
     axios.post(`/api/pins/`, { id, ...newPlace, date })
       .then((res) => {
         setMarkerList((prev) => {
@@ -63,11 +79,12 @@ const AddPins = () => {
   return (
     <main className="map-container">
       <div className="text-container">
-        <h2>Add Pins to Itinerary</h2>
-
-        <button onClick={() => addMarker(null, null)}>Reset</button>
-
+        <Traveldetails 
+          {...travel}
+        />
+   
         <form className="marker-form">
+          <h3>Add Pins to Itinerary</h3>
           <input 
             name="name"
             type="text"
@@ -82,12 +99,13 @@ const AddPins = () => {
             selected={date} 
             onChange={(event) => setDate(event)}
             dateFormat='dd/MM/yyyy'
-            minDate={new Date(travel.travel_start_date)}
-            maxDate={new Date(travel.travel_end_date)}
+            placeholderText="02/01/2022"
+            minDate={timezoneOffset(new Date(travel.travel_start_date))}
+            maxDate={timezoneOffset(new Date(travel.travel_end_date))}
           />
-          <p>lat: { newPlace.lat }</p>
-          <p>lng: { newPlace.lng }</p>
-          <button type="button" className="btn" onClick={() => setMarker()}>Add Pin</button>
+          <section className="error_msg" style={{ color: "red" }}>{error}</section>
+          <button type="button" className="btn" onClick={() => setMarker()}>Save</button>
+          <button type="button" className="btn" onClick={() => addMarker(null, null)}>Cancel</button>
           
         </form>
         

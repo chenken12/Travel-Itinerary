@@ -1,7 +1,7 @@
 const MarkerInfo = (props) => {
   const { name, index } = props;
   return (
-    <div className='text-box'>
+    <div>
       { index }: 
       <strong>{ name }</strong>
      

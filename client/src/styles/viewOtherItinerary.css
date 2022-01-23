@@ -14,6 +14,7 @@ main.map-container {
 
 .text-container {
   width: 30%;
+  margin: 1rem;
 }
 
 .text-box {
@@ -26,10 +27,46 @@ main.map-container {
 
 .marker-form {
   padding: 10px;
-  margin: 5px;
+  margin: 10px 0px;
   width: auto;
 }
 
 .marker-form input {
+  width: 100%;
+}
+
+.markerInfo-container {
+  background-color: rgba(255, 255, 255, 0.4);
+  border: 3px solid orange;
+  border-radius: 10px;
+}
+
+.comment-container {
+  background-color: rgba(255, 255, 255, 0.4);
+  border: 3px solid orange;
+  border-radius: 10px;
+}
+
+.comment-form {
+  padding: 10px;
+  margin: 0.5rem;
+  width: auto;
+}
+
+.comment-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.comment-container p {
+  margin: 0;
+}
+
+.comment-time {
+  font-size: 0.8rem;
+  color: rgba(0, 0, 0, 0.75);
+}
+
+.comment-form input{
   width: 100%;
 }

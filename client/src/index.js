@@ -29,8 +29,8 @@ ReactDOM.render(
         <Route path="register" element={<Register />} />
         <Route path="newItinerary" element={<NewItinerary />} />
         <Route path="usersTravels" element={<UsersTravels />} />
-        <Route path="addPins/:id" element={<AddPins />} />
-        <Route path="viewOtherItinerary/:id" element={<ViewOtherItinerary />} />
+        <Route path="edit/:id" element={<AddPins />} />
+        <Route path="view/:id" element={<ViewOtherItinerary />} />
       </Routes>
       </CookiesProvider>
     </BrowserRouter>

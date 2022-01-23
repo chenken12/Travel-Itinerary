@@ -1,4 +1,4 @@
-import { dateformat, getDate } from "../helpers/dateformat";
+import React from "react";
 
 const Traveldetails = (props) => {
   const { name, city_name, country_name, description, travel_start_date, travel_end_date } = props;

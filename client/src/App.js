@@ -7,6 +7,7 @@ import LoginForm from './components/LoginForm';
 import PropTypes from 'prop-types';
 import NavBar from './components/navBar';
 import axios from 'axios';
+import Slideshow from './components/Slideshow';
 
 const App = () => {
 
@@ -29,13 +30,14 @@ const App = () => {
 
   return (
     <div className="App">
-
       <div className='background-main'>
         <button onClick={() => handleRouteClick("/edit/1")} type="button">Add Pins page</button>
         <button onClick={() => handleRouteClick("/usersTravels")} type="button">usersTravels page</button>
         <br></br><br></br><br></br><br></br><br></br><br></br><br></br>
 
         <h2>Create Your Itinerary Today!</h2>
+        <Slideshow/>
+
         <button onClick={() => handleRouteClick("/newItinerary")} type="button">Create Now</button>
         <br></br><br></br><br></br><br></br><br></br>
 

@@ -5,6 +5,7 @@ import { Container } from "react-bootstrap";
 import { Nav, Form, FormControl, Button } from "react-bootstrap";
 import { useCookies } from 'react-cookie';
 import { useNavigate } from "react-router-dom";
+import "../styles/navBar.css"
 
 export default function NavBar(props) {
 
@@ -31,7 +32,7 @@ export default function NavBar(props) {
 
   return (
 
-    <div className="nav-style">
+    <nav className="nav-style">
       <Navbar bg="dark" variant="dark" fixed-top="true">
 
         <Container>
@@ -71,6 +72,6 @@ export default function NavBar(props) {
           </Nav>
         </Container>
       </Navbar>
-    </div>
+    </nav>
   );
 }

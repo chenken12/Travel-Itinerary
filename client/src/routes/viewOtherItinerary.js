@@ -9,20 +9,23 @@ import {dateformat} from "../helpers/dateformat";
 import MarkerInfoList from "../components/MarkerInfoList";
 import { getDatesArr, getDate } from "../helpers/dateformat";
 import Traveldetails from "../components/Traveldetails";
+import useComment from "../hooks/useComment";
 
 export default function ViewOtherItinerary(props) {
-  const [center, setCenter] = useState({lat: 43.6532, lng: -79.3832 });
-  const [zoom, setZoom] = useState(13);
-  const [markerList, setMarkerList] = useState([]);
-  const [commentsList, setCommentsList] = useState([]);
-  const [sendComment, setSendComment] = useState('');
-  const [travel, setTravel] = useState({});
-  const [dateList, setDateList] = useState([]);
-  const [error, setError] = useState("");
-
   const location = useLocation();
   const td_id = location.pathname.split('/')[2];
 
+  const [center, setCenter] = useState({lat: 43.6532, lng: -79.3832 });
+  const [zoom, setZoom] = useState(13);
+  const [markerList, setMarkerList] = useState([]);
+  // const [commentsList, setCommentsList] = useState([]);
+  // const [sendComment, setSendComment] = useState('');
+  const { comment, postComment, setPost } = useComment(td_id);
+  const [travel, setTravel] = useState({});
+  const [dateList, setDateList] = useState([]);
+  // const [error, setError] = useState("");
+
+ 
   useEffect(() => {
     Promise.all([
       axios.get(`/api/pins/${td_id}`),
@@ -31,7 +34,7 @@ export default function ViewOtherItinerary(props) {
     ]).then((all) => {
       const [ first, second, third ] = all;
       setMarkerList([...first.data]);
-      setCommentsList(() => [...second.data]);
+      // setCommentsList(() => [...second.data]);
       setTravel({...third.data});
       setDateList([...getDatesArr(new Date(third.data.travel_start_date), new Date(third.data.travel_end_date))]);
     });
@@ -47,8 +50,10 @@ export default function ViewOtherItinerary(props) {
     if (markerfilter.length > 0) {
       return <MarkerInfoList key={ index } day={`${getDate(day)}`} markerList={markerList}/>
     }
+    return null;
   });
-  const parsedComment = commentsList.map((comment, index) => {
+
+  const parsedComment = comment.list.map((comment, index) => {
     return <Comments 
       key={`comment${comment.id}`} 
       text={comment.comment} 
@@ -60,34 +65,6 @@ export default function ViewOtherItinerary(props) {
   /* 
     // get user id when sign up page is done
   */
-  const postComments = function() {
-    const event = new Date();
-    const user_id = 1;
-    if (sendComment === "") {
-      setError("Comment cannot be blank");
-      return;
-    }
-
-    axios.post(`/api/comments/`, { user_id, td_id, sendComment })
-      .then(() => {
-        setCommentsList((prev) => {
-          return [...prev, {
-            id: `comment${commentsList.length}n`,
-            users_id: 1, // user id 
-            travel_destination_id: td_id,
-            comment: sendComment,
-            created_at: event.toISOString(),
-            first_name: "Test", // user name
-            last_name: "CC"
-          }]
-        })
-        setError("");
-        setSendComment('');
-      })
-      .catch(error => console.log("Error"));
-  }
-
-
   return (
     <main className="map-container">
       <div className="text-container">
@@ -106,18 +83,18 @@ export default function ViewOtherItinerary(props) {
         <div className="comment-container">
           <h3>Comment</h3>
           <form className="comment-form">
-            <section className="error_msg" style={{ color: "red" }}>{error}</section>
+            <section className="error_msg" style={{ color: "red" }}>{comment.error}</section>
             <input 
               name="comment"
               type="text"
               placeholder="Post a comment"
 
-              value={ sendComment }
-              onChange={(event) => setSendComment(event.target.value)}
+              value={ comment.post }
+              onChange={(event) => setPost(event.target.value)}
             />
-            <button type="button" onClick={() => postComments()}>Comment</button>
+            <button type="button" onClick={() => postComment()}>Comment</button>
           </form>
-          
+
           { parsedComment }
         </div>
       </div>

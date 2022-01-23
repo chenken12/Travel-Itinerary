@@ -14,7 +14,7 @@ import { useNavigate } from "react-router-dom";
 const AddPins = () => {
   const [center, setCenter] = useState({ lat: 43.6532, lng: -79.3832 });
   const [zoom, setZoom] = useState(11);
-  const [cookies, setCookie] = useCookies(['user']);
+  const [cookies] = useCookies(['user']);
   const [date, setDate] = useState('');
   const [travel, setTravel] = useState({});
   const [markerList, setMarkerList] = useState([]);

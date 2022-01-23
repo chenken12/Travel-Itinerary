@@ -38,10 +38,12 @@ h1,h2,h3,h4,h5,h6,label,span {
 /*
 This will be applied at the end when the map position is fixed, currently the map is floating ontop of the nav page.
 */
-/* .nav-style {
+.nav-style {
   position: fixed;
   height: 5px;
-} */
+  width: 100%;
+  margin: auto;
+}
 
 /* form {
   margin: 0 auto;

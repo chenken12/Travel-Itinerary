@@ -2,9 +2,10 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-// import { Redirect } from "request/lib/redirect";
 import { useNavigate } from "react-router-dom";
 import { Redirect } from "react-router";
+import { useCookies } from 'react-cookie';
+
 
 export default function LoginForm(props) {
 
@@ -12,6 +13,8 @@ export default function LoginForm(props) {
         email: "", 
         password: ""
     });
+
+    const [cookies, setCookie] = useCookies(['user']);
 
     let navigate = useNavigate();
 
@@ -21,6 +24,7 @@ export default function LoginForm(props) {
         const value = e.target.value;
         setUser({...user, [name]:value})
     }
+
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -33,23 +37,20 @@ export default function LoginForm(props) {
         if (user.email && user.password) {
             axios.post("http://localhost:8080/api/login", user)
                 .then((response) => {
-                    console.log("This is the response for login axios post", response);
-                    if (response.data.length < 1 ){
+                    console.log("This is the response for login axios post", response.data);
+                    if (response.data.error){
                         alert("Please enter a valid input");
                         return 
                     } 
                     else {
+                        setCookie('user',  { 
+                            firstName: response.data.response.first_name, 
+                            lastName: response.data.response.last_name,
+                            email: response.data.response.email
+                        }, { path: '/' })
+
                         navigate("/");
                     }
-                    // if (response.data.length < 1 ){
-                    //     alert("Please enter a valid username or password");
-                    //     return 
-                    // } else if(response.data.length > 0) {
-                    //     navigate("/");
-                    // }
-                    // if(response.data.length > 0) {
-                    //     navigate("/");
-                    // }
                 })
         }
     }
@@ -62,14 +63,14 @@ export default function LoginForm(props) {
                 <div className="form-group">
                     <label>Email Address</label>
 
-                    <input type="email" name="email" value={user.email} className="form-control" placeholder="Enter email" onChange={handleChange}/>
+                    <input type="email" name="email" value={cookies.email} className="form-control" placeholder="Enter email" onChange={handleChange}/>
 
                 </div>
 
                 <div className="form-group">
                     <label>Password</label>
 
-                    <input type="password" name="password" value={user.password} className="form-control" placeholder="Enter password" onChange={handleChange}/>
+                    <input type="password" name="password" value={cookies.password} className="form-control" placeholder="Enter password" onChange={handleChange}/>
 
                 </div>
 
@@ -77,6 +78,8 @@ export default function LoginForm(props) {
                 <p className="forgot-password text-right">
                     Don't have an account yet? <a href="#"><Link to="/register">Register Here</Link> </a>
                 </p>
+
+                
             </form>
             </div>
         );

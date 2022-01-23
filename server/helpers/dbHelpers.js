@@ -186,7 +186,7 @@ const getUserDetails = (user_id) => {
       addUserRegistration, 
       getUserDetails,
       addPin,
-      getItineraryById
+      getItineraryById,
       addItinerary,
       getUserLogin
   };

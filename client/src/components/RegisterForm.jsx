@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useCookies } from 'react-cookie';
 
 export default function RegisterForm() {
 
@@ -12,7 +13,7 @@ export default function RegisterForm() {
         password: "",
         passwordConfirmation: ""
     });
-
+    const [cookies, setCookie] = useCookies(['user']);
 
     let navigate = useNavigate();
 
@@ -44,7 +45,14 @@ export default function RegisterForm() {
                         return 
                     } 
                     else {
-                        navigate("/login");
+                        console.log("This is the response.data", response.data);
+                        setCookie('user',  { 
+                            firstName: response.data.response.first_name, 
+                            lastName: response.data.response.last_name,
+                            email: response.data.response.email
+                        }, { path: '/' })
+
+                        navigate("/");
                     }
                 })
         }

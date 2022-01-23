@@ -1,16 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { Navbar } from "react-bootstrap";
 import { Container } from "react-bootstrap";
 import { Nav, Form, FormControl, Button } from "react-bootstrap";
-import axios from "axios";
 import { useCookies } from 'react-cookie';
 import { useNavigate } from "react-router-dom";
 
 export default function NavBar(props) {
 
   // const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [cookies, setCookie, removeCookie] = useCookies(['user']);
+  const [cookies, removeCookie] = useCookies(['user']);
 
   const {user = {}} = cookies;
   console.log("This is the user----", user);

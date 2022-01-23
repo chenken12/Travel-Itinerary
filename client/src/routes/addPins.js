@@ -46,7 +46,7 @@ const AddPins = () => {
         setDateList([...getDatesArr(new Date(second.data.travel_start_date), new Date(second.data.travel_end_date))]);
       })
       .catch(error => console.log("Error: " + error));
-  }, []);
+  }, [id, cookies, navigate]);
 
   const parsedMarker = markerList.map((marker) => {
     return <Marker key={`marker${marker.id}`} lat={marker.lat} lng={marker.long} name={marker.pinned_name} color="blue" />;

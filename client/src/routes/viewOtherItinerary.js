@@ -18,27 +18,21 @@ export default function ViewOtherItinerary(props) {
   const [center, setCenter] = useState({lat: 43.6532, lng: -79.3832 });
   const [zoom, setZoom] = useState(13);
   const [markerList, setMarkerList] = useState([]);
-  // const [commentsList, setCommentsList] = useState([]);
-  // const [sendComment, setSendComment] = useState('');
   const { comment, postComment, setPost } = useComment(td_id);
   const [travel, setTravel] = useState({});
   const [dateList, setDateList] = useState([]);
-  // const [error, setError] = useState("");
-
  
   useEffect(() => {
     Promise.all([
       axios.get(`/api/pins/${td_id}`),
-      axios.get(`/api/comments/${td_id}`),
       axios.get(`/api/travels/${td_id}`),
     ]).then((all) => {
-      const [ first, second, third ] = all;
+      const [ first, second ] = all;
       setMarkerList([...first.data]);
-      // setCommentsList(() => [...second.data]);
-      setTravel({...third.data});
-      setDateList([...getDatesArr(new Date(third.data.travel_start_date), new Date(third.data.travel_end_date))]);
+      setTravel({...second.data});
+      setDateList([...getDatesArr(new Date(second.data.travel_start_date), new Date(second.data.travel_end_date))]);
     });
-  }, []);
+  }, [td_id]);
 
   const parsedMarker = markerList.map((marker) => {
     return <Marker key={`marker${marker.id}`} lat={marker.lat} lng={marker.long} name={marker.pinned_name} color="blue" />;
@@ -53,7 +47,7 @@ export default function ViewOtherItinerary(props) {
     return null;
   });
 
-  const parsedComment = comment.list.map((comment, index) => {
+  const parsedComment = comment.list.map((comment) => {
     return <Comments 
       key={`comment${comment.id}`} 
       text={comment.comment} 
@@ -62,9 +56,6 @@ export default function ViewOtherItinerary(props) {
     />;
   });
 
-  /* 
-    // get user id when sign up page is done
-  */
   return (
     <main className="map-container">
       <div className="text-container">

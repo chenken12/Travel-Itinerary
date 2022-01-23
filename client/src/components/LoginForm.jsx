@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { Redirect } from "react-router";
+// import { Redirect } from "react-router";
 import { useCookies } from 'react-cookie';
 
 
@@ -19,7 +19,7 @@ export default function LoginForm(props) {
     if (cookies.user) {
       navigate("/");
     }
-  }, []);
+  }, [cookies, navigate]);
 
   const handleChange = (e) => {
     const name = e.target.name;

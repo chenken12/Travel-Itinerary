@@ -19,7 +19,7 @@ const useComment = (td_id) => {
             list: [...res.data]}
         });
       });
-  }, []);
+  }, [td_id]);
 
   const postComment = function() {
     const date = new Date();

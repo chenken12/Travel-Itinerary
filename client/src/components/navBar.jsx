@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 export default function NavBar(props) {
 
   // const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [cookies, setCookie] = useCookies(['user']);
+  const [cookies, setCookie, removeCookie] = useCookies(['user']);
 
   const {user = {}} = cookies;
   console.log("This is the user----", user);
@@ -24,16 +24,15 @@ export default function NavBar(props) {
   //     console.log("This is the responseeee----", response)
   //   })
   // }, [])
-const handleLogout = (e) => {
-  e.preventDefault();
-  setCookie('user', undefined);
-  navigate("/");
-}
+  const handleLogout = (e) => {
+    e.preventDefault();
+    removeCookie('user', { path: '/' } );
+    navigate("/");
+  }
 
   return (
 
     <div className="nav-style">
-      <p> {props.title} </p>
       <Navbar bg="dark" variant="dark" fixed-top="true">
 
         <Container>

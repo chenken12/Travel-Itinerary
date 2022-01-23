@@ -89,52 +89,50 @@ export default function ViewOtherItinerary(props) {
 
 
   return (
-    <div>
-      <main className="map-container">
-        <div className="text-container">
-          <Traveldetails 
-            {...travel}
-          />
+    <main className="map-container">
+      <div className="text-container">
+        <Traveldetails 
+          {...travel}
+        />
 
-          <h2>View Other People's Itinerary</h2>
+        <h2>View Other People's Itinerary</h2>
 
-          <div className="markerInfo-container">
-            <h3>Places</h3>
-            { parsedDays }
-          </div>
-
-        
-          <div className="comment-container">
-            <h3>Comment</h3>
-            <form className="comment-form">
-              <section className="error_msg" style={{ color: "red" }}>{error}</section>
-              <input 
-                name="comment"
-                type="text"
-                placeholder="Post a comment"
-
-                value={ sendComment }
-                onChange={(event) => setSendComment(event.target.value)}
-              />
-              <button type="button" onClick={() => postComments()}>Comment</button>
-            </form>
-            
-            { parsedComment }
-          </div>
+        <div className="markerInfo-container">
+          <h3>Places</h3>
+          { parsedDays }
         </div>
-        <div className="google_map_container"> 
-          <GoogleMapReact
-            bootstrapURLKeys={{ key: process.env.REACT_APP_MAPKEY }}
-            defaultCenter={center}
-            defaultZoom={zoom}
-          >
-            {parsedMarker}
-            
-          </GoogleMapReact>
+
+      
+        <div className="comment-container">
+          <h3>Comment</h3>
+          <form className="comment-form">
+            <section className="error_msg" style={{ color: "red" }}>{error}</section>
+            <input 
+              name="comment"
+              type="text"
+              placeholder="Post a comment"
+
+              value={ sendComment }
+              onChange={(event) => setSendComment(event.target.value)}
+            />
+            <button type="button" onClick={() => postComments()}>Comment</button>
+          </form>
+          
+          { parsedComment }
         </div>
-        
-      </main>
-    </div>
+      </div>
+      
+      <div className="google_map_container"> 
+        <GoogleMapReact
+          bootstrapURLKeys={{ key: process.env.REACT_APP_MAPKEY }}
+          defaultCenter={center}
+          defaultZoom={zoom}
+        >
+          {parsedMarker}
+          
+        </GoogleMapReact>
+      </div>
+    </main>
 
   );
 }

@@ -8,10 +8,13 @@ import DatePicker from 'react-datepicker';
 import { getDatesArr, getDate, timezoneOffset } from "../helpers/dateformat";
 import MarkerInfoList from "../components/MarkerInfoList";
 import Traveldetails from "../components/Traveldetails";
+import { useCookies } from 'react-cookie';
+import { useNavigate } from "react-router-dom";
 
 const AddPins = () => {
   const [center, setCenter] = useState({ lat: 43.6532, lng: -79.3832 });
   const [zoom, setZoom] = useState(11);
+  const [cookies, setCookie] = useCookies(['user']);
   const [date, setDate] = useState('');
   const [travel, setTravel] = useState({});
   const [markerList, setMarkerList] = useState([]);
@@ -23,13 +26,21 @@ const AddPins = () => {
 
   const location = useLocation();
   const id = location.pathname.split('/')[2];
+  let navigate = useNavigate();
 
   useEffect(() => {
+    if (!cookies.user) {
+      navigate("/");
+    }
+
     Promise.all([
       axios.get(`/api/pins/${id}`),
       axios.get(`/api/travels/${id}`),
     ]).then((all) => {
         const [ first, second ] = all;
+        if (cookies.user.id !== second.data.users_id) {
+          navigate("/");
+        }
         setMarkerList([...first.data]);
         setTravel({...second.data});
         setDateList([...getDatesArr(new Date(second.data.travel_start_date), new Date(second.data.travel_end_date))]);

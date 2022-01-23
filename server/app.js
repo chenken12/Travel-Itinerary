@@ -11,6 +11,7 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const travelsRouter = require('./routes/travels');
 const commentsRouter = require('./routes/comments');
+const pinsRouter = require('./routes/pins');
 const loginRouter = require('./routes/login');
 const registerRouter = require('./routes/register');
 
@@ -37,6 +38,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/api/users', usersRouter(dbHelpers));
 app.use('/api/travels', travelsRouter(dbHelpers));
+app.use('/api/pins', pinsRouter(dbHelpers));
 app.use('/api/comments', commentsRouter(dbHelpers));
 app.use('/api/login', loginRouter(dbHelpers));
 app.use('/api/register', registerRouter(dbHelpers));

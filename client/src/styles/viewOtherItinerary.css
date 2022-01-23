@@ -1,10 +1,10 @@
 .google_map_container {
-  height: 100vh;
+  height: 90vh;
   width: 80%;
   border: 2px solid orange;
   position: -webkit-sticky; /* Safari */
   position: sticky;
-  top: 40px;
+  top: 8vh;
 }
 
 main.map-container {
@@ -15,6 +15,7 @@ main.map-container {
 .text-container {
   width: 30%;
   margin: 1rem;
+  margin-top: 9vh;
 }
 
 .text-box {

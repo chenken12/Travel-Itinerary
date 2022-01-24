@@ -1,18 +1,10 @@
-import { useState, useEffect } from 'react';
 import './App.css';
 import useApplicationData from './hooks/useApplicationData';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import { Link, useNavigate } from "react-router-dom";
-import LoginForm from './components/LoginForm';
-import PropTypes from 'prop-types';
-import NavBar from './components/navBar';
-import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 import Slideshow from './components/Slideshow';
 
 const App = () => {
-
-  // const [token, setToken] = useState();
-
 
   const navigate = useNavigate();
 
@@ -24,7 +16,6 @@ const App = () => {
     navigate(path);
   }
   const userList = state.users.map((user) => (<li key={user.id} > {user.first_name} {user.last_name} {user.email} </li>
-
   ));
 
 
@@ -36,7 +27,7 @@ const App = () => {
         <br></br><br></br><br></br><br></br><br></br><br></br><br></br>
 
         <h2>Create Your Itinerary Today!</h2>
-        <Slideshow/>
+        <Slideshow />
 
         <button onClick={() => handleRouteClick("/newItinerary")} type="button">Create Now</button>
         <br></br><br></br><br></br><br></br><br></br>
@@ -51,7 +42,6 @@ const App = () => {
       </div>
     </div>
   );
- 
 };
 
 export default App;

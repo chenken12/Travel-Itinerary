@@ -71,6 +71,17 @@ module.exports = (db) => {
         .catch((err) => err);
   };
 
+  const getUserItinerary = (user_id) => {
+    const query = {
+      text: `SELECT * FROM travel_destination WHERE users_id = $1 RETURNING *`,
+      values: [user_id]
+    };
+
+  return db
+      .query(query)
+      .then((result) => result.rows)
+      .catch((err) => err);
+  }
 
   const getItineraryById = (id) => {
     const query = {
@@ -188,6 +199,7 @@ const getUserDetails = (user_id) => {
       addPin,
       getItineraryById,
       addItinerary,
-      getUserLogin
+      getUserLogin,
+      getUserItinerary
   };
 };

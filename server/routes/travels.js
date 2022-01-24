@@ -3,6 +3,9 @@ const router = express.Router();
 
 module.exports = ({
   getItinerary,
+  getTravelPlanById,
+  addItinerary,
+  getUserItinerary,
   getItineraryById,
   addItinerary
 }) => {
@@ -34,6 +37,16 @@ module.exports = ({
         error: err.message
       }));
   })
-
+// read from the cookie
+// Get User Itineraries
+  router.get('/', (req, res) => {
+    const {users_id} = req.body;
+    console.log("get req: ", req.body);
+    getUserItinerary(users_id)
+      .then((Itinerary) => res.status(200).json(Itinerary))
+      .catch(err => res.status(500).json({
+        error: err.message
+      }))
+  })
   return router;
 };

@@ -71,6 +71,18 @@ module.exports = (db) => {
         .catch((err) => err);
   };
 
+  const getUserItinerary = (user_id) => {
+    const query = {
+      text: `SELECT * FROM travel_destination WHERE users_id = $1 RETURNING *`,
+      values: [user_id]
+    };
+
+  return db
+      .query(query)
+      .then((result) => result.rows)
+      .catch((err) => err);
+  }
+
   const addItinerary = (users_id, name, description, city_name, country_name, travel_start_date, travel_end_date) => {
     const query = {
       text: `INSERT INTO travel_destination (users_id, name, description, city_name, country_name, travel_start_date, travel_end_date) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *` ,
@@ -134,6 +146,7 @@ module.exports = (db) => {
       getCommentsById,
       addComment,
       addItinerary,
-      getUserLogin
+      getUserLogin,
+      getUserItinerary
   };
 };

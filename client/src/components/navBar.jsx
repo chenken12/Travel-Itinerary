@@ -40,9 +40,11 @@ export default function NavBar(props) {
           <Nav className="me-auto">
             <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
               <ul className="navbar-nav ml-auto">
+              {firstName && (
+                <>
                 <li className="nav-item">
                   <Link className="nav-link" to={"/usersTravels"}>My Travels</Link>
-                </li>
+                </li></>)}
                 {!firstName && (
                 <><li className="nav-item">
                   <Link className="nav-link" to={"/login"}>Login</Link>

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -16,6 +16,13 @@ export default function RegisterForm() {
     const [cookies, setCookie] = useCookies(['user']);
 
     let navigate = useNavigate();
+
+    useEffect(() => {
+        if (cookies.user && cookies.user.id) {
+    
+          navigate("/");
+        }
+      }, [cookies, navigate]);
 
 
     const handleChange = (e) => {

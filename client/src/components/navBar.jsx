@@ -9,7 +9,6 @@ import "../styles/navBar.css"
 
 export default function NavBar(props) {
 
-  // const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [cookies, removeCookie] = useCookies(['user']);
 
   const {user = {}} = cookies;
@@ -26,7 +25,7 @@ export default function NavBar(props) {
   // }, [])
   const handleLogout = (e) => {
     e.preventDefault();
-    removeCookie('user', { path: '/' } );
+    removeCookie('user' );
     navigate("/");
   }
 
@@ -45,13 +44,6 @@ export default function NavBar(props) {
                 <li className="nav-item">
                   <Link className="nav-link" to={"/usersTravels"}>My Travels</Link>
                 </li></>)}
-                {!firstName && (
-                <><li className="nav-item">
-                  <Link className="nav-link" to={"/login"}>Login</Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to={"/register"}>Signup</Link>
-                </li></>)}
                 <li className="nav-item">
                   <Link className="nav-link" to={"/newItinerary"}>New Itinerary</Link>
                 </li>
@@ -66,11 +58,17 @@ export default function NavBar(props) {
                 <Button variant="outline-success">Search</Button>
               </Form>
             </div>
-            &nbsp
-            {firstName && (<Navbar.Text> Signed in as: <a href="#login">{firstName}</a> </Navbar.Text>)}
-            &nbsp &nbsp
+            {firstName && (<Navbar.Text> Signed in as: <a href="#login">{firstName}</a></Navbar.Text>)}
             {firstName && (<button onClick={handleLogout}>Logout</button> )}
-            
+            <ul className="navbar-nav ml-auto">
+            {!firstName && (
+                <><li className="nav-item">
+                  <Link className="nav-link" to={"/login"}>Login</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to={"/register"}>Signup</Link>
+                </li></>)}
+              </ul>
           </Nav>
         </Container>
       </Navbar>

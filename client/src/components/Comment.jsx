@@ -1,13 +1,16 @@
 import React from 'react';
-import "../styles/comment.css"
 
 const Comments = (props) => {
     const { text, time, name } = props;
     return (
       <div className='text-box'> 
-        <h2>{name}</h2>
-        <p>{text}</p>
-        <a>{time}</a>
+        <div className='comment-header'>
+          <strong>{name}</strong>
+          <p className='comment-time'>{time}</p>
+        </div>
+
+        <p> {text}</p>
+       
       </div>
     );
   };

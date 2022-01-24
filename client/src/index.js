@@ -5,6 +5,7 @@ import {
   Routes,
   Route
 } from "react-router-dom";
+import { CookiesProvider } from 'react-cookie';
 import './index.css';
 import App from './App';
 import Login from "./routes/login";
@@ -20,16 +21,18 @@ import NavBar from './components/navBar';
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-    <NavBar />
+    <CookiesProvider>
+      <NavBar  />
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
         <Route path="newItinerary" element={<NewItinerary />} />
         <Route path="usersTravels" element={<UsersTravels />} />
-        <Route path="addPins/:id" element={<AddPins />} />
-        <Route path="viewOtherItinerary/:id" element={<ViewOtherItinerary />} />
+        <Route path="edit/:id" element={<AddPins />} />
+        <Route path="view/:id" element={<ViewOtherItinerary />} />
       </Routes>
+      </CookiesProvider>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')

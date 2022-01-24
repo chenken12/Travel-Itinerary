@@ -9,6 +9,7 @@ const Marker = (props) => {
         className="pin bounce"
         style={{ backgroundColor: color, cursor: 'pointer' }}
         title={name}
+        onClick={() => console.log("test" + name)}
       />
       <div className="pulse" />
     </div>

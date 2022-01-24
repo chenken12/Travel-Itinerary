@@ -1,10 +1,10 @@
-.view_others_map {
-  height: 100vh;
+.google_map_container {
+  height: 90vh;
   width: 80%;
   border: 2px solid orange;
   position: -webkit-sticky; /* Safari */
   position: sticky;
-  top: 0;
+  top: 8vh;
 }
 
 main.map-container {
@@ -14,12 +14,60 @@ main.map-container {
 
 .text-container {
   width: 30%;
+  margin: 1rem;
+  margin-top: 9vh;
 }
 
 .text-box {
   background-color: white;
   padding: 0.5rem;
   border: 2px solid orange;
-  border-radius: 10px;
+  border-radius: 20px;
   margin: 0.2rem;
+}
+
+.marker-form {
+  padding: 10px;
+  margin: 10px 0px;
+  width: auto;
+}
+
+.marker-form input {
+  width: 100%;
+}
+
+.markerInfo-container {
+  background-color: rgba(255, 255, 255, 0.4);
+  border: 3px solid orange;
+  border-radius: 10px;
+}
+
+.comment-container {
+  background-color: rgba(255, 255, 255, 0.4);
+  border: 3px solid orange;
+  border-radius: 10px;
+}
+
+.comment-form {
+  padding: 10px;
+  margin: 0.5rem;
+  width: auto;
+}
+
+.comment-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.comment-container p {
+  margin: 0;
+}
+
+.comment-time {
+  font-size: 0.8rem;
+  color: rgba(0, 0, 0, 0.75);
+}
+
+.comment-form input{
+  width: 100%;
 }

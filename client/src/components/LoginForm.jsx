@@ -2,7 +2,6 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-// import { Redirect } from "react-router";
 import { useCookies } from 'react-cookie';
 
 
@@ -16,7 +15,8 @@ export default function LoginForm(props) {
   let navigate = useNavigate();
 
   useEffect(() => {
-    if (cookies.user) {
+    if (cookies.user && cookies.user.id) {
+
       navigate("/");
     }
   }, [cookies, navigate]);

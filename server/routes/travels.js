@@ -4,7 +4,6 @@ const router = express.Router();
 module.exports = ({
   getItinerary,
   getTravelPlanById,
-  addItinerary,
   getUserItinerary,
   getItineraryById,
   addItinerary
@@ -27,9 +26,10 @@ module.exports = ({
   });
   
   router.post('/', (req, res) => {
-    const {name, description, city, country, startDate, endDate} = req.body;
-    console.log('post req: ', req.body);
-    addItinerary(1, name, description, city, country, startDate, endDate)
+    console.log("req: ", req.body);
+    const {users_id, name, description, city, country, startDate, endDate} = req.body;
+    // console.log('post req: ', req.body);
+    addItinerary(users_id, name, description, city, country, startDate, endDate)
       .then((newItinerary)=> {
         res.status(200).json(newItinerary);
       })

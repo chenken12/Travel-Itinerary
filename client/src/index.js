@@ -21,17 +21,17 @@ import NavBar from './components/navBar';
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-    <CookiesProvider>
-      <NavBar  />
-      <Routes>
-        <Route path="/" element={<App />} />
-        <Route path="login" element={<Login />} />
-        <Route path="register" element={<Register />} />
-        <Route path="newItinerary" element={<NewItinerary />} />
-        <Route path="usersTravels" element={<UsersTravels />} />
-        <Route path="edit/:id" element={<AddPins />} />
-        <Route path="view/:id" element={<ViewOtherItinerary />} />
-      </Routes>
+      <CookiesProvider>
+        <NavBar />
+        <Routes>
+          <Route path="/" element={<App />} />
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
+          <Route path="newItinerary" element={<NewItinerary />} />
+          <Route path="usersTravels" element={<UsersTravels />} />
+          <Route path="edit/:id" element={<AddPins />} />
+          <Route path="view/:id" element={<ViewOtherItinerary />} />
+        </Routes>
       </CookiesProvider>
     </BrowserRouter>
   </React.StrictMode>,

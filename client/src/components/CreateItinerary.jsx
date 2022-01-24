@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {Button, Form, Row, Col} from 'react-bootstrap';
+import {useCookies} from 'react-cookie';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import DatePicker from 'react-datepicker';
@@ -8,7 +9,9 @@ import '../styles/CreateItinerary.css';
 import { useNavigate } from 'react-router-dom';
 
 export default function CreateItinerary() {
+  const [cookies] = useCookies(["user"]);
   const state = {
+    users_id: cookies.user.id,
     name: "",
     description: "",
     city: "",
@@ -24,7 +27,7 @@ export default function CreateItinerary() {
     <Form xs={1} method="POST" onSubmit={ event => {
       event.preventDefault();
       axios.post(`http://localhost:8080/api/travels`, formData)
-        .then(() => navigate('/usersTravels'))
+        // .then(() => navigate('/usersTravels'))
       }}>
       <h1>Create Itinerary</h1>
       <Form.Group className="mb-3">

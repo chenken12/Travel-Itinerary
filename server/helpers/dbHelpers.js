@@ -109,6 +109,25 @@ module.exports = (db) => {
       .catch(err => err);
   }
 
+  const editItinerary = (id, users_id, name, description, city_name, country_name, travel_start_date, travel_end_date) => {
+    const query = {
+      text: `UPDATE travel_destination
+      SET users_id = $2,
+      name = $3,
+      description = $4,
+      city_name = $5,
+      country_name = $6,
+      travel_start_date = $7,
+      travel_end_date = $8
+      WHERE id = $1;` ,
+      values: [id, users_id, name, description, city_name, country_name, travel_start_date, travel_end_date]
+    }
+
+    return db.query(query)
+        .then(result => result.rows[0])
+        // .catch(err => err);
+  }
+
   const getTravelPlanById = (email) => {
     const query = {
       text: `SELECT pins.*
@@ -186,21 +205,22 @@ module.exports = (db) => {
   }
 
   return {
-    getUsers,
-    getUserByEmail,
-    addUser,
-    getUsersPosts,
-    getItinerary,
-    getTravelPlanById,
-    getCommentsById,
-    addComment,
-    getUserLogin,
-    addUserRegistration,
-    getUserDetails,
-    addPin,
-    getItineraryById,
-    addItinerary,
-    getUserLogin,
-    getUserItinerary
+      getUsers,
+      getUserByEmail,
+      addUser,
+      getUsersPosts,
+      getItinerary,
+      getTravelPlanById,
+      getCommentsById,
+      addComment,
+      getUserLogin,
+      addUserRegistration, 
+      getUserDetails,
+      addPin,
+      getItineraryById,
+      addItinerary,
+      getUserLogin,
+      getUserItinerary,
+      editItinerary
   };
 };

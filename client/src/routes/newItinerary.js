@@ -1,5 +1,4 @@
 import CreateItinerary from "../components/CreateItinerary";
-import NavBar from "../components/navBar";
 
 export default function NewItinerary() {
   return (

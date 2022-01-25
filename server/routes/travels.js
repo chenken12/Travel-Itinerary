@@ -27,11 +27,12 @@ module.exports = ({
   
   router.post('/', (req, res) => {
     console.log("req: ", req.body);
-    const {users_id, name, description, city, country, startDate, endDate} = req.body;
+    const {users_id, name, description, location, startDate, endDate, lat, lng} = req.body;
     // console.log('post req: ', req.body);
-    addItinerary(users_id, name, description, city, country, startDate, endDate)
-      .then((newItinerary)=> {
-        res.status(200).json(newItinerary);
+    addItinerary(users_id, name, description, location, startDate, endDate, lat, lng)
+      .then((itinerary)=> {
+        console.log(itinerary);
+        res.json({itinerary});
       })
       .catch((err) => res.status(500).json({
         error: err.message

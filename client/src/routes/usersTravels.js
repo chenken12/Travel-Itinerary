@@ -1,4 +1,3 @@
-import NavBar from "../components/navBar";
 import UserItineraryData from "../components/UserItineraryData";
 
 export default function UsersTravels() {

@@ -12,8 +12,8 @@ import { useCookies } from 'react-cookie';
 import { useNavigate } from "react-router-dom";
 
 const AddPins = () => {
-  const [center, setCenter] = useState({ lat: 43.6532, lng: -79.3832 });
-  const [zoom, setZoom] = useState(11);
+  const [center, setCenter] = useState({ lat: 0, lng: 0 });
+  const [zoom, setZoom] = useState(9);
   const [cookies] = useCookies(['user']);
   const [date, setDate] = useState('');
   const [travel, setTravel] = useState({});
@@ -44,6 +44,7 @@ const AddPins = () => {
         setMarkerList([...first.data]);
         setTravel({...second.data});
         setDateList([...getDatesArr(new Date(second.data.travel_start_date), new Date(second.data.travel_end_date))]);
+        setCenter({ lat: second.data.lat, lng: second.data.lng });
       })
       .catch(error => console.log("Error: " + error));
   }, [id, cookies, navigate]);
@@ -129,8 +130,8 @@ const AddPins = () => {
       </div>
       <div className="google_map_container">
         <GoogleMapReact
-          bootstrapURLKeys={{ key: process.env.REACT_APP_MAPKEY }}
-          defaultCenter={center}
+          // bootstrapURLKeys={{ key: process.env.REACT_APP_MAPKEY }}
+          center={center}
           defaultZoom={zoom}
           onClick={(event) => addMarker(event.lat, event.lng)}
         >

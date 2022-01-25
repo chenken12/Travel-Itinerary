@@ -19,7 +19,7 @@ Date.prototype.addDays = function(days) {
 }
 
 const getDatesArr = function(startDate, stopDate) {
-  const dateArray = new Array();
+  const dateArray = [];
   let currentDate = timezoneOffset(startDate);
   while (currentDate <= timezoneOffset(stopDate)) {
       dateArray.push(new Date (currentDate));

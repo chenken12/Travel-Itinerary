@@ -7,6 +7,15 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import '../styles/CreateItinerary.css';
 import { useNavigate } from 'react-router-dom';
+import usePlacesAutocomplete, { getGeocode } from "use-places-autocomplete";
+import {
+  Combobox,
+  ComboboxInput,
+  ComboboxPopover,
+  ComboboxList,
+  ComboboxOption,
+} from "@reach/combobox";
+import "@reach/combobox/styles.css";
 
 export default function CreateItinerary() {
   const [cookies] = useCookies(["user"]);
@@ -19,6 +28,42 @@ export default function CreateItinerary() {
     startDate: "",
     endDate: ""
   }
+  const {
+    ready,
+    value,
+    suggestions: { status, data },
+    setValue,
+  } = usePlacesAutocomplete({
+    debounce: 500,
+    cache: 7 * 24 * 60 * 60
+  });
+
+  const handleInput = (e) => {
+    setValue(e.target.value);
+  };
+
+  const handleSelect = (val) => {
+    setValue(val, false);
+  };
+
+  const renderSuggestions = () => {
+    // console.log(value);
+    const suggestions = data.map(({ place_id, description }) => (
+      <ComboboxOption key={place_id} value={description} />
+    ));
+
+    return (
+      <>
+        {suggestions}
+        <li className="logo">
+          <img
+            src="https://developers.google.com/maps/documentation/images/powered_by_google_on_white.png"
+            alt="Powered by Google"
+          />
+        </li>
+      </>
+    );
+  };
 
   const navigate = useNavigate();
 
@@ -40,6 +85,19 @@ export default function CreateItinerary() {
             setFormData({...formData, name: event.target.value});
           }} />
       </Form.Group>
+
+      <Combobox onSelect={handleSelect} aria-labelledby="demo">
+        <ComboboxInput
+          style={{ width: 300, maxWidth: "90%" }}
+          value={value}
+          onChange={handleInput}
+          disabled={!ready}
+        />
+        <ComboboxPopover>
+          <ComboboxList>{status === "OK" && renderSuggestions()}</ComboboxList>
+        </ComboboxPopover>
+      </Combobox>
+
 
       <Form.Group className="mb-3">
         <Form.Label>City</Form.Label>

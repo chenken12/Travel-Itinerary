@@ -23,7 +23,7 @@ const Traveldetails = (props) => {
       <p> Title: { name } </p>
       <p> Location: { city_name }, { country_name } </p>
       <p> { description } </p>
-      <p> Duration: { date.start } to {  date.end } </p>
+      <p> Duration: { date.start } to { date.end } </p>
     </div>
   );
 };

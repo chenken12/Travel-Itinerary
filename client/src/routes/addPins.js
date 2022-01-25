@@ -49,8 +49,8 @@ const AddPins = () => {
       .catch(error => console.log("Error: " + error));
   }, [id, cookies, navigate]);
 
-  const parsedMarker = markerList.map((marker) => {
-    return <Marker key={`marker${marker.id}`} lat={marker.lat} lng={marker.long} name={marker.pinned_name} color="blue" />;
+  const parsedMarker = markerList.map((marker, index) => {
+    return <Marker key={`marker${marker.id}`} lat={marker.lat} lng={marker.long} name={marker.pinned_name} color="blue" index={index}/>;
   });
   const parsedDays = dateList.map((day, index) => {
     return <MarkerInfoList key={ index } day={`${getDate(day)}`} markerList={markerList}/>

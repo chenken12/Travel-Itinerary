@@ -7,7 +7,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import '../styles/CreateItinerary.css';
 import { useNavigate } from 'react-router-dom';
-import usePlacesAutocomplete, { getGeocode } from "use-places-autocomplete";
+import usePlacesAutocomplete, { getGeocode, getLatLng } from "use-places-autocomplete";
 import {
   Combobox,
   ComboboxInput,
@@ -46,8 +46,27 @@ export default function CreateItinerary() {
     setValue(val, false);
   };
 
+  const submitForm = function() {
+      // console.log(data[0].place_id);
+    const parameter = { placeId: data[0].place_id };
+    console.log(data[0])
+        
+    getGeocode(parameter)
+      .then((results) => {
+        console.log(results[0])
+        return getLatLng(results[0])
+      })
+      .then((latLng) => {
+        const { lat, lng } = latLng;
+        // console.log("Coordinates: ", lat, lng);
+        return axios.post(`/api/travels`, {...formData, lat, lng})
+      })
+      .then((res) => navigate('/usersTravels'))
+      .catch((error) => {
+        console.log("Error: ", error);
+      });
+  }
   const renderSuggestions = () => {
-    // console.log(value);
     const suggestions = data.map(({ place_id, description }) => (
       <ComboboxOption key={place_id} value={description} />
     ));
@@ -70,9 +89,8 @@ export default function CreateItinerary() {
   const [formData, setFormData] = useState(state);
   return(
     <Form xs={1} method="POST" onSubmit={ event => {
-      event.preventDefault();
-      axios.post(`http://localhost:8080/api/travels`, formData)
-        .then(() => navigate('/usersTravels'))
+        event.preventDefault();
+        submitForm();
       }}>
       <h1>Create Itinerary</h1>
       <Form.Group className="mb-3">
@@ -86,17 +104,21 @@ export default function CreateItinerary() {
           }} />
       </Form.Group>
 
-      <Combobox onSelect={handleSelect} aria-labelledby="demo">
-        <ComboboxInput
-          style={{ width: 300, maxWidth: "90%" }}
-          value={value}
-          onChange={handleInput}
-          disabled={!ready}
-        />
-        <ComboboxPopover>
-          <ComboboxList>{status === "OK" && renderSuggestions()}</ComboboxList>
-        </ComboboxPopover>
-      </Combobox>
+      <Form.Group className="mb-3">
+        <Form.Label>Location</Form.Label>
+        <Combobox onSelect={handleSelect} aria-labelledby="demo">
+          <ComboboxInput
+            style={{ width: 300, maxWidth: "90%" }}
+            value={value}
+            onChange={handleInput}
+            disabled={!ready}
+            placeholder='Enter location'
+          />
+          <ComboboxPopover>
+            <ComboboxList>{status === "OK" && renderSuggestions()}</ComboboxList>
+          </ComboboxPopover>
+        </Combobox>
+      </Form.Group>
 
 
       <Form.Group className="mb-3">

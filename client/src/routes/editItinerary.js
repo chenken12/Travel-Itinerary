@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import '../styles/editItinerary.css';
 import {Button, Form, Row, Col} from 'react-bootstrap';
 import {useCookies} from 'react-cookie';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -11,15 +12,15 @@ import { useNavigate, useLocation } from 'react-router-dom';
 export default function EditItinerary() {
   const location = useLocation();
   const [cookies] = useCookies(["user"]);
-  const [formData, setFormData] = useState({
-    users_id: cookies.user.id,
-    name: "",
-    description: "",
-    city: "",
-    country: "US",
-    startDate: "",
-    endDate: ""
-  });
+  // const [formData, setFormData] = useState({
+  //   users_id: cookies.user.id,
+  //   name: "",
+  //   description: "",
+  //   city: "",
+  //   country: "US",
+  //   startDate: "",
+  //   endDate: ""
+  // });
   const [userItineraryFormData, SetUserItineraryFormData] = useState({});
   const id_data = location.pathname.split('/')[2];
   console.log("id: ", id_data);
@@ -34,9 +35,9 @@ export default function EditItinerary() {
   const navigate = useNavigate();
 
   return(
-    <Form xs={1} method="PUT" onSubmit={ event => {
+    <Form xs={1} method="POST" onSubmit={ event => {
       event.preventDefault();
-        axios.post(`http://localhost:8080/api/travels`, userItineraryFormData)
+        axios.post(`http://localhost:8080/api/travels/${id_data}`, userItineraryFormData)
         .then(() => {
           console.log("user Itinerary: ",);
           navigate('/usersTravels')
@@ -47,10 +48,10 @@ export default function EditItinerary() {
         <Form.Label>Name</Form.Label>
         <Form.Control 
           type="name" 
-          value={userItineraryFormData.name}
-          selected={formData.name} 
+          defaultValue={userItineraryFormData.name}
+          selected={userItineraryFormData.name} 
           onChange={event => {
-            setFormData({...formData, name: event.target.value});
+            SetUserItineraryFormData({...userItineraryFormData, name: event.target.value})
           }} />
       </Form.Group>
 
@@ -59,8 +60,8 @@ export default function EditItinerary() {
         <Form.Control 
         type="name" 
         value={userItineraryFormData.city_name}
-        selected={formData.city} 
-        onChange={event => setFormData({...formData, city: event.target.value})} />
+        selected={userItineraryFormData.city_name} 
+        onChange={event => SetUserItineraryFormData({...userItineraryFormData, city_name: event.target.value})} />
       </Form.Group>
 
       <Form.Group className="mb-3">
@@ -68,8 +69,8 @@ export default function EditItinerary() {
         <Form.Select 
         defaultValue="Choose..." 
         value={userItineraryFormData.country_name}
-        selected={formData.country} 
-        onChange={event => setFormData({...formData, country: event.target.value})}>
+        selected={userItineraryFormData.country_name} 
+        onChange={event => SetUserItineraryFormData({...userItineraryFormData, country_name: event.target.value})}>
           <option>US</option>
           <option>Canada</option>
           <option>United Kingdom</option>
@@ -86,18 +87,18 @@ export default function EditItinerary() {
           <Form.Group as={Col} controlId='formGridStartDate'>
             <Form.Label>Start Date </Form.Label>
             <DatePicker 
-              selected={formData.startDate} 
+              selected={Date.parse(userItineraryFormData.travel_start_date)} 
               value={userItineraryFormData.travel_start_date}
-              onChange={date => setFormData({...formData, startDate: date})}
+              onChange={date => SetUserItineraryFormData({...userItineraryFormData, travel_start_date: date})}
               dateFormat='dd/MM/yyyy'
             />
           </Form.Group>
           <Form.Group as={Col} controlId='formGridEndDate'>
             <Form.Label>End Date </Form.Label>
             <DatePicker 
-              selected={formData.endDate} 
+              selected={Date.parse(userItineraryFormData.travel_end_date)} 
               value={userItineraryFormData.travel_end_date}
-              onChange={date => setFormData({...formData, endDate: date})}
+              onChange={date => SetUserItineraryFormData({...userItineraryFormData, travel_end_date: date})}
               dateFormat='dd/MM/yyyy'
             />
           </Form.Group>
@@ -112,8 +113,8 @@ export default function EditItinerary() {
           as='textarea' 
           rows={3} 
           value={userItineraryFormData.description}
-          selected={formData.description} 
-          onChange={event => setFormData({...formData, description: event.target.value})}>
+          selected={userItineraryFormData.description} 
+          onChange={event => SetUserItineraryFormData({...userItineraryFormData, description: event.target.value})}>
         </Form.Control>
       </Form.Group>
       <Button variant="flat" type="submit">

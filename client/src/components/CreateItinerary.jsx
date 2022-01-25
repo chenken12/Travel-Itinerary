@@ -19,15 +19,15 @@ import "@reach/combobox/styles.css";
 
 export default function CreateItinerary() {
   const [cookies] = useCookies(["user"]);
-  const state = {
+  const [ error, setError ] = useState('');
+  const [formData, setFormData] = useState({
     users_id: cookies.user.id,
     name: "",
     description: "",
-    city: "",
-    country: "US",
     startDate: "",
     endDate: ""
-  }
+  });
+
   const {
     ready,
     value,
@@ -38,6 +38,8 @@ export default function CreateItinerary() {
     cache: 7 * 24 * 60 * 60
   });
 
+  const navigate = useNavigate();
+
   const handleInput = (e) => {
     setValue(e.target.value);
   };
@@ -47,9 +49,19 @@ export default function CreateItinerary() {
   };
 
   const submitForm = function() {
-      // console.log(data[0].place_id);
-    const parameter = { placeId: data[0].place_id };
-    console.log(data[0])
+    console.log(formData.users_id);
+    if (formData.name === '') {
+      setError("Name cannot be blank");
+      return;
+    } else if (value === '') {
+      setError("Location cannot be blank");
+      return;
+    } else if (formData.startDate === '' || formData.endDate === '') {
+      setError("Date cannot be blank");
+      return;
+    }
+     
+    const parameter = { address: value };
         
     getGeocode(parameter)
       .then((results) => {
@@ -59,10 +71,14 @@ export default function CreateItinerary() {
       .then((latLng) => {
         const { lat, lng } = latLng;
         // console.log("Coordinates: ", lat, lng);
-        return axios.post(`/api/travels`, {...formData, lat, lng})
+        return axios.post(`/api/travels`, {...formData, location: value, lat, lng})
       })
-      .then((res) => navigate('/usersTravels'))
+      .then((res) => {
+        const edit_id = res.data.itinerary.id;
+        navigate(`/edit/${edit_id}`)
+      })
       .catch((error) => {
+        setError("Location error");
         console.log("Error: ", error);
       });
   }
@@ -84,9 +100,6 @@ export default function CreateItinerary() {
     );
   };
 
-  const navigate = useNavigate();
-
-  const [formData, setFormData] = useState(state);
   return(
     <Form xs={1} method="POST" onSubmit={ event => {
         event.preventDefault();
@@ -118,33 +131,6 @@ export default function CreateItinerary() {
             <ComboboxList>{status === "OK" && renderSuggestions()}</ComboboxList>
           </ComboboxPopover>
         </Combobox>
-      </Form.Group>
-
-
-      <Form.Group className="mb-3">
-        <Form.Label>City</Form.Label>
-        <Form.Control 
-        type="name" 
-        placeholder="Enter city"
-        selected={formData.city} 
-        onChange={event => setFormData({...formData, city: event.target.value})} />
-      </Form.Group>
-
-      <Form.Group className="mb-3">
-        <Form.Label>Country</Form.Label>
-        <Form.Select 
-        defaultValue="Choose..." 
-        placeholder="Enter Country"
-        selected={formData.country} 
-        onChange={event => setFormData({...formData, country: event.target.value})}>
-          <option>US</option>
-          <option>Canada</option>
-          <option>United Kingdom</option>
-          <option>Germany</option>
-          <option>France</option>
-          <option>Egypt</option>
-          <option>Australia</option>
-        </Form.Select>
       </Form.Group>
 
       <Form.Group className="mb-3">
@@ -183,6 +169,7 @@ export default function CreateItinerary() {
       <Button variant="flat" type="submit">
         Submit
       </Button>
+      <section className="error_msg" style={{ color: "red" }}>{error}</section>
     </Form>
   );
 }

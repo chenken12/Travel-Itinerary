@@ -4,9 +4,10 @@ CREATE TABLE travel_destination(
     users_id INTEGER REFERENCES users(id),
     name VARCHAR(255) NOT NULL,
     description TEXT,
-    city_name VARCHAR(255) NOT NULL,
-    country_name VARCHAR(255) NOT NULL,
+    location VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT NOW(),
     travel_start_date DATE NOT NULL,
-    travel_end_date DATE NOT NULL 
+    travel_end_date DATE NOT NULL,
+    lat float NOT NULL, 
+    lng float NOT NULL
 );

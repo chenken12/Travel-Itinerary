@@ -31,6 +31,7 @@ export default function ViewOtherItinerary(props) {
       setMarkerList([...first.data]);
       setTravel({...second.data});
       setDateList([...getDatesArr(new Date(second.data.travel_start_date), new Date(second.data.travel_end_date))]);
+      setCenter({ lat: second.data.lat, lng: second.data.lng });
     });
   }, [td_id]);
 
@@ -93,7 +94,7 @@ export default function ViewOtherItinerary(props) {
       <div className="google_map_container"> 
         <GoogleMapReact
           bootstrapURLKeys={{ key: process.env.REACT_APP_MAPKEY }}
-          defaultCenter={center}
+          center={center}
           defaultZoom={zoom}
         >
           {parsedMarker}

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { dateformat } from "../helpers/dateformat";
 
 const Traveldetails = (props) => {
-  const { name, city_name, country_name, description, travel_start_date, travel_end_date } = props;
+  const { name, location, description, travel_start_date, travel_end_date } = props;
   const [ date, setDate ] = useState({
     start: '',
     end: ''
@@ -21,7 +21,7 @@ const Traveldetails = (props) => {
   return (
     <div className='text-box'>
       <p> Title: { name } </p>
-      <p> Location: { city_name }, { country_name } </p>
+      <p> Location: { location } </p>
       <p> { description } </p>
       <p> Duration: { date.start } to { date.end } </p>
     </div>

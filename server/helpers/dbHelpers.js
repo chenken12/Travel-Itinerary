@@ -97,15 +97,16 @@ module.exports = (db) => {
       .catch((err) => err);
   };
 
-  const addItinerary = (users_id, name, description, city_name, country_name, travel_start_date, travel_end_date) => {
+  const addItinerary = (users_id, name, description, location, startDate, endDate, lat, lng) => {
     const query = {
-      text: `INSERT INTO travel_destination (users_id, name, description, city_name, country_name, travel_start_date, travel_end_date) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
-      values: [users_id, name, description, city_name, country_name, travel_start_date, travel_end_date]
+      text: `INSERT INTO travel_destination (users_id, name, description, location, travel_start_date, travel_end_date,  lat, lng) 
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`,
+      values: [users_id, name, description, location, startDate, endDate, lat, lng]
     }
 
     return db.query(query)
       .then(result => result.rows[0])
-    // .catch(err => err);
+      .catch(err => err);
   }
 
   const getTravelPlanById = (email) => {

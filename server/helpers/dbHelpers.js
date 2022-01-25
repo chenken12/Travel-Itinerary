@@ -109,18 +109,17 @@ module.exports = (db) => {
       .catch(err => err);
   }
 
-  const editItinerary = (id, users_id, name, description, city_name, country_name, travel_start_date, travel_end_date) => {
+  const editItinerary = (id, users_id, name, description, location, travel_start_date, travel_end_date) => {
     const query = {
       text: `UPDATE travel_destination
       SET users_id = $2,
       name = $3,
       description = $4,
-      city_name = $5,
-      country_name = $6,
-      travel_start_date = $7,
-      travel_end_date = $8
+      location = $5,
+      travel_start_date = $6,
+      travel_end_date = $7
       WHERE id = $1;` ,
-      values: [id, users_id, name, description, city_name, country_name, travel_start_date, travel_end_date]
+      values: [id, users_id, name, description, location, travel_start_date, travel_end_date]
     }
 
     return db.query(query)

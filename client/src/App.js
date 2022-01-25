@@ -3,6 +3,9 @@ import useApplicationData from './hooks/useApplicationData';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from "react-router-dom";
 import Slideshow from './components/Slideshow';
+import picture4 from './img4.jpg';
+import picture5 from './img5.jpg';
+import picture6 from './img6.jpg';
 
 const App = () => {
 
@@ -24,7 +27,7 @@ const App = () => {
       <div className='background-main'>
         <button onClick={() => handleRouteClick("/edit/1")} type="button">Add Pins page</button>
         <button onClick={() => handleRouteClick("/usersTravels")} type="button">usersTravels page</button>
-        <br></br><br></br><br></br><br></br><br></br><br></br><br></br>
+        <br></br><br></br><br></br><br></br><br></br>
 
         <h2>Create Your Itinerary Today!</h2>
         <Slideshow />
@@ -32,13 +35,22 @@ const App = () => {
         <button onClick={() => handleRouteClick("/newItinerary")} type="button">Create Now</button>
         <br></br><br></br><br></br><br></br><br></br>
 
-        <h2>View Other Itinerary</h2>
-        <button onClick={() => handleRouteClick("/view/1")} type="button">View</button>
-        <br></br><br></br>
-        <button onClick={() => handleRouteClick("/view/2")} type="button">View</button>
-        <br></br><br></br>
-        <button onClick={() => handleRouteClick("/view/3")} type="button">View</button>
-        <br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>
+        <h2 className='title'>View Other Itinerary</h2>
+        <br></br><br></br><br></br>
+        <div className='itinerary-button'>
+          <div className='picture4'>
+            <button onClick={() => handleRouteClick("/view/1")} type="button"><img src={picture4} /></button>
+          </div>
+          <br></br><br></br>
+          <div className='picture5'>
+            <button onClick={() => handleRouteClick("/view/2")} type="button"><img src={picture5} /></button>
+          </div>
+          <br></br><br></br>
+          <div className='picture6'>
+            <button onClick={() => handleRouteClick("/view/3")} type="button"><img src={picture6} /></button>
+          </div>
+        </div>
+        <br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>
       </div>
     </div>
   );

@@ -13,7 +13,7 @@ import { useNavigate } from "react-router-dom";
 
 const AddPins = () => {
   const [center, setCenter] = useState({ lat: 0, lng: 0 });
-  const [zoom, setZoom] = useState(11);
+  const [zoom, setZoom] = useState(9);
   const [cookies] = useCookies(['user']);
   const [date, setDate] = useState('');
   const [travel, setTravel] = useState({});
@@ -130,7 +130,7 @@ const AddPins = () => {
       </div>
       <div className="google_map_container">
         <GoogleMapReact
-          bootstrapURLKeys={{ key: process.env.REACT_APP_MAPKEY }}
+          // bootstrapURLKeys={{ key: process.env.REACT_APP_MAPKEY }}
           center={center}
           defaultZoom={zoom}
           onClick={(event) => addMarker(event.lat, event.lng)}

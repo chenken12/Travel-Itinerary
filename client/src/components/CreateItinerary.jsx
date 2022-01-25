@@ -142,6 +142,7 @@ export default function CreateItinerary() {
               selected={formData.startDate} 
               onChange={date => setFormData({...formData, startDate: date})}
               dateFormat='dd/MM/yyyy'
+              maxDate={formData.endDate}
             />
           </Form.Group>
           <Form.Group as={Col} controlId='formGridEndDate'>
@@ -150,6 +151,7 @@ export default function CreateItinerary() {
               selected={formData.endDate} 
               onChange={date => setFormData({...formData, endDate: date})}
               dateFormat='dd/MM/yyyy'
+              minDate={formData.startDate}
             />
           </Form.Group>
         </Row>

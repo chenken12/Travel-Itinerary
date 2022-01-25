@@ -16,7 +16,7 @@ export default function ViewOtherItinerary(props) {
   const td_id = location.pathname.split('/')[2];
 
   const [center, setCenter] = useState({lat: 43.6532, lng: -79.3832 });
-  const [zoom, setZoom] = useState(13);
+  const [zoom, setZoom] = useState(9);
   const [markerList, setMarkerList] = useState([]);
   const { comment, postComment, setPost } = useComment(td_id);
   const [travel, setTravel] = useState({});
@@ -93,7 +93,7 @@ export default function ViewOtherItinerary(props) {
       
       <div className="google_map_container"> 
         <GoogleMapReact
-          bootstrapURLKeys={{ key: process.env.REACT_APP_MAPKEY }}
+          // bootstrapURLKeys={{ key: process.env.REACT_APP_MAPKEY }}
           center={center}
           defaultZoom={zoom}
         >

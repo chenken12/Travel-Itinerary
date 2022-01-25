@@ -45,10 +45,37 @@
 
 .background-main {
   background-image: url('home-page.jpeg');
-  /* background-repeat: no-repeat; */
   background-size: cover;
   height: fit-content;
   font:larger;
   color: aliceblue;
+  padding-top: 10rem;
 
+}
+
+.title {
+  color: black;
+  font-size: 4rem;
+}
+
+
+.itinerary-button {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.picture4 {
+  border: 5px solid black;
+  margin: 3rem 1rem 14rem 1rem;
+}
+
+.picture5 {
+  border: 5px solid black;
+  margin: 3rem 1rem 16rem 1rem;
+}
+
+.picture6 {
+  border: 5px solid black;
+  margin: 3rem 1rem 8rem 1rem;
 }

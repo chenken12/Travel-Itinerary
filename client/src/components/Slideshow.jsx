@@ -29,6 +29,7 @@ const Slideshow = (props) => {
     };
   }, [index]);
 
+  
   return (
     <div className="slideshow">
       <div

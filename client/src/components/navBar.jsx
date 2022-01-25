@@ -11,9 +11,9 @@ export default function NavBar(props) {
 
   const [cookies, removeCookie] = useCookies(['user']);
 
-  const {user = {}} = cookies;
+  const { user = {} } = cookies;
   console.log("This is the user----", user);
-  const {firstName} = user;
+  const { firstName } = user;
 
   let navigate = useNavigate();
   console.log("This is the cookiiess----", cookies);
@@ -25,25 +25,23 @@ export default function NavBar(props) {
   // }, [])
   const handleLogout = (e) => {
     e.preventDefault();
-    removeCookie('user' );
+    removeCookie('user');
     navigate("/");
   }
 
   return (
-
     <nav className="nav-style">
       <Navbar bg="dark" variant="dark" fixed-top="true">
-
         <Container>
           <Navbar.Brand href="/">Travel Itinerary</Navbar.Brand>
           <Nav className="me-auto">
             <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
               <ul className="navbar-nav ml-auto">
-              {firstName && (
-                <>
-                <li className="nav-item">
-                  <Link className="nav-link" to={"/usersTravels"}>My Travels</Link>
-                </li></>)}
+                {firstName && (
+                  <>
+                    <li className="nav-item">
+                      <Link className="nav-link" to={"/usersTravels"}>My Travels</Link>
+                    </li></>)}
                 <li className="nav-item">
                   <Link className="nav-link" to={"/newItinerary"}>New Itinerary</Link>
                 </li>
@@ -59,16 +57,16 @@ export default function NavBar(props) {
               </Form>
             </div>
             {firstName && (<Navbar.Text> Signed in as: <a href="#login">{firstName}</a></Navbar.Text>)}
-            {firstName && (<button onClick={handleLogout}>Logout</button> )}
+            {firstName && (<button onClick={handleLogout}>Logout</button>)}
             <ul className="navbar-nav ml-auto">
-            {!firstName && (
+              {!firstName && (
                 <><li className="nav-item">
                   <Link className="nav-link" to={"/login"}>Login</Link>
                 </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to={"/register"}>Signup</Link>
-                </li></>)}
-              </ul>
+                  <li className="nav-item">
+                    <Link className="nav-link" to={"/register"}>Signup</Link>
+                  </li></>)}
+            </ul>
           </Nav>
         </Container>
       </Navbar>

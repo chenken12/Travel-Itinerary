@@ -3,7 +3,7 @@ const UserItinerary = (props) => {
   console.log('props itinerary: ', props);
   const {name, description, city_name, country_name, travel_start_date, travel_end_date} = props;
   return (
-    <div style={{backgroundColor: "white", color: "black"}}> 
+    <div className="user-travels-page" style={{backgroundColor: "white", color: "black"}}> 
       <h1>{name}</h1>
       <p>{description}</p>
       <h1>{city_name}</h1>

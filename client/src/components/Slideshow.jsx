@@ -1,15 +1,14 @@
-import React, { useState, useEffect, useRef} from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "../styles/slideshow.css"
 
 const Slideshow = (props) => {
   const { images } = props;
-  // const images = ["https://source.unsplash.com/random/?travel", "https://source.unsplash.com/random/?map", "https://source.unsplash.com/random/?grass"];
   const delay = 5000;
 
   const [index, setIndex] = useState(0);
   const timeoutRef = useRef(null);
 
-  const resetTimeout = function() {
+  const resetTimeout = function () {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
     }
@@ -30,7 +29,7 @@ const Slideshow = (props) => {
     };
   }, [index]);
 
-  
+
   return (
     <div className="slideshow">
       <div
@@ -41,7 +40,7 @@ const Slideshow = (props) => {
           <img
             className="slide"
             key={index}
-            src={ image }
+            src={image}
           />
         ))}
       </div>

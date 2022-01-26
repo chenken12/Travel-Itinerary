@@ -139,29 +139,13 @@ module.exports = (db) => {
         // .catch(err => err);
   }
 
-  const editPin = (travel_destination_id, pinned_name, long, lat, date) => {
-    const query = {
-      text: `UPDATE pins
-      SET travel_destination_id = $1,
-      pinned_name = $2,
-      long = $3,
-      lat = $4,
-      date = $5,
-      WHERE id = $1;` ,
-      values: [travel_destination_id, pinned_name, long, lat, date]
-    }
-
-    return db.query(query)
-        .then(result => result.rows[0])
-        // .catch(err => err);
-  }
-
   const getTravelPlanById = (email) => {
     const query = {
       text: `SELECT pins.*
         FROM travel_destination
         JOIN pins ON travel_destination.id = pins.travel_destination_id
-        WHERE travel_destination.id = $1`,
+        WHERE travel_destination.id = $1
+        ORDER BY pins.date`,
       values: [email]
     }
 
@@ -171,14 +155,15 @@ module.exports = (db) => {
       .catch((err) => err);
   };
 
-  const getCommentsById = (email) => {
+  const getCommentsById = (id) => {
     const query = {
       text: `SELECT comments.*, users.first_name, users.last_name
         FROM travel_destination
         JOIN comments ON travel_destination.id = comments.travel_destination_id
         JOIN users ON users.id = comments.users_id
-        WHERE travel_destination.id = $1`,
-      values: [email]
+        WHERE travel_destination.id = $1
+        ORDER BY comments.created_at DESC`,
+      values: [id]
     }
 
     return db
@@ -202,6 +187,17 @@ module.exports = (db) => {
     const query = {
       text: `INSERT INTO pins (travel_destination_id, pinned_name, lat, long, date) VALUES ($1, $2, $3, $4, $5) RETURNING *`,
       values: [travel_destination_id, name, lat, long, date]
+    };
+
+    return db.query(query)
+      .then(result => result.rows[0])
+      .catch(err => err);
+  };
+
+  const deletePin = (id) => {
+    const query = {
+      text: `DELETE FROM pins WHERE id = $1`,
+      values: [id]
     };
 
     return db.query(query)
@@ -250,7 +246,7 @@ module.exports = (db) => {
       getUserLogin,
       getUserItinerary,
       editItinerary,
-      editPin,
-      deleteItinerary
+      deleteItinerary,
+      deletePin
   };
 };

@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600,700,800');
 
 
-
 .login-body {
   background: #1C8EF9 !important;
   align-items: center;
@@ -10,7 +9,6 @@
   font-weight: 400;
   font-family: 'Fira Sans', sans-serif;
 }
-
 
 .login-body, .auth-wrapper {
   width: 100%;
@@ -73,9 +71,3 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
 }
-
-/* .login-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-} */

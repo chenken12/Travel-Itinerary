@@ -44,7 +44,7 @@
 
 
 .background-main {
-  background-image: url('home-page.jpeg');
+  background-image: url('./pictures/pic.jpeg');
   background-size: cover;
   height: fit-content;
   font:larger;
@@ -56,6 +56,11 @@
 .title {
   color: black;
   font-size: 4rem;
+}
+
+.create-title {
+  color: black;
+  font-size: 3rem;
 }
 
 

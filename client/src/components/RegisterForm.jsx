@@ -30,7 +30,6 @@ export default function RegisterForm() {
     const handleChange = (e) => {
         const name = e.target.name;
         const value = e.target.value;
-        console.log("This is the name and value", name, value);
         setUser({ ...user, [name]: value })
     }
 
@@ -41,14 +40,13 @@ export default function RegisterForm() {
             toast.error("You need to fill out all sections of the form to register for an account!");
         }
 
-        // if (user.password !== user.passwordConfirmation) {
-        //     toast.error("Error!! Password Confirmation does not match password!");
-        // }
+        if (user.password !== user.passwordConfirmation) {
+            toast.error("Error!! Password Confirmation does not match password!");
+        }
 
         if (user.firstName && user.lastName && user.email && user.password && user.passwordConfirmation) {
             axios.post("http://localhost:8080/api/register", user)
                 .then((response) => {
-                    console.log("This is the response for user registration axios post", response);
                     if (response.data.length < 1) {
                         toast.error("Please enter a valid input");
                         return
@@ -58,8 +56,8 @@ export default function RegisterForm() {
                         return
                     }
                     else {
-                        console.log("This is the response.data", response.data);
                         setCookie('user', {
+                            id: response.data.response.id,
                             firstName: response.data.response.first_name,
                             lastName: response.data.response.last_name,
                             email: response.data.response.email
@@ -74,6 +72,8 @@ export default function RegisterForm() {
     return (
         <form className="register-form" onSubmit={handleSubmit}>
 
+            <h1>Signup Page</h1>
+            <br></br>
             <div className="form-group">
                 <label>First Name</label>
                 <ToastContainer />

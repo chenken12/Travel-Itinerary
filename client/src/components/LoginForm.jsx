@@ -34,18 +34,16 @@ export default function LoginForm(props) {
         e.preventDefault()
 
         if (!user.email || !user.password) {
-            toast.error("You need to enter the email and password to login!!");
+            toast.error("Error! You must enter an email and password to login!");
         }
         if (user.email && user.password) {
             axios.post("/api/login", user)
                 .then((response) => {
-                    console.log("This is the response for login axios post", response.data);
                     if (response.data.error) {
-                        toast.error("Please enter a valid input");
+                        toast.error("Error! Please enter a valid email and password!");
                         return
                     }
                     else {
-                        console.log(response.data.response);
                         setCookie('user', {
                             id: response.data.response.id,
                             firstName: response.data.response.first_name,
@@ -62,18 +60,17 @@ export default function LoginForm(props) {
     return (
         <div className="login-wrapper">
             <form onSubmit={handleSubmit}>
-
+                <h1>Login Page</h1>
+                <br></br>
                 <div className="form-group">
                     <label>Email Address</label>
                     <ToastContainer />
                     <input type="email" name="email" value={cookies.email} className="form-control" placeholder="Enter email" onChange={handleChange} />
                 </div>
-
                 <div className="form-group">
                     <label>Password</label>
                     <input type="password" name="password" value={cookies.password} className="form-control" placeholder="Enter password" onChange={handleChange} />
                 </div>
-
                 <button type="submit" className="btn btn-primary btn-block">Submit</button>
                 <p className="forgot-password text-right">
                     Don't have an account yet? <a href="#"><Link to="/register">Register Here</Link> </a>

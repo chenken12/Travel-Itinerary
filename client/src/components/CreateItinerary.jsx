@@ -34,7 +34,7 @@ export default function CreateItinerary(props) {
     suggestions: { status, data },
     setValue,
   } = usePlacesAutocomplete({
-    debounce: 500,
+    debounce: 200,
     cache: 7 * 24 * 60 * 60
   });
 
@@ -133,7 +133,6 @@ export default function CreateItinerary(props) {
       </Form.Group>
 
       <Form.Group className="mb-3">
-        <Form.Label>Where</Form.Label>
         <Row>
           <Form.Group as={Col} controlId='formGridStartDate'>
             <Form.Label>Start Date </Form.Label>

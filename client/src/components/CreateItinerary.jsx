@@ -106,7 +106,7 @@ export default function CreateItinerary(props) {
       }}>
       <h1>Create Itinerary</h1>
       <Form.Group className="mb-3">
-        <Form.Label>Name</Form.Label>
+        <Form.Label>Title</Form.Label>
         <Form.Control 
           type="name" 
           placeholder="Enter name"

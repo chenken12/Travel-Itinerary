@@ -132,7 +132,8 @@ module.exports = (db) => {
       text: `SELECT pins.*
         FROM travel_destination
         JOIN pins ON travel_destination.id = pins.travel_destination_id
-        WHERE travel_destination.id = $1`,
+        WHERE travel_destination.id = $1
+        ORDER BY pins.date`,
       values: [email]
     }
 
@@ -180,6 +181,17 @@ module.exports = (db) => {
       .catch(err => err);
   };
 
+  const deletePin = (id) => {
+    const query = {
+      text: `DELETE FROM pins WHERE id = $1`,
+      values: [id]
+    };
+
+    return db.query(query)
+      .then(result => result.rows[0])
+      .catch(err => err);
+  };
+
   const addUserRegistration = (firstName, lastName, email, password) => {
     const query = {
       text: `INSERT INTO users (first_name, last_name, email, password) VALUES ($1, $2, $3, $4) RETURNING *`,
@@ -204,22 +216,23 @@ module.exports = (db) => {
   }
 
   return {
-      getUsers,
-      getUserByEmail,
-      addUser,
-      getUsersPosts,
-      getItinerary,
-      getTravelPlanById,
-      getCommentsById,
-      addComment,
-      getUserLogin,
-      addUserRegistration, 
-      getUserDetails,
-      addPin,
-      getItineraryById,
-      addItinerary,
-      getUserLogin,
-      getUserItinerary,
-      editItinerary
+    getUsers,
+    getUserByEmail,
+    addUser,
+    getUsersPosts,
+    getItinerary,
+    getTravelPlanById,
+    getCommentsById,
+    addComment,
+    getUserLogin,
+    addUserRegistration,
+    getUserDetails,
+    addPin,
+    getItineraryById,
+    addItinerary,
+    getUserLogin,
+    getUserItinerary,
+    deletePin,
+    editItinerary
   };
 };

@@ -15,3 +15,9 @@
   font-size: 2em;
   margin-right: 30px;
 }
+
+.user_button {
+  display: flex;
+  width: 50%;
+  justify-content: space-between;
+}

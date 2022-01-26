@@ -15,3 +15,9 @@
   display: flex;
   justify-content: center;
 }
+
+.grid .user_button {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}

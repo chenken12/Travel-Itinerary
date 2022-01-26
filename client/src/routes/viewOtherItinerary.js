@@ -44,7 +44,7 @@ export default function ViewOtherItinerary(props) {
       return getDate(day) === dateformat(marker.date);
     }); 
     if (markerfilter.length > 0) {
-      return <MarkerInfoList key={ index } day={`${getDate(day)}`} color="blue" markerList={markerList}/>
+      return <MarkerInfoList key={ index } day={`${getDate(day)}`} mode={"view"} color="blue" markerList={markerList}/>
     }
     return null;
   });
@@ -65,14 +65,14 @@ export default function ViewOtherItinerary(props) {
         <Traveldetails 
           {...travel}
         />
-
-        <h2>View Other People's Itinerary</h2>
+        <span className="spacer"/>
 
         <div className="markerInfo-container">
           <h3>Places</h3>
           { parsedDays }
         </div>
 
+        <span className="spacer"/>
       
         <div className="comment-container">
           <h3>Comment</h3>

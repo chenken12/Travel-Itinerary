@@ -9,7 +9,6 @@ import 'react-datepicker/dist/react-datepicker.css';
 import '../styles/CreateItinerary.css';
 import { useNavigate, useLocation } from 'react-router-dom';
 import usePlacesAutocomplete, { getGeocode, getLatLng } from "use-places-autocomplete";
-import { dateformat } from '../helpers/dateformat';
 import {
   Combobox,
   ComboboxInput,
@@ -25,9 +24,6 @@ export default function EditItinerary() {
   const [ error, setError ] = useState('');
   const [userItineraryFormData, SetUserItineraryFormData] = useState({});
   const id_data = location.pathname.split('/')[2];
-  console.log("id: ", id_data);
-  console.log("cookies:", cookies);
-
 
   const {
     ready,

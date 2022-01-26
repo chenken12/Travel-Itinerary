@@ -9,7 +9,6 @@ const UserDestinations = (props) => {
         <UserItinerary key={el.id} {...el}/>
       );
     })
-    // console.log("travelItineraries", userTravelItineraries);
   return (
     userTravelItineraries
   );

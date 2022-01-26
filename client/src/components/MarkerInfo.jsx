@@ -1,5 +1,5 @@
 const MarkerInfo = (props) => {
-  const { name, index, color, removeMarker } = props;
+  const { name, index, color, removeMarker, mode } = props;
   return (
     <div className="marker_delete">
       <div>
@@ -9,7 +9,7 @@ const MarkerInfo = (props) => {
       </div>
       <div>
         
-        <i className="far fa-times-circle" style={{padding: "5px", cursor: 'pointer'}} onClick={removeMarker}></i>
+        {mode === "add" && <i className="far fa-times-circle" style={{padding: "5px", cursor: 'pointer'}} onClick={removeMarker}></i>}
       </div>
     </div>
   );

@@ -7,7 +7,7 @@ export default function UserItineraryData() {
   const [cookies] = useCookies();
   useEffect(() => {
     console.log("useeffect");
-    axios.get(`http://localhost:8080/api/travels`)
+    axios.get(`/api/travels`)
       .then(res => {
         // console.log("cookie: ", cookies.user.id);
         // console.log(res);

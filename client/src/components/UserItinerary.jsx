@@ -32,10 +32,14 @@ const UserItinerary = (props) => {
         <div className="delbtn">
           <DeleteItinerary itineraryData={props}/>
         </div>
-      </div>
-      <div className="user_button">
-        <button onClick={() => editpin()}>Edit Pins</button>
-        <button onClick={() => viewpin()}>View Pins</button>
+        <div className="user_button">
+          <div className="editpin">
+            <i className="fas fa-map-marker-alt fa-2x" onClick={() => editpin()}></i>
+          </div>
+          <div className="viewpins">
+            <i className="fas fa-binoculars fa-2x" onClick={() => viewpin()}></i>
+          </div>
+        </div>
       </div>
     </div>
   );

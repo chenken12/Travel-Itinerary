@@ -23,6 +23,14 @@
   cursor: pointer;
 }
 
+.fa-map-marker-alt:hover {
+  cursor: pointer;
+}
+
+.fa-binoculars:hover {
+  cursor: pointer;
+}
+
 .user-travels-page h1 {
   font-weight: 600;
 }

@@ -5,6 +5,7 @@ import EditButton from "./EditButton";
 import DeleteItinerary from "./DeleteItinerary";
 const UserItinerary = (props) => {
   const navigate = useNavigate();
+  // console.log('props itinerary: ', props);
   const {name, description, location, travel_start_date, travel_end_date} = props;
   console.log(props.id);
   const editpin = function() {
@@ -24,13 +25,18 @@ const UserItinerary = (props) => {
         <span>-</span>
         <span>{dateformat(travel_end_date)}</span>
       </div>
+      <div className="itinerary-btns">
+        <div className="editbtn">
+          <EditButton itineraryData={props}/>
+        </div>
+        <div className="delbtn">
+          <DeleteItinerary itineraryData={props}/>
+        </div>
+      </div>
       <div className="user_button">
-        <EditButton itineraryData={props}/>
-        <DeleteItinerary itineraryData={props}/>
         <button onClick={() => editpin()}>Edit Pins</button>
         <button onClick={() => viewpin()}>View Pins</button>
       </div>
-     
     </div>
   );
 };

@@ -1,15 +1,19 @@
 import UserItinerary from '../components/UserItinerary'
-
+import "../styles/userDestination.css";
 const UserDestinations = (props) => {
   const {travelIt} = props;
   const userTravelItineraries = 
     travelIt.map(el => {
       return (
-        <UserItinerary key={el.id} {...el}/>
+        <div>
+          <UserItinerary key={el.id} {...el}/>
+        </div>
       );
     })
   return (
-    userTravelItineraries
+    <div className='grid'>
+      {userTravelItineraries}
+    </div>
   );
 };
 

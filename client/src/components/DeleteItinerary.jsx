@@ -8,9 +8,9 @@ const DeleteItinerary = (props) => {
   console.log("Delete Itinerary props: ", {...itineraryData});
   return (
     <div>
-      <button onClick={() =>
+      <i className='fas fa-trash fa-2x' onClick={() =>
         axios.post(`/api/travels/${props.itineraryData.id}`, {...itineraryData})
-          .then(() => navigate('/'))}>Delete Itinerary</button>
+          .then(() => navigate('/'))}></i>
     </div>
   )
 };

@@ -35,10 +35,11 @@ export default function NavBar(props) {
               {firstName && (
                 <><li className="nav-item">
                   <Link className="nav-link" to={"/usersTravels"}>My Travels</Link>
-                </li></>)}
+                </li>
               <li className="nav-item">
                 <Link className="nav-link" to={"/newItinerary"}>New Itinerary</Link>
               </li>
+              </>)}
             </ul>
             {/* <Form className="d-flex">
                 <FormControl

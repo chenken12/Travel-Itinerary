@@ -1,0 +1,17 @@
+.grid{
+  display: grid;
+  width: 100%;
+  grid-gap: 50px;
+  grid-template-columns: repeat(2, 850px);
+  grid-template-rows: repeat(auto, 850px);
+}
+
+.grid .user-travels-page {
+  text-align: center;
+  width: 850px;
+}
+
+.grid .itinerary-btns {
+  display: flex;
+  justify-content: center;
+}

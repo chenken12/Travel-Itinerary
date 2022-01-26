@@ -6,7 +6,7 @@ const EditButton = (props) => {
   console.log("Edit btn props: ", props);
   return (
     <div>
-      <button onClick={() => navigate(`/editItinerary/${props.itineraryData.id}`)}>Edit Itinerary</button>
+      <i className='fas fa-pen fa-2x' onClick={() => navigate(`/editItinerary/${props.itineraryData.id}`)}></i>
     </div>
   )
 };

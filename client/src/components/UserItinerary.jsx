@@ -5,6 +5,7 @@ import EditButton from "./EditButton";
 import DeleteItinerary from "./DeleteItinerary";
 const UserItinerary = (props) => {
   const navigate = useNavigate();
+  // console.log('props itinerary: ', props);
   const {name, description, location, travel_start_date, travel_end_date} = props;
   return (
     <div className="user-travels-page"> 
@@ -16,8 +17,14 @@ const UserItinerary = (props) => {
         <span>-</span>
         <span>{dateformat(travel_end_date)}</span>
       </div>
-      <EditButton itineraryData={props}/>
-      <DeleteItinerary itineraryData={props}/>
+      <div className="itinerary-btns">
+        <div className="editbtn">
+          <EditButton itineraryData={props}/>
+        </div>
+        <div className="delbtn">
+          <DeleteItinerary itineraryData={props}/>
+        </div>
+      </div>
     </div>
   );
 };

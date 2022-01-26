@@ -7,7 +7,8 @@ module.exports = ({
   getUserItinerary,
   getItineraryById,
   addItinerary,
-  editItinerary
+  editItinerary,
+  deleteItinerary
 }) => {
   /* GET travels listing. */
   router.get('/', (req, res) => {
@@ -45,6 +46,19 @@ module.exports = ({
     const {id, users_id, name, description, location, travel_start_date, travel_end_date, lat, lng} = req.body;
     // console.log('post req: ', req.body);
     editItinerary(id, users_id, name, description, location, travel_start_date, travel_end_date, lat, lng)
+      .then((newItinerary)=> {
+        res.status(200).json(newItinerary);
+      })
+      .catch((err) => res.status(500).json({
+        error: err.message
+      }));
+  })
+
+  router.post('/:id', (req, res) => {
+    console.log("req 5: ", req.body);
+    const {id} = req.body;
+    // console.log('post req: ', req.body);
+    deleteItinerary(id)
       .then((newItinerary)=> {
         res.status(200).json(newItinerary);
       })

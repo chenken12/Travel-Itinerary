@@ -31,7 +31,7 @@ export default function NavBar(props) {
 
   return (
     <nav className="nav-style">
-      <Navbar bg="dark" variant="dark" fixed-top="true">
+      <Navbar bg="dark" variant="dark">
         <Container>
           <Navbar.Brand href="/">Travel Itinerary</Navbar.Brand>
           <Nav className="me-auto">

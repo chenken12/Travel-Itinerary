@@ -3,7 +3,8 @@ const router = express.Router();
 
 module.exports = ({
   addPin,
-  getTravelPlanById
+  getTravelPlanById,
+  editPin
 }) => {
   router.post('/', (req, res) => {
     console.log(req.body);
@@ -16,6 +17,17 @@ module.exports = ({
         error: err.message
       })); 
   });
+
+  // create an endpoint 
+
+  router.put('/:id', (req, res) => {
+    const {travel_destination_id, pinned_name, long, lat, date} = req.body;
+    editPin(travel_destination_id, pinned_name, long, lat, date)
+     .then(pin => es.status(200).json(pin))
+     .catch((err) => res.json({
+        error: err.message
+      }));
+  })
 
   router.get('/:id', (req, res) => {
     getTravelPlanById(req.params.id)

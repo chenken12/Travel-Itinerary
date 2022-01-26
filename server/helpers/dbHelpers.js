@@ -127,6 +127,35 @@ module.exports = (db) => {
         // .catch(err => err);
   }
 
+  const deleteItinerary = (id) => {
+    const query = {
+      text: `DELETE FROM travel_destination
+      WHERE id = $1;`,
+      values: [id]
+    }
+
+    return db.query(query)
+        .then(result => result.rows[0])
+        // .catch(err => err);
+  }
+
+  const editPin = (travel_destination_id, pinned_name, long, lat, date) => {
+    const query = {
+      text: `UPDATE pins
+      SET travel_destination_id = $1,
+      pinned_name = $2,
+      long = $3,
+      lat = $4,
+      date = $5,
+      WHERE id = $1;` ,
+      values: [travel_destination_id, pinned_name, long, lat, date]
+    }
+
+    return db.query(query)
+        .then(result => result.rows[0])
+        // .catch(err => err);
+  }
+
   const getTravelPlanById = (email) => {
     const query = {
       text: `SELECT pins.*
@@ -220,6 +249,8 @@ module.exports = (db) => {
       addItinerary,
       getUserLogin,
       getUserItinerary,
-      editItinerary
+      editItinerary,
+      editPin,
+      deleteItinerary
   };
 };

@@ -114,7 +114,7 @@ export default function EditItinerary() {
         event.preventDefault();
         submitForm();
       }}>
-        <h1>Create Itinerary</h1>
+        <h1>Edit Itinerary</h1>
         <Form.Group className="mb-3">
           <Form.Label>Name</Form.Label>
           <Form.Control
@@ -142,7 +142,6 @@ export default function EditItinerary() {
         </Form.Group>
 
         <Form.Group className="mb-3">
-          <Form.Label>Where</Form.Label>
           <Row>
             <Form.Group as={Col} controlId='formGridStartDate'>
               <Form.Label>Start Date </Form.Label>

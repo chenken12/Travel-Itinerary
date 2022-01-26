@@ -2,6 +2,7 @@ import './App.css';
 import useApplicationData from './hooks/useApplicationData';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from "react-router-dom";
+import { useCookies } from 'react-cookie';
 import Slideshow from './components/Slideshow';
 import picture4 from './pictures/img4.jpg';
 import picture5 from './pictures/img5.jpg';
@@ -11,6 +12,11 @@ import picture2 from './pictures/picture2.jpeg';
 import picture3 from './pictures/picture3.jpeg';
 
 const App = () => {
+
+  const [cookies] = useCookies(['user']);
+
+  const { user = {} } = cookies;
+  const { firstName } = user;
 
   const navigate = useNavigate();
 
@@ -30,7 +36,11 @@ const App = () => {
       <div className='background-main'>
         <h2 className='create-title'>Create Your Itinerary Today!</h2>
         <Slideshow images={[picture1, picture2, picture3]} />
-        <button onClick={() => handleRouteClick("/newItinerary")} type="button">Create Now</button>
+        {firstName && (
+                <>
+                <button onClick={() => handleRouteClick("/newItinerary")} type="button">Create Now</button>
+                </>)}
+        
         <br></br><br></br><br></br><br></br><br></br>
         <h2 className='title'>View Other Itinerary</h2>
         <br></br><br></br><br></br>

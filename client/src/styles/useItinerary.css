@@ -43,3 +43,9 @@
 .editbtn{
   margin-right: 10px;
 }
+
+.user_button {
+  display: flex;
+  width: 50%;
+  justify-content: space-between;
+}

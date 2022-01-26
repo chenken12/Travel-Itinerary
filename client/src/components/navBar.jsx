@@ -53,7 +53,7 @@ export default function NavBar(props) {
           </div>
           <div className="collapse navbar-coll">
             <div className="collapse nav-log">
-              <div>{firstName && (<Navbar.Text> Signed in as: <a href="#login">{firstName}</a></Navbar.Text>)}</div>
+              <div className="signed-in">{firstName && (<Navbar.Text> Signed in as: <a href="#login">{firstName}</a></Navbar.Text>)}</div>
               <div>{firstName && (<button onClick={handleLogout}>Logout</button>)}</div>
             </div>
             <ul className="navbar-nav ml-auto">

@@ -29,7 +29,7 @@ const App = () => {
     <div className="App">
       
       <div className='background-main'>
-        <h2>Create Your Itinerary Today!</h2>
+        <h2 className='create-title'>Create Your Itinerary Today!</h2>
         <Slideshow images={[picture1, picture2, picture3]}/>
 
         <button onClick={() => handleRouteClick("/newItinerary")} type="button">Create Now</button>
@@ -50,7 +50,7 @@ const App = () => {
             <button onClick={() => handleRouteClick("/view/3")} type="button"><img src={picture6} /></button>
           </div>
         </div>
-        <br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>
+        <br></br><br></br><br></br><br></br><br></br>
       </div>
     </div>
 

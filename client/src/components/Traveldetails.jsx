@@ -17,7 +17,6 @@ const Traveldetails = (props) => {
     }
   }, [travel_start_date, travel_end_date]);
 
-  // console.log(travel_start_date);
   return (
     <div className='text-box'>
       <p> Title: { name } </p>

@@ -9,7 +9,6 @@ module.exports = ({
 
         addUserRegistration(firstName, lastName, email, password)
             .then((response) => {
-                console.log("This is a response from the server---", response);
                 res.json({
                     response: {
                         id: response.id,

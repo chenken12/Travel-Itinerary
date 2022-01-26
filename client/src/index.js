@@ -22,7 +22,6 @@ import NavBar from './components/navBar';
 
 ReactDOM.render(
   <React.StrictMode>
-    {/* <DatePicker selected={"2022/01/26"}/> */}
     <BrowserRouter>
     <CookiesProvider>
       <NavBar  />

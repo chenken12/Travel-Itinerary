@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Navbar } from "react-bootstrap";
 import { Container } from "react-bootstrap";
-import { Nav, Form, FormControl, Button } from "react-bootstrap";
 import { useCookies } from 'react-cookie';
 import { useNavigate } from "react-router-dom";
 import "../styles/navBar.css"
@@ -13,11 +12,9 @@ export default function NavBar(props) {
   const [cookies, removeCookie] = useCookies(['user']);
 
   const { user = {} } = cookies;
-  console.log("This is the user----", user);
   const { firstName } = user;
 
   let navigate = useNavigate();
-  console.log("This is the cookiiess----", cookies);
 
   const handleLogout = (e) => {
     e.preventDefault();
@@ -36,20 +33,11 @@ export default function NavBar(props) {
                 <><li className="nav-item">
                   <Link className="nav-link" to={"/usersTravels"}>My Travels</Link>
                 </li>
-              <li className="nav-item">
-                <Link className="nav-link" to={"/newItinerary"}>New Itinerary</Link>
-              </li>
-              </>)}
+                  <li className="nav-item">
+                    <Link className="nav-link" to={"/newItinerary"}>New Itinerary</Link>
+                  </li>
+                </>)}
             </ul>
-            {/* <Form className="d-flex">
-                <FormControl
-                  type="search"
-                  placeholder="Search"
-                  className="me-2"
-                  aria-label="Search"
-                />
-                <Button variant="outline-success">Search</Button>
-              </Form> */}
           </div>
           <div className="collapse navbar-coll">
             <div className="collapse nav-log">

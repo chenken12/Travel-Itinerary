@@ -79,11 +79,9 @@ export default function EditItinerary() {
       })
       .then((latLng) => {
         const { lat, lng } = latLng;
-        // console.log("Coordinates: ", lat, lng);
         return axios.put(`/api/travels/${id_data}`, { ...userItineraryFormData, location: value, lat, lng })
       })
       .then((res) => {
-        // const edit_id = res.data.itinerary.id;
         navigate(`/usersTravels`)
       })
       .catch((error) => {
@@ -153,7 +151,6 @@ export default function EditItinerary() {
             <Form.Group as={Col} controlId='formGridStartDate'>
               <Form.Label>Start Date </Form.Label>
               <DatePicker
-                // value={userItineraryFormData.travel_start_date}
                 selected={startDate}
                 onChange={date => SetUserItineraryFormData({ ...userItineraryFormData, travel_start_date: date })}
                 dateFormat='dd/MM/yyyy'

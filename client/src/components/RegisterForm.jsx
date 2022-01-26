@@ -30,7 +30,6 @@ export default function RegisterForm() {
     const handleChange = (e) => {
         const name = e.target.name;
         const value = e.target.value;
-        console.log("This is the name and value", name, value);
         setUser({ ...user, [name]: value })
     }
 
@@ -48,7 +47,6 @@ export default function RegisterForm() {
         if (user.firstName && user.lastName && user.email && user.password && user.passwordConfirmation) {
             axios.post("http://localhost:8080/api/register", user)
                 .then((response) => {
-                    console.log("This is the response for user registration axios post", response);
                     if (response.data.length < 1) {
                         toast.error("Please enter a valid input");
                         return
@@ -58,7 +56,6 @@ export default function RegisterForm() {
                         return
                     }
                     else {
-                        console.log("This is the response.data", response.data);
                         setCookie('user', {
                             id: response.data.response.id,
                             firstName: response.data.response.first_name,

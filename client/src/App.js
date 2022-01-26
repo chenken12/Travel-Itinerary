@@ -42,7 +42,9 @@ const App = () => {
         <br></br><br></br><br></br>
         <div className='itinerary-button'>
           <div className='picture4'>
-            <button onClick={() => handleRouteClick("/view/1")} type="button"><img src={picture4} /></button>
+            <button onClick={() => handleRouteClick("/view/1")} type="button">
+              <img src={"https://source.unsplash.com/random/400x200/?cn-tower"} />
+            </button>
           </div>
           <br></br><br></br>
           <div className='picture5'>

@@ -114,7 +114,8 @@ module.exports = (db) => {
       text: `SELECT pins.*
         FROM travel_destination
         JOIN pins ON travel_destination.id = pins.travel_destination_id
-        WHERE travel_destination.id = $1`,
+        WHERE travel_destination.id = $1
+        ORDER BY pins.date`,
       values: [email]
     }
 

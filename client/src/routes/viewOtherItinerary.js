@@ -10,6 +10,7 @@ import MarkerInfoList from "../components/MarkerInfoList";
 import { getDatesArr, getDate } from "../helpers/dateformat";
 import Traveldetails from "../components/Traveldetails";
 import useComment from "../hooks/useComment";
+import { ToastContainer, toast } from 'react-toastify';
 
 export default function ViewOtherItinerary(props) {
   const location = useLocation();
@@ -18,7 +19,7 @@ export default function ViewOtherItinerary(props) {
   const [center, setCenter] = useState({lat: 43.6532, lng: -79.3832 });
   const [zoom, setZoom] = useState(9);
   const [markerList, setMarkerList] = useState([]);
-  const { comment, postComment, setPost } = useComment(td_id);
+  const { comment, postComment, setPost } = useComment(td_id, toast);
   const [travel, setTravel] = useState({});
   const [dateList, setDateList] = useState([]);
  
@@ -35,15 +36,15 @@ export default function ViewOtherItinerary(props) {
     });
   }, [td_id]);
 
-  const parsedMarker = markerList.map((marker) => {
-    return <Marker key={`marker${marker.id}`} lat={marker.lat} lng={marker.long} name={marker.pinned_name} color="blue" />;
+  const parsedMarker = markerList.map((marker, index) => {
+    return <Marker key={`marker${marker.id}`} lat={marker.lat} lng={marker.long} name={marker.pinned_name} color="blue" index={index} />;
   });
   const parsedDays = dateList.map((day, index) => {
     const markerfilter = markerList.filter((marker) =>{ 
       return getDate(day) === dateformat(marker.date);
     }); 
     if (markerfilter.length > 0) {
-      return <MarkerInfoList key={ index } day={`${getDate(day)}`} markerList={markerList}/>
+      return <MarkerInfoList key={ index } day={`${getDate(day)}`} color="blue" markerList={markerList}/>
     }
     return null;
   });
@@ -59,6 +60,7 @@ export default function ViewOtherItinerary(props) {
 
   return (
     <main className="map-container">
+      <ToastContainer />
       <div className="text-container">
         <Traveldetails 
           {...travel}

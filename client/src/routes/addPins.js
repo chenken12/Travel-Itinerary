@@ -10,6 +10,7 @@ import MarkerInfoList from "../components/MarkerInfoList";
 import Traveldetails from "../components/Traveldetails";
 import { useCookies } from 'react-cookie';
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
 
 const AddPins = () => {
   const [center, setCenter] = useState({ lat: 0, lng: 0 });
@@ -19,7 +20,6 @@ const AddPins = () => {
   const [travel, setTravel] = useState({});
   const [markerList, setMarkerList] = useState([]);
   const [dateList, setDateList] = useState([]);
-  const [error, setError] = useState("");
   const [newPlace, setNewPlace] = useState({
     name: '', lat: null, lng: null 
   });
@@ -53,11 +53,10 @@ const AddPins = () => {
     return <Marker key={`marker${marker.id}`} lat={marker.lat} lng={marker.long} name={marker.pinned_name} color="blue" index={index}/>;
   });
   const parsedDays = dateList.map((day, index) => {
-    return <MarkerInfoList key={ index } day={`${getDate(day)}`} markerList={markerList}/>
+    return <MarkerInfoList key={ index } day={`${getDate(day)}`} color="blue" markerList={markerList}/>
   });
 
   const addMarker = function(lat, lng) {
-    setError("");
     setNewPlace((prev) => {
       return { ...prev, lat: lat, lng: lng };
     });
@@ -65,19 +64,18 @@ const AddPins = () => {
 
   const setMarker = function() {
     if (newPlace.name === "") {
-      setError("Name cannot be blank");
+      toast.error("Name cannot be blank")
       return;
     }
     if (newPlace.lat === null || newPlace.lng === null) {
-      setError("No marker was placed");
+      toast.error("No marker was placed")
       return;
     }  
     if (date === '') {
-      setError("No date was selected");
+      toast.error("No date was selected");
       return;
     }  
 
-    setError("");
     axios.post(`/api/pins/`, { id, ...newPlace, date })
       .then((res) => {
         setMarkerList((prev) => {
@@ -90,6 +88,7 @@ const AddPins = () => {
 
   return (
     <main className="map-container">
+      <ToastContainer />
       <div className="text-container">
         <Traveldetails 
           {...travel}
@@ -115,7 +114,7 @@ const AddPins = () => {
             minDate={timezoneOffset(new Date(travel.travel_start_date))}
             maxDate={timezoneOffset(new Date(travel.travel_end_date))}
           />
-          <section className="error_msg" style={{ color: "red" }}>{error}</section>
+
           <button type="button" className="btn" onClick={() => setMarker()}>Save</button>
           <button type="button" className="btn" onClick={() => addMarker(null, null)}>Cancel</button>
           
@@ -136,7 +135,7 @@ const AddPins = () => {
           onClick={(event) => addMarker(event.lat, event.lng)}
         >
           { parsedMarker }
-          {newPlace.lat && <Marker key={"newPlaceMarker"} lat={newPlace.lat} lng={newPlace.lng} name={newPlace.name} color="green" />}
+          {newPlace.lat && <Marker key={"newPlaceMarker"} lat={newPlace.lat} lng={newPlace.lng} name={newPlace.name} color="green" index= { -1 }/>}
           
         </GoogleMapReact>
       </div>

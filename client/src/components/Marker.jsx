@@ -11,7 +11,7 @@ const Marker = (props) => {
         title={name}
         onClick={() => console.log("test" + name)}
       >
-        <p>{ index }</p>
+        <p>{ index + 1 }</p>
       </div>
       <div className="pulse" />
     </div>

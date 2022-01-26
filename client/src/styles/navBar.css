@@ -1,6 +1,17 @@
 nav.nav-style {
   z-index: 9999;
 }
+
+/* .ml-auto {
+  display: flex;
+  flex-direction: row;
+} */
+
+/* .navbar-nav li {
+  display: flex;
+  flex-direction:row;
+  flex-wrap: wrap;
+} */
 /* .d-flex {
     margin: 0 auto;
     padding: 0;

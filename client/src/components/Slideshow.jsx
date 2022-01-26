@@ -1,8 +1,14 @@
 import React, { useState, useEffect, useRef} from "react";
-import "../styles/slideshow.css"
+// import "../styles/slideshow.css"
+import { Slide } from 'react-slideshow-image';
 
 const Slideshow = (props) => {
   const colors = ["#0088FE", "#00C49F", "#FFBB28"];
+  const images = [
+    { url: "./picture1.jpeg" },
+    { url: "./picture2.jpeg" },
+    { url: "./picture3.jpeg" }
+  ];
   const delay = 5000;
 
   const [index, setIndex] = useState(0);
@@ -19,7 +25,7 @@ const Slideshow = (props) => {
     timeoutRef.current = setTimeout(
       () =>
         setIndex((prevIndex) =>
-          prevIndex === colors.length - 1 ? 0 : prevIndex + 1
+          prevIndex === images.length - 1 ? 0 : prevIndex + 1
         ),
       delay
     );
@@ -36,7 +42,7 @@ const Slideshow = (props) => {
         className="slideshowSlider"
         style={{ transform: `translate3d(${-index * 100}%, 0, 0)` }}
       >
-        {colors.map((backgroundColor, index) => (
+        {images.map((backgroundColor, index) => (
           <div
             className="slide"
             key={index}

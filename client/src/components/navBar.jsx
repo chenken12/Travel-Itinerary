@@ -43,7 +43,7 @@ export default function NavBar(props) {
                       <Link className="nav-link" to={"/usersTravels"}>My Travels</Link>
                     </li></>)}
                 <li className="nav-item">
-                  <Link className="nav-link" to={"/newItinerary"}>New Itinerary</Link>
+                  <Link className="nav-link" to={"/newItinerary"}>New Itinerary&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</Link>
                 </li>
               </ul>
               <Form className="d-flex">
@@ -56,12 +56,15 @@ export default function NavBar(props) {
                 <Button variant="outline-success">Search</Button>
               </Form>
             </div>
-            {firstName && (<Navbar.Text> Signed in as: <a href="#login">{firstName}</a></Navbar.Text>)}
+            <span> </span>
+            {firstName && (<Navbar.Text> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Signed in as: <a href="#login">{firstName}</a></Navbar.Text>)}
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
             {firstName && (<button onClick={handleLogout}>Logout</button>)}
             <ul className="navbar-nav ml-auto">
               {!firstName && (
                 <><li className="nav-item">
-                  <Link className="nav-link" to={"/login"}>Login</Link>
+                  <Link className="nav-link" to={"/login"}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Login</Link>
+                  
                 </li>
                   <li className="nav-item">
                     <Link className="nav-link" to={"/register"}>Signup</Link>

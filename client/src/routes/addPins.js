@@ -71,8 +71,9 @@ const AddPins = () => {
 
     axios.post(`/api/pins/`, { id, ...newPlace, date })
       .then((res) => {
+        console.log(res.data);
         setMarkerList((prev) => {
-          return [...prev, { id: `${markerList.length}n`, travel_destination_id: id, pinned_name: newPlace.name, lat: newPlace.lat, long: newPlace.lng,  date: `${new Date(date).toISOString()} `} ]
+          return [...prev, { ...res.data } ]
         });
         setNewPlace({ name: '', lat: null, lng: null });
       })

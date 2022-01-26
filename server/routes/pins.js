@@ -11,7 +11,8 @@ module.exports = ({
     const {id, name, lat, lng, date} = req.body;
     addPin(id, name, lat, lng, date)
       .then((pins) => {
-        res.status(204).json({});
+        console.log(pins)
+        res.json(pins);
       })
       .catch((err) => res.json({
         error: err.message

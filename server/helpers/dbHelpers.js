@@ -127,6 +127,18 @@ module.exports = (db) => {
         // .catch(err => err);
   }
 
+  const deleteItinerary = (id) => {
+    const query = {
+      text: `DELETE FROM travel_destination
+      WHERE id = $1;`,
+      values: [id]
+    }
+
+    return db.query(query)
+        .then(result => result.rows[0])
+        // .catch(err => err);
+  }
+
   const getTravelPlanById = (email) => {
     const query = {
       text: `SELECT pins.*
@@ -217,23 +229,24 @@ module.exports = (db) => {
   }
 
   return {
-    getUsers,
-    getUserByEmail,
-    addUser,
-    getUsersPosts,
-    getItinerary,
-    getTravelPlanById,
-    getCommentsById,
-    addComment,
-    getUserLogin,
-    addUserRegistration,
-    getUserDetails,
-    addPin,
-    getItineraryById,
-    addItinerary,
-    getUserLogin,
-    getUserItinerary,
-    deletePin,
-    editItinerary
+      getUsers,
+      getUserByEmail,
+      addUser,
+      getUsersPosts,
+      getItinerary,
+      getTravelPlanById,
+      getCommentsById,
+      addComment,
+      getUserLogin,
+      addUserRegistration, 
+      getUserDetails,
+      addPin,
+      getItineraryById,
+      addItinerary,
+      getUserLogin,
+      getUserItinerary,
+      editItinerary,
+      deleteItinerary,
+      deletePin
   };
 };

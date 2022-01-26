@@ -19,6 +19,17 @@ module.exports = ({
       })); 
   });
 
+  // create an endpoint 
+
+  router.put('/:id', (req, res) => {
+    const {travel_destination_id, pinned_name, long, lat, date} = req.body;
+    editPin(travel_destination_id, pinned_name, long, lat, date)
+     .then(pin => es.status(200).json(pin))
+     .catch((err) => res.json({
+        error: err.message
+      }));
+  })
+
   router.get('/:id', (req, res) => {
     getTravelPlanById(req.params.id)
       .then((travel) => res.json(travel))

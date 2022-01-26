@@ -6,6 +6,9 @@ import Slideshow from './components/Slideshow';
 import picture4 from './img4.jpg';
 import picture5 from './img5.jpg';
 import picture6 from './img6.jpg';
+import picture1 from './picture1.jpeg';
+import picture2 from './picture2.jpeg';
+import picture3 from './picture3.jpeg';
 
 const App = () => {
 
@@ -24,9 +27,10 @@ const App = () => {
 
   return (
     <div className="App">
+      
       <div className='background-main'>
         <h2>Create Your Itinerary Today!</h2>
-        <Slideshow />
+        <Slideshow images={[picture1, picture2, picture3]}/>
 
         <button onClick={() => handleRouteClick("/newItinerary")} type="button">Create Now</button>
         <br></br><br></br><br></br><br></br><br></br>
@@ -49,6 +53,7 @@ const App = () => {
         <br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>
       </div>
     </div>
+
   );
 };
 

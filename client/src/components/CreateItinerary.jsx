@@ -7,27 +7,103 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import '../styles/CreateItinerary.css';
 import { useNavigate } from 'react-router-dom';
+import usePlacesAutocomplete, { getGeocode, getLatLng } from "use-places-autocomplete";
+import {
+  Combobox,
+  ComboboxInput,
+  ComboboxPopover,
+  ComboboxList,
+  ComboboxOption,
+} from "@reach/combobox";
+import "@reach/combobox/styles.css";
 
 export default function CreateItinerary() {
   const [cookies] = useCookies(["user"]);
-  const state = {
+  const [ error, setError ] = useState('');
+  const [formData, setFormData] = useState({
     users_id: cookies.user.id,
     name: "",
     description: "",
-    city: "",
-    country: "US",
     startDate: "",
     endDate: ""
-  }
+  });
+
+  const {
+    ready,
+    value,
+    suggestions: { status, data },
+    setValue,
+  } = usePlacesAutocomplete({
+    debounce: 500,
+    cache: 7 * 24 * 60 * 60
+  });
 
   const navigate = useNavigate();
 
-  const [formData, setFormData] = useState(state);
+  const handleInput = (e) => {
+    setValue(e.target.value);
+  };
+
+  const handleSelect = (val) => {
+    setValue(val, false);
+  };
+
+  const submitForm = function() {
+    console.log(formData.users_id);
+    if (formData.name === '') {
+      setError("Name cannot be blank");
+      return;
+    } else if (value === '') {
+      setError("Location cannot be blank");
+      return;
+    } else if (formData.startDate === '' || formData.endDate === '') {
+      setError("Date cannot be blank");
+      return;
+    }
+     
+    const parameter = { address: value };
+        
+    getGeocode(parameter)
+      .then((results) => {
+        console.log(results[0])
+        return getLatLng(results[0])
+      })
+      .then((latLng) => {
+        const { lat, lng } = latLng;
+        // console.log("Coordinates: ", lat, lng);
+        return axios.post(`/api/travels`, {...formData, location: value, lat, lng})
+      })
+      .then((res) => {
+        const edit_id = res.data.itinerary.id;
+        navigate(`/edit/${edit_id}`)
+      })
+      .catch((error) => {
+        setError("Location error");
+        console.log("Error: ", error);
+      });
+  }
+  const renderSuggestions = () => {
+    const suggestions = data.map(({ place_id, description }) => (
+      <ComboboxOption key={place_id} value={description} />
+    ));
+
+    return (
+      <>
+        {suggestions}
+        <li className="logo">
+          <img
+            src="https://developers.google.com/maps/documentation/images/powered_by_google_on_white.png"
+            alt="Powered by Google"
+          />
+        </li>
+      </>
+    );
+  };
+
   return(
     <Form xs={1} method="POST" onSubmit={ event => {
-      event.preventDefault();
-      axios.post(`http://localhost:8080/api/travels`, formData)
-        .then(() => navigate('/usersTravels'))
+        event.preventDefault();
+        submitForm();
       }}>
       <h1>Create Itinerary</h1>
       <Form.Group className="mb-3">
@@ -42,29 +118,19 @@ export default function CreateItinerary() {
       </Form.Group>
 
       <Form.Group className="mb-3">
-        <Form.Label>City</Form.Label>
-        <Form.Control 
-        type="name" 
-        placeholder="Enter city"
-        selected={formData.city} 
-        onChange={event => setFormData({...formData, city: event.target.value})} />
-      </Form.Group>
-
-      <Form.Group className="mb-3">
-        <Form.Label>Country</Form.Label>
-        <Form.Select 
-        defaultValue="Choose..." 
-        placeholder="Enter Country"
-        selected={formData.country} 
-        onChange={event => setFormData({...formData, country: event.target.value})}>
-          <option>US</option>
-          <option>Canada</option>
-          <option>United Kingdom</option>
-          <option>Germany</option>
-          <option>France</option>
-          <option>Egypt</option>
-          <option>Australia</option>
-        </Form.Select>
+        <Form.Label>Location</Form.Label>
+        <Combobox onSelect={handleSelect} aria-labelledby="demo">
+          <ComboboxInput
+            style={{ width: 300, maxWidth: "90%" }}
+            value={value}
+            onChange={handleInput}
+            disabled={!ready}
+            placeholder='Enter location'
+          />
+          <ComboboxPopover>
+            <ComboboxList>{status === "OK" && renderSuggestions()}</ComboboxList>
+          </ComboboxPopover>
+        </Combobox>
       </Form.Group>
 
       <Form.Group className="mb-3">
@@ -76,6 +142,7 @@ export default function CreateItinerary() {
               selected={formData.startDate} 
               onChange={date => setFormData({...formData, startDate: date})}
               dateFormat='dd/MM/yyyy'
+              maxDate={formData.endDate}
             />
           </Form.Group>
           <Form.Group as={Col} controlId='formGridEndDate'>
@@ -84,6 +151,7 @@ export default function CreateItinerary() {
               selected={formData.endDate} 
               onChange={date => setFormData({...formData, endDate: date})}
               dateFormat='dd/MM/yyyy'
+              minDate={formData.startDate}
             />
           </Form.Group>
         </Row>
@@ -103,6 +171,7 @@ export default function CreateItinerary() {
       <Button variant="flat" type="submit">
         Submit
       </Button>
+      <section className="error_msg" style={{ color: "red" }}>{error}</section>
     </Form>
   );
 }

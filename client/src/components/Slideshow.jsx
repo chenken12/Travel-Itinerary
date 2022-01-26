@@ -3,12 +3,8 @@ import React, { useState, useEffect, useRef} from "react";
 import { Slide } from 'react-slideshow-image';
 
 const Slideshow = (props) => {
-  const colors = ["#0088FE", "#00C49F", "#FFBB28"];
-  const images = [
-    { url: "./picture1.jpeg" },
-    { url: "./picture2.jpeg" },
-    { url: "./picture3.jpeg" }
-  ];
+  const { images } = props;
+  // const images = ["https://source.unsplash.com/random/?travel", "https://source.unsplash.com/random/?map", "https://source.unsplash.com/random/?grass"];
   const delay = 5000;
 
   const [index, setIndex] = useState(0);
@@ -42,17 +38,17 @@ const Slideshow = (props) => {
         className="slideshowSlider"
         style={{ transform: `translate3d(${-index * 100}%, 0, 0)` }}
       >
-        {images.map((backgroundColor, index) => (
-          <div
+        {images.map((image, index) => (
+          <img
             className="slide"
             key={index}
-            style={{ backgroundColor }}
-          ></div>
+            src={ image }
+          />
         ))}
       </div>
 
       <div className="slideshowDots">
-        {colors.map((_, idx) => (
+        {images.map((_, idx) => (
           <div
             key={idx}
             className={`slideshowDot${index === idx ? " active" : ""}`}

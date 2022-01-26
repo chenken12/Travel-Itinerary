@@ -97,15 +97,34 @@ module.exports = (db) => {
       .catch((err) => err);
   };
 
-  const addItinerary = (users_id, name, description, city_name, country_name, travel_start_date, travel_end_date) => {
+  const addItinerary = (users_id, name, description, location, startDate, endDate, lat, lng) => {
     const query = {
-      text: `INSERT INTO travel_destination (users_id, name, description, city_name, country_name, travel_start_date, travel_end_date) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
-      values: [users_id, name, description, city_name, country_name, travel_start_date, travel_end_date]
+      text: `INSERT INTO travel_destination (users_id, name, description, location, travel_start_date, travel_end_date,  lat, lng) 
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`,
+      values: [users_id, name, description, location, startDate, endDate, lat, lng]
     }
 
     return db.query(query)
       .then(result => result.rows[0])
-    // .catch(err => err);
+      .catch(err => err);
+  }
+
+  const editItinerary = (id, users_id, name, description, location, travel_start_date, travel_end_date) => {
+    const query = {
+      text: `UPDATE travel_destination
+      SET users_id = $2,
+      name = $3,
+      description = $4,
+      location = $5,
+      travel_start_date = $6,
+      travel_end_date = $7
+      WHERE id = $1;` ,
+      values: [id, users_id, name, description, location, travel_start_date, travel_end_date]
+    }
+
+    return db.query(query)
+        .then(result => result.rows[0])
+        // .catch(err => err);
   }
 
   const getTravelPlanById = (email) => {
@@ -185,21 +204,22 @@ module.exports = (db) => {
   }
 
   return {
-    getUsers,
-    getUserByEmail,
-    addUser,
-    getUsersPosts,
-    getItinerary,
-    getTravelPlanById,
-    getCommentsById,
-    addComment,
-    getUserLogin,
-    addUserRegistration,
-    getUserDetails,
-    addPin,
-    getItineraryById,
-    addItinerary,
-    getUserLogin,
-    getUserItinerary
+      getUsers,
+      getUserByEmail,
+      addUser,
+      getUsersPosts,
+      getItinerary,
+      getTravelPlanById,
+      getCommentsById,
+      addComment,
+      getUserLogin,
+      addUserRegistration, 
+      getUserDetails,
+      addPin,
+      getItineraryById,
+      addItinerary,
+      getUserLogin,
+      getUserItinerary,
+      editItinerary
   };
 };

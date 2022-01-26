@@ -70,7 +70,6 @@ export default function CreateItinerary(props) {
       })
       .then((latLng) => {
         const { lat, lng } = latLng;
-        // console.log("Coordinates: ", lat, lng);
         return axios.post(`/api/travels`, {...formData, location: value, lat, lng})
       })
       .then((res) => {

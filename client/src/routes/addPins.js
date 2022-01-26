@@ -148,7 +148,6 @@ const AddPins = () => {
       </div>
       <div className="google_map_container">
         <GoogleMapReact
-          // bootstrapURLKeys={{ key: process.env.REACT_APP_MAPKEY }}
           center={center}
           defaultZoom={zoom}
           onClick={(event) => addMarker(event.lat, event.lng)}

@@ -6,7 +6,8 @@ module.exports = ({
   getTravelPlanById,
   getUserItinerary,
   getItineraryById,
-  addItinerary
+  addItinerary,
+  editItinerary
 }) => {
   /* GET travels listing. */
   router.get('/', (req, res) => {
@@ -26,13 +27,26 @@ module.exports = ({
   });
   
   router.post('/', (req, res) => {
-    console.log("req: ", req.body);
+    console.log("req 1: ", req.body);
     const {users_id, name, description, location, startDate, endDate, lat, lng} = req.body;
     // console.log('post req: ', req.body);
     addItinerary(users_id, name, description, location, startDate, endDate, lat, lng)
       .then((itinerary)=> {
         console.log(itinerary);
         res.json({itinerary});
+      })
+      .catch((err) => res.status(500).json({
+        error: err.message
+      }));
+  })
+  
+  router.put('/:id', (req, res) => {
+    console.log("req 1: ", req.body);
+    const {id, users_id, name, description, location, travel_start_date, travel_end_date, lat, lng} = req.body;
+    // console.log('post req: ', req.body);
+    editItinerary(id, users_id, name, description, location, travel_start_date, travel_end_date, lat, lng)
+      .then((newItinerary)=> {
+        res.status(200).json(newItinerary);
       })
       .catch((err) => res.status(500).json({
         error: err.message

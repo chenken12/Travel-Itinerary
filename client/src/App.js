@@ -27,11 +27,8 @@ const App = () => {
 
   return (
     <div className="App">
+      
       <div className='background-main'>
-        <button onClick={() => handleRouteClick("/edit/1")} type="button">Add Pins page</button>
-        <button onClick={() => handleRouteClick("/usersTravels")} type="button">usersTravels page</button>
-        <br></br><br></br><br></br><br></br><br></br>
-
         <h2>Create Your Itinerary Today!</h2>
         <Slideshow images={[picture1, picture2, picture3]}/>
 
@@ -56,6 +53,7 @@ const App = () => {
         <br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>
       </div>
     </div>
+
   );
 };
 

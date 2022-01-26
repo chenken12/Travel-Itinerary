@@ -7,13 +7,13 @@ VALUES
   ),
     
   (
-    2, 'Eiffel Tower', 'The Eiffel Tower is 1,063 feet (324 meters) tall, including the antenna at the top.', 
+    2, 'My Trip to the Eiffel Tower', 'The Eiffel Tower is 1,063 feet (324 meters) tall, including the antenna at the top.', 
     'Paris, France', '2022-02-25', '2022-03-15', 48.8566, 2.3522
   ),
 
   (
     3, 'Half Moon Bay', 'Half Moon Bay boasts one of the most spectacular white sand crescent beaches in the world.', 
-    'Saint Philip Parish, Antigua & Barbuda', '2022-04-25', '2022-05-15', 13.1256, -59.4561
+    'Saint Philip Parish, Antigua & Barbuda', '2022-04-25', '2022-05-15', 17.0608, -61.7964
 
   ),
 

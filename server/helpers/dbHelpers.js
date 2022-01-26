@@ -143,14 +143,15 @@ module.exports = (db) => {
       .catch((err) => err);
   };
 
-  const getCommentsById = (email) => {
+  const getCommentsById = (id) => {
     const query = {
       text: `SELECT comments.*, users.first_name, users.last_name
         FROM travel_destination
         JOIN comments ON travel_destination.id = comments.travel_destination_id
         JOIN users ON users.id = comments.users_id
-        WHERE travel_destination.id = $1`,
-      values: [email]
+        WHERE travel_destination.id = $1
+        ORDER BY comments.created_at DESC`,
+      values: [id]
     }
 
     return db

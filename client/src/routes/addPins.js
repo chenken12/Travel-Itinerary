@@ -102,7 +102,7 @@ const AddPins = () => {
     return <Marker key={`marker${marker.id}`} lat={marker.lat} lng={marker.long} name={marker.pinned_name} color="blue" index={index}/>;
   });
   const parsedDays = dateList.map((day, index) => {
-    return <MarkerInfoList key={ index } day={`${getDate(day)}`} color="blue" removeMarker={removeMarker} markerList={markerList}/>
+    return <MarkerInfoList key={ index } day={`${getDate(day)}`} color="blue" mode={"add"} removeMarker={removeMarker} markerList={markerList}/>
   });
 
   return (
@@ -112,6 +112,8 @@ const AddPins = () => {
         <Traveldetails 
           {...travel}
         />
+
+        <span className="spacer"/>
    
         <form className="marker-form">
           <h3>Add Pins to Itinerary</h3>
@@ -138,6 +140,8 @@ const AddPins = () => {
           <button type="button" className="btn" onClick={() => addMarker(null, null)}>Cancel</button>
           
         </form>
+
+        <span className="spacer"/>
         
         <div className="markerInfo-container">
           <h3>Places</h3>

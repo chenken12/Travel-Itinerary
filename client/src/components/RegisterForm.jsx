@@ -41,9 +41,9 @@ export default function RegisterForm() {
             toast.error("You need to fill out all sections of the form to register for an account!");
         }
 
-        // if (user.password !== user.passwordConfirmation) {
-        //     toast.error("Error!! Password Confirmation does not match password!");
-        // }
+        if (user.password !== user.passwordConfirmation) {
+            toast.error("Error!! Password Confirmation does not match password!");
+        }
 
         if (user.firstName && user.lastName && user.email && user.password && user.passwordConfirmation) {
             axios.post("http://localhost:8080/api/register", user)
@@ -60,6 +60,7 @@ export default function RegisterForm() {
                     else {
                         console.log("This is the response.data", response.data);
                         setCookie('user', {
+                            id: response.data.response.id,
                             firstName: response.data.response.first_name,
                             lastName: response.data.response.last_name,
                             email: response.data.response.email

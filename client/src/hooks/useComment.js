@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useCookies } from 'react-cookie';
 
-const useComment = (td_id) => {
+const useComment = (td_id, toast) => {
   const [cookies] = useCookies(['user']);
   const [comment, setComment] = useState({
     list: [],
@@ -24,11 +24,13 @@ const useComment = (td_id) => {
   const postComment = function() {
     const date = new Date();
     if (comment.post === "") {
-      setComment((prev) => { return { ...prev, error: "Comment cannot be blank"}});
+      // setComment((prev) => { return { ...prev, error: "Comment cannot be blank"}});
+      toast.error("Comment cannot be blank");
       return;
     }
     if (!cookies.user) {
-      setComment((prev) => { return { ...prev, error: "Need to login to comment"}});
+      // setComment((prev) => { return { ...prev, error: "Need to login to comment"}});
+      toast.error("Need to login to comment");
       return;
     }
 

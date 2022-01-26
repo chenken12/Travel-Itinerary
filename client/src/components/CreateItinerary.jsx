@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import {Button, Form, Row, Col} from 'react-bootstrap';
 import {useCookies} from 'react-cookie';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -17,9 +17,9 @@ import {
 } from "@reach/combobox";
 import "@reach/combobox/styles.css";
 
-export default function CreateItinerary() {
+export default function CreateItinerary(props) {
+  const { toast } = props;
   const [cookies] = useCookies(["user"]);
-  const [ error, setError ] = useState('');
   const [formData, setFormData] = useState({
     users_id: cookies.user.id,
     name: "",
@@ -51,13 +51,13 @@ export default function CreateItinerary() {
   const submitForm = function() {
     console.log(formData.users_id);
     if (formData.name === '') {
-      setError("Name cannot be blank");
+      toast.error("Name cannot be blank");
       return;
     } else if (value === '') {
-      setError("Location cannot be blank");
+      toast.error("Location cannot be blank");
       return;
     } else if (formData.startDate === '' || formData.endDate === '') {
-      setError("Date cannot be blank");
+      toast.error("Date cannot be blank");
       return;
     }
      
@@ -78,7 +78,7 @@ export default function CreateItinerary() {
         navigate(`/edit/${edit_id}`)
       })
       .catch((error) => {
-        setError("Location error");
+        toast.error("Location error");
         console.log("Error: ", error);
       });
   }
@@ -171,7 +171,6 @@ export default function CreateItinerary() {
       <Button variant="flat" type="submit">
         Submit
       </Button>
-      <section className="error_msg" style={{ color: "red" }}>{error}</section>
     </Form>
   );
 }

@@ -62,7 +62,8 @@ export default function LoginForm(props) {
     return (
         <div className="login-wrapper">
             <form onSubmit={handleSubmit}>
-
+                <h1>Login Page</h1>
+                <br></br>
                 <div className="form-group">
                     <label>Email Address</label>
                     <ToastContainer />

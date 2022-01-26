@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef} from "react";
-// import "../styles/slideshow.css"
+import "../styles/slideshow.css"
 import { Slide } from 'react-slideshow-image';
 
 const Slideshow = (props) => {

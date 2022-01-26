@@ -3,11 +3,11 @@ import MarkerInfo from "./MarkerInfo";
 import { dateformat } from "../helpers/dateformat";
 
 const MarkerInfoList = (props) => {
-  const { day, markerList, color } = props;
+  const { day, markerList, color, removeMarker } = props;
 
   const parsedInfo = markerList.map((marker, index) => {
     if (day === dateformat(marker.date)) {
-      return <MarkerInfo key={`markerinfo${marker.id}`} name={marker.pinned_name} color={ color } index={ index + 1 }/>;
+      return <MarkerInfo key={`markerinfo${marker.id}`} name={marker.pinned_name} color={ color } removeMarker={() => removeMarker(marker.id)} index={ index + 1 }/>;
     }
   });
   

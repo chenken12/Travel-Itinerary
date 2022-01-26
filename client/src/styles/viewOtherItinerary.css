@@ -36,6 +36,12 @@ main.map-container {
   margin-top: 9vh;
 }
 
+.marker_delete {
+  display: flex;
+  justify-content: space-between;
+  margin: 0px 2rem 0px 1rem;
+}
+
 .text-box {
   background-color: white;
   padding: 0.5rem;

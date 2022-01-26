@@ -49,13 +49,6 @@ const AddPins = () => {
       .catch(error => console.log("Error: " + error));
   }, [id, cookies, navigate]);
 
-  const parsedMarker = markerList.map((marker, index) => {
-    return <Marker key={`marker${marker.id}`} lat={marker.lat} lng={marker.long} name={marker.pinned_name} color="blue" index={index}/>;
-  });
-  const parsedDays = dateList.map((day, index) => {
-    return <MarkerInfoList key={ index } day={`${getDate(day)}`} color="blue" markerList={markerList}/>
-  });
-
   const addMarker = function(lat, lng) {
     setNewPlace((prev) => {
       return { ...prev, lat: lat, lng: lng };
@@ -85,6 +78,31 @@ const AddPins = () => {
       })
       .catch(error => console.log("Error"));
   };
+
+  const removeMarker = function(pin_id) {
+    console.log(pin_id);
+    axios.delete(`/api/pins/${pin_id}`)
+      .then((res) => {
+       
+        if (res.status === 204) {
+          toast.success("Delete pin success")
+          const delmarker = markerList.filter((marker) => marker.id !== pin_id);
+          console.log(delmarker);
+          setMarkerList([...delmarker]);
+        } else {
+          toast.error("Unable to delete")
+        }
+       
+      })
+      .catch(error => console.log("Error"));
+  };
+
+  const parsedMarker = markerList.map((marker, index) => {
+    return <Marker key={`marker${marker.id}`} lat={marker.lat} lng={marker.long} name={marker.pinned_name} color="blue" index={index}/>;
+  });
+  const parsedDays = dateList.map((day, index) => {
+    return <MarkerInfoList key={ index } day={`${getDate(day)}`} color="blue" removeMarker={removeMarker} markerList={markerList}/>
+  });
 
   return (
     <main className="map-container">

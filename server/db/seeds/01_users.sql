@@ -1,22 +1,7 @@
 INSERT INTO
 users(first_name, last_name, email, password)
 VALUES
-    ('Mario', 'Bros', 'mario@nintendo.com', 'test'),
-    ('Luigi', 'Bros', 'luigi@nintendo.com', 'test'),
-    (
-        'Princess',
-        'Peach',
-        'peach@nintendo.com',
-        'test'
-    ),
-    (
-        'Princess',
-        'Daisy',
-        'daisy@nintendo.com',
-        'test'
-    ),
-    ('Donkey', 'Kong', 'donkey@nintendo.com', 'test'),
-
+    ('Jesse','Nolan','vel@hotmail.net','test'),
     ('Germane','Singleton','amet.dapibus.id@aol.com','vuo71qdx6et'),
     ('Tarik','Church','sapien.nunc.pulvinar@protonmail.org','cdg77nqy3pu'),
     ('MacKenzie','Cooke','non@yahoo.ca','ieu24pir4iv'),
@@ -31,7 +16,7 @@ VALUES
     ('Iris','Chapman','odio@google.com','yfh58sqt1ki'),
     ('Colin','Clemons','placerat.orci@aol.net','jvt81lzq2lp'),
     ('Arthur','Sloan','non.sollicitudin@hotmail.ca','knm16mgo5nz'),
-    ('Jesse','Nolan','vel@hotmail.net','mkn27lsj5my'),
+   
 
     ('Allen','Snider','vitae@hotmail.ca','fqs78clg8gr'),
     ('Haley','Heath','massa.mauris@google.org','jho82iyj4sq'),
@@ -47,4 +32,10 @@ VALUES
     ('Hakeem','Bennett','et@icloud.net','qqj73cpe3eb'),
     ('Kieran','Bond','nulla.at@yahoo.edu','enr54vvr8bh'),
     ('John','Harrison','molestie.dapibus.ligula@outlook.couk','mmk16fix1pt'),
-    ('Brianna','Blanchard','enim.condimentum@hotmail.net','jod37ksp3be');
+    ('Brianna','Blanchard','enim.condimentum@hotmail.net','jod37ksp3be'),
+    
+    ('Mario', 'Bros', 'mario@nintendo.com', 'test'),
+    ('Luigi', 'Bros', 'luigi@nintendo.com', 'test'),
+    ('Princess', 'Peach', 'peach@nintendo.com', 'test'),
+    ('Princess', 'Daisy', 'daisy@nintendo.com', 'test'),
+    ('Donkey', 'Kong', 'donkey@nintendo.com', 'test');

@@ -163,6 +163,17 @@ module.exports = (db) => {
       .catch(err => err);
   };
 
+  const deletePin = (id) => {
+    const query = {
+      text: `DELETE FROM pins WHERE id = $1`,
+      values: [id]
+    };
+
+    return db.query(query)
+      .then(result => result.rows[0])
+      .catch(err => err);
+  };
+
   const addUserRegistration = (firstName, lastName, email, password) => {
     const query = {
       text: `INSERT INTO users (first_name, last_name, email, password) VALUES ($1, $2, $3, $4) RETURNING *`,
@@ -202,6 +213,7 @@ module.exports = (db) => {
     getItineraryById,
     addItinerary,
     getUserLogin,
-    getUserItinerary
+    getUserItinerary,
+    deletePin
   };
 };

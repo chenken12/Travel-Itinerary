@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS travel_destination CASCADE;
 CREATE TABLE travel_destination(
     id SERIAL PRIMARY KEY NOT NULL,
-    users_id INTEGER REFERENCES users(id),
+    users_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
     name VARCHAR(255) NOT NULL,
     description TEXT,
     location VARCHAR(255) NOT NULL,

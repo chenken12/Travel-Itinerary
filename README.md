@@ -8,11 +8,11 @@ Travel-Itinerary is full stack web application built with React and Nodejs.
 !["Map-Edit"](https://github.com/chenken12/Travel-Itinerary/blob/main/docs/Map-edit.png?raw=true)
 !["Map-View"](https://github.com/chenken12/Travel-Itinerary/blob/main/docs/Map-view.png?raw=true)
 
-<img src="https://github.com/chenken12/Travel-Itinerary/blob/main/docs/User-Signup.png?raw=true" width="45%"> <img src="https://github.com/chenken12/Travel-Itinerary/blob/main/docs/User-Signin.png?raw=true" width="45%">
+<img src="https://github.com/chenken12/Travel-Itinerary/blob/main/docs/User-Signup.png?raw=true" width="49%"> <img src="https://github.com/chenken12/Travel-Itinerary/blob/main/docs/User-Signin.png?raw=true" width="49%">
 
-<img src="https://github.com/chenken12/Travel-Itinerary/blob/main/docs/Home-Top.png?raw=true" width="45%"> <img src="https://github.com/chenken12/Travel-Itinerary/blob/main/docs/Home-Bottom.png?raw=true" width="45%">
+<img src="https://github.com/chenken12/Travel-Itinerary/blob/main/docs/Home-Top.png?raw=true" width="49%"> <img src="https://github.com/chenken12/Travel-Itinerary/blob/main/docs/Home-Bottom.png?raw=true" width="49%">
 
-<img src="https://github.com/chenken12/Travel-Itinerary/blob/main/docs/User-Create.png?raw=true" width="45%"> <img src="https://github.com/chenken12/Travel-Itinerary/blob/main/docs/User-Edit.png?raw=true" width="45%">
+<img src="https://github.com/chenken12/Travel-Itinerary/blob/main/docs/User-Create.png?raw=true" width="49%"> <img src="https://github.com/chenken12/Travel-Itinerary/blob/main/docs/User-Edit.png?raw=true" width="49%">
 
 
 ## Stack

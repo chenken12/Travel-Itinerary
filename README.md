@@ -1,5 +1,6 @@
 # Travel-Itinerary 
 Travel-Itinerary is full stack web application built with React and Nodejs. 
+Travel-Itinerary allow users to view other user's itinerary or create their own itinerary. Users in the view map page can add comments for other users to see. In the edit map page user can click on the map then add a name and date to save the markers on the server.
 
 ## Images of Product
 !["Nav-Signup"](https://github.com/chenken12/Travel-Itinerary/blob/main/docs/Nav-Signup.png?raw=true)
